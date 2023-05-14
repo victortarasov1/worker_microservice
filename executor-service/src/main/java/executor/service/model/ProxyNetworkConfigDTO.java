@@ -45,4 +45,12 @@ public class ProxyNetworkConfigDTO {
     public int hashCode() {
         return Objects.hash(hostname, port);
     }
+
+    @Override
+    public String toString() {
+        return "ProxyNetworkConfigDTO{" +
+                "hostname='" + hostname + '\'' +
+                ", port=" + port +
+                '}';
+    }
 }
