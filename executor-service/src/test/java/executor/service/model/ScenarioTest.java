@@ -1,5 +1,6 @@
 package executor.service.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,4 +17,25 @@ public class ScenarioTest {
         assertEquals(scenario1.hashCode(), scenario2.hashCode());
     }
 
+    @Test
+    public void settersTest() {
+        ArrayList<StepDto> list = new ArrayList<>();
+        ScenarioDto scenarioDto = new ScenarioDto();
+        scenarioDto.setName("name");
+        scenarioDto.setSite("site");
+        scenarioDto.setSteps(list);
+        ScenarioDto exceptedDto = new ScenarioDto("name", "site", list);
+        Assertions.assertEquals(scenarioDto, exceptedDto);
+    }
+
+    @Test
+    public void gettersTest() {
+        ArrayList<StepDto> list = new ArrayList<>();
+        ScenarioDto scenarioDto = new ScenarioDto();
+        ScenarioDto actualDto = new ScenarioDto("name", "site", list);
+        scenarioDto.setName(actualDto.getName());
+        scenarioDto.setSite(actualDto.getSite());
+        scenarioDto.setSteps(actualDto.getSteps());
+        Assertions.assertEquals(actualDto, scenarioDto);
+    }
 }
