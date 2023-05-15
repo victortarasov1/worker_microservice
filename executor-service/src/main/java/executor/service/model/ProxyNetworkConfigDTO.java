@@ -3,8 +3,8 @@ package executor.service.model;
 import java.util.Objects;
 
 public class ProxyNetworkConfigDTO {
-    String hostname;
-    Integer port;
+    private String hostname;
+    private Integer port;
 
     public ProxyNetworkConfigDTO() {
     }
