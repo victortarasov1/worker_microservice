@@ -15,8 +15,8 @@ public class Sleep implements StepExecution {
 
     @Override
     public void step(WebDriver webDriver, StepDto stepDto) {
-        WebDriverWait wait = new WebDriverWait(webDriver, getDuration(stepDto));
-        wait.until(v -> false);
+        new WebDriverWait(webDriver, getDuration(stepDto))
+                .until(v -> true);
     }
 
     private Duration getDuration(StepDto step) {
