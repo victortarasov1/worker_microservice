@@ -34,6 +34,9 @@ public class ScenarioTest {
 
     @Test
     public void settersTest() {
+        scenarioDto.setName(name);
+        scenarioDto.setSite(site);
+        scenarioDto.setSteps(stepList);
         assertEquals(scenarioDto, expectedDto);
     }
 
