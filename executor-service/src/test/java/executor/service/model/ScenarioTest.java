@@ -1,6 +1,7 @@
 package executor.service.model;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,33 +10,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class ScenarioTest {
+    private static final String name = "name";
+    private static final String actualName = "name2";
+    private static final String site = "site";
+    private static final String actualSite = "site2";
+    private static final ArrayList<StepDto> stepList = new ArrayList<>();
+    private ScenarioDto scenarioDto;
+    private ScenarioDto actualDto;
+    private ScenarioDto expectedDto;
+
+    @BeforeEach
+    public void initEach() {
+        scenarioDto = new ScenarioDto(name, site, stepList);
+        actualDto = new ScenarioDto(actualName, actualSite, stepList);
+        expectedDto = new ScenarioDto(name, site, stepList);
+    }
+
     @Test
-    public void testEqualsAndHaschCode() {
-        ScenarioDto scenario1 = new ScenarioDto("name", "site", new ArrayList<>());
-        ScenarioDto scenario2 = new ScenarioDto("name", "site", new ArrayList<>());
-        assertEquals(scenario1, scenario2);
-        assertEquals(scenario1.hashCode(), scenario2.hashCode());
+    public void testEqualsAndHashCode() {
+        assertEquals(scenarioDto, expectedDto);
+        assertEquals(scenarioDto.hashCode(), expectedDto.hashCode());
     }
 
     @Test
     public void settersTest() {
-        ArrayList<StepDto> list = new ArrayList<>();
-        ScenarioDto scenarioDto = new ScenarioDto();
-        scenarioDto.setName("name");
-        scenarioDto.setSite("site");
-        scenarioDto.setSteps(list);
-        ScenarioDto exceptedDto = new ScenarioDto("name", "site", list);
-        Assertions.assertEquals(scenarioDto, exceptedDto);
+        assertEquals(scenarioDto, expectedDto);
     }
 
     @Test
     public void gettersTest() {
-        ArrayList<StepDto> list = new ArrayList<>();
-        ScenarioDto scenarioDto = new ScenarioDto();
-        ScenarioDto actualDto = new ScenarioDto("name", "site", list);
         scenarioDto.setName(actualDto.getName());
         scenarioDto.setSite(actualDto.getSite());
         scenarioDto.setSteps(actualDto.getSteps());
         Assertions.assertEquals(actualDto, scenarioDto);
     }
+
 }
