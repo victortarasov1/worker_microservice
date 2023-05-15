@@ -3,8 +3,8 @@ package executor.service.model;
 import java.util.Objects;
 
 public class ProxyCredentialsDTO {
-    String username;
-    String password;
+    private String username;
+    private String password;
 
     public ProxyCredentialsDTO() {
     }

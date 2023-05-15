@@ -1,41 +1,44 @@
 package executor.service.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProxyCredentialsDTOTest {
 
-    private final String user = "user";
-    private final String password = "password";
+    private static final String USER = "user";
+    private static final String PASSWORD = "password";
+    private ProxyCredentialsDTO mActual;
+    private ProxyCredentialsDTO mExpected;
+
+    @BeforeEach
+    public void setUp() {
+        mActual = new ProxyCredentialsDTO(USER, PASSWORD);
+        mExpected = new ProxyCredentialsDTO(USER, PASSWORD);
+    }
 
     @Test
     public void testEquality() {
-        ProxyCredentialsDTO actual = new ProxyCredentialsDTO(user, password);
-        ProxyCredentialsDTO expected = new ProxyCredentialsDTO(user, password);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(mActual).isEqualTo(mExpected);
     }
 
     @Test
     public void testNotEquality() {
-        ProxyCredentialsDTO actual = new ProxyCredentialsDTO(user, password);
-        ProxyCredentialsDTO expected = new ProxyCredentialsDTO(user, "");
-        assertThat(actual).isNotEqualTo(expected);
+        ProxyCredentialsDTO expected = new ProxyCredentialsDTO(USER, "");
+        assertThat(mActual).isNotEqualTo(expected);
     }
 
     @Test
     public void testConstructorsAndGetters() {
-        ProxyCredentialsDTO pg = new ProxyCredentialsDTO(user, password);
-
-        assertThat(user).isEqualTo(pg.getUsername());
-        assertThat(password).isEqualTo(pg.getPassword());
+        assertThat(USER).isEqualTo(mActual.getUsername());
+        assertThat(PASSWORD).isEqualTo(mActual.getPassword());
 
     }
 
     @Test
     public void testEqualsWithSameObject() {
-        ProxyCredentialsDTO pg = new ProxyCredentialsDTO(user, password);
-        assertThat(pg).isEqualTo(pg);
+        assertThat(mActual).isEqualTo(mActual);
     }
 
     @Test
@@ -47,7 +50,7 @@ class ProxyCredentialsDTOTest {
 
     @Test
     public void testSetterWithNull() {
-        ProxyCredentialsDTO pg = new ProxyCredentialsDTO(user, password);
+        ProxyCredentialsDTO pg = new ProxyCredentialsDTO(USER, PASSWORD);
         pg.setPassword(null);
         assertThat(pg.getPassword()).isNull();
     }
@@ -55,10 +58,10 @@ class ProxyCredentialsDTOTest {
     @Test
     public void testSetters() {
         ProxyCredentialsDTO pg = new ProxyCredentialsDTO();
-        pg.setUsername(user);
-        pg.setPassword(password);
+        pg.setUsername(USER);
+        pg.setPassword(PASSWORD);
 
-        assertThat(user).isEqualTo(pg.getUsername());
-        assertThat(password).isEqualTo(pg.getPassword());
+        assertThat(USER).isEqualTo(pg.getUsername());
+        assertThat(PASSWORD).isEqualTo(pg.getPassword());
     }
 }
