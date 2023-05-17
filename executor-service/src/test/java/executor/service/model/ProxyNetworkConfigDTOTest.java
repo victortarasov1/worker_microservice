@@ -1,6 +1,6 @@
 package executor.service.model;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,12 +10,12 @@ public class ProxyNetworkConfigDTOTest {
     private static final Integer EXPECTED_PORT = 1234;
     private static final String EXPECTED_TO_STRING
             = "ProxyNetworkConfigDTO{hostname='Test', port=1234}";
-    private static ProxyNetworkConfigDTO proxyNetworkConfigDTOWithNoArgs;
-    private static ProxyNetworkConfigDTO proxyNetworkConfigDTOWithNullArgs;
-    private static ProxyNetworkConfigDTO proxyNetworkConfigDTOWithArgs;
+    private ProxyNetworkConfigDTO proxyNetworkConfigDTOWithNoArgs;
+    private ProxyNetworkConfigDTO proxyNetworkConfigDTOWithNullArgs;
+    private ProxyNetworkConfigDTO proxyNetworkConfigDTOWithArgs;
 
-    @BeforeAll
-    public static void beforeAll(){
+    @BeforeEach
+    public void setup(){
         proxyNetworkConfigDTOWithNoArgs = new ProxyNetworkConfigDTO();
         proxyNetworkConfigDTOWithNullArgs = new ProxyNetworkConfigDTO(null, null);
         proxyNetworkConfigDTOWithArgs = new ProxyNetworkConfigDTO(EXPECTED_HOSTNAME, EXPECTED_PORT);
