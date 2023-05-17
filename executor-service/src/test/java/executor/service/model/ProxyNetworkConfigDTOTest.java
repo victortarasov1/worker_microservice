@@ -14,6 +14,7 @@ public class ProxyNetworkConfigDTOTest {
     private ProxyNetworkConfigDTO proxyNetworkConfigDTOWithNullArgs;
     private ProxyNetworkConfigDTO proxyNetworkConfigDTOWithArgs;
 
+
     @BeforeEach
     public void setup(){
         proxyNetworkConfigDTOWithNoArgs = new ProxyNetworkConfigDTO();
