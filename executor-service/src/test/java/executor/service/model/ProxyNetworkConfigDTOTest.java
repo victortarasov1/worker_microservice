@@ -15,7 +15,7 @@ public class ProxyNetworkConfigDTOTest {
     private static ProxyNetworkConfigDTO proxyNetworkConfigDTOWithArgs;
 
     @BeforeAll
-    static void beforeAll(){
+    public static void beforeAll(){
         proxyNetworkConfigDTOWithNoArgs = new ProxyNetworkConfigDTO();
         proxyNetworkConfigDTOWithNullArgs = new ProxyNetworkConfigDTO(null, null);
         proxyNetworkConfigDTOWithArgs = new ProxyNetworkConfigDTO(EXPECTED_HOSTNAME, EXPECTED_PORT);
