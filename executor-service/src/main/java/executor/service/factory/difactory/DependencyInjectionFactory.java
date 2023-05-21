@@ -10,6 +10,7 @@ public interface DependencyInjectionFactory {
      *
      * @param interfaceClass the interface class for which to create an instance
      * @param <T>            the type of the interface
+     * @throws executor.service.exception.NoImplementationsFoundException if no implementations is found
      * @return an instance of the class that implements the interface
      */
     <T> T createInstance(Class<T> interfaceClass);

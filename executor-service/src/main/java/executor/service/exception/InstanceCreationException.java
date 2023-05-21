@@ -1,4 +1,4 @@
-package executor.service.expetion;
+package executor.service.exception;
 
 public class InstanceCreationException extends RuntimeException{
 

@@ -1,7 +1,7 @@
 package executor.service.factory.difactory;
 
-import executor.service.expetion.FoundSecondImplementationException;
-import executor.service.expetion.NoImplementationsFoundException;
+import executor.service.exception.FoundSecondImplementationException;
+import executor.service.exception.NoImplementationsFoundException;
 
 import java.util.HashMap;
 import java.util.Map;

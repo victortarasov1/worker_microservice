@@ -2,8 +2,8 @@ package executor.service.factory.difactory.register;
 
 import executor.service.annotation.Bean;
 import executor.service.annotation.Config;
-import executor.service.expetion.ConfigurationRegistrationException;
-import executor.service.expetion.MethodInvocationException;
+import executor.service.exception.ConfigurationRegistrationException;
+import executor.service.exception.MethodInvocationException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
 import executor.service.factory.difactory.ServiceRegisterFactory;
 
