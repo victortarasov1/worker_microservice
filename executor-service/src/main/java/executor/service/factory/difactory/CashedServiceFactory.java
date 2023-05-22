@@ -14,11 +14,11 @@ class CashedServiceFactory implements DependencyInjectionFactory {
     }
 
     @Override
-    public <T> T createInstance(Class<T> interfaceClass) {
-        if (cashedInstances.containsKey(interfaceClass))
-            return interfaceClass.cast(cashedInstances.get(interfaceClass));
-        T instance = serviceFactory.createInstance(interfaceClass);
-        cashedInstances.put(interfaceClass, instance);
+    public <T> T createInstance(Class<T> type) {
+        if (cashedInstances.containsKey(type))
+            return type.cast(cashedInstances.get(type));
+        T instance = serviceFactory.createInstance(type);
+        cashedInstances.put(type, instance);
         return instance;
     }
 }
