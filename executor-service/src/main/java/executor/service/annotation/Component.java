@@ -18,8 +18,8 @@ import java.lang.annotation.Target;
  * This allows the dependency injection factory to instantiate the component and inject its dependencies correctly.
  * If a constructor is not found, a {@code ConstructorNotFoundException} will be thrown
  * <p>
- * The parameters for the constructor should be your other interfaces. However, if you need to specify primitive types, wrapper classes,
- * collections and so on as constructor parameters, you can consider using the {@code @Config} and {@code @Bean} annotations.
+ * The constructor parameters should be types that are registered in the dependency injection factory. However, if you need to specify primitive types,
+ * wrapper classes, collections and so on as constructor parameters, you can consider using the {@code @Config} and {@code @Bean} annotations.
  * If these conditions are not met, an {@code InstanceCreationException} will be thrown.
  */
 @Retention(RetentionPolicy.RUNTIME)
