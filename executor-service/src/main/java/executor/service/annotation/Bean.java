@@ -7,9 +7,9 @@ import java.lang.annotation.Target;
 
 /**
  * The {@code @Bean} annotation is used to annotate methods in a class annotated with {@code @Config},
- * which are intended to return instances of interfaces for the dependency injection factory.
+ * which are intended to register classes on the dependency injection factory.
  * <p>
- * The annotated method should be public, have no parameters, and return an interface rather than its implementation.
+ * The annotated method should be public and have no parameters.
  * If these conditions are not met, a {@code MethodInvocationException} will be thrown.
  * <p>
  * For example:

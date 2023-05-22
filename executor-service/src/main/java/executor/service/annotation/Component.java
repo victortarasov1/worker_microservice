@@ -10,8 +10,9 @@ import java.lang.annotation.Target;
  * The {@code @Component} annotation is used to specify which implementation of an interface should be used for dependency injection.
  * It indicates which implementation of an interface should be selected and injected when resolving dependencies.
  * <p>
- * Only one of the implementations of your interface can be annotated as a component using the {@code @Component} annotation.
- * If multiple implementations of the interface are annotated, a {@code FoundSecondImplementationException} will be thrown.
+ * Only one of the implementations of your interface can be annotated as a component using the {@code @Component} annotation,
+ * but it can implement more than one interface.
+ * If multiple implementations of the interface are annotated, a {@code DuplicateRegistrationException} will be thrown.
  * <p>
  * The annotated implementation should have a public default constructor or a constructor with parameters that represent its dependencies.
  * This allows the dependency injection factory to instantiate the component and inject its dependencies correctly.
