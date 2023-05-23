@@ -5,7 +5,6 @@ import executor.service.annotation.Config;
 import executor.service.exception.ConfigurationRegistrationException;
 import executor.service.exception.MethodInvocationException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
-import executor.service.factory.difactory.ServiceCreatorRegistry;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

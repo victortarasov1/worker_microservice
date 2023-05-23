@@ -1,4 +1,6 @@
-package executor.service.factory.difactory;
+package executor.service.factory.difactory.register;
+
+import executor.service.factory.difactory.DependencyInjectionFactory;
 
 import java.util.function.Function;
 

@@ -3,6 +3,7 @@ package executor.service.factory.difactory;
 import executor.service.factory.difactory.register.ComponentRegistrar;
 import executor.service.factory.difactory.register.ConfigRegistrar;
 import executor.service.factory.difactory.register.InstanceRegistrar;
+import executor.service.factory.difactory.register.ServiceCreatorRegistry;
 import executor.service.factory.difactory.scanner.ComponentScannerImpl;
 
 class CachedServiceFactoryInit implements ServiceFactoryInitializer {

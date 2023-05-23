@@ -4,7 +4,6 @@ import executor.service.annotation.Component;
 import executor.service.exception.ConstructorNotFoundException;
 import executor.service.exception.InstanceCreationException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
-import executor.service.factory.difactory.ServiceCreatorRegistry;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
