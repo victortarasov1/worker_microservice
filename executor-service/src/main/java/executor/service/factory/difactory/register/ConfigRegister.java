@@ -5,7 +5,7 @@ import executor.service.annotation.Config;
 import executor.service.exception.ConfigurationRegistrationException;
 import executor.service.exception.MethodInvocationException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
-import executor.service.factory.difactory.ServiceRegisterFactory;
+import executor.service.factory.difactory.ServiceCreatorRegistry;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,7 +30,7 @@ public class ConfigRegister implements InstanceRegister {
         try {
             Object instance = clazz.getDeclaredConstructor().newInstance();
             Arrays.stream(clazz.getMethods()).filter(v -> v.isAnnotationPresent(Bean.class))
-                    .forEach(v -> ServiceRegisterFactory.register(v.getReturnType(), getInstance(instance, v)));
+                    .forEach(v -> ServiceCreatorRegistry.register(v.getReturnType(), getInstance(instance, v)));
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
             throw new ConfigurationRegistrationException(e.getMessage(), clazz);

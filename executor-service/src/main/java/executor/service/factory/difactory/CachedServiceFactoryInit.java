@@ -14,7 +14,7 @@ class CachedServiceFactoryInit implements ServiceFactoryInitializer {
         InstanceRegister register = new ComponentRegister(packageName);
         register.setNextRegister(new ConfigRegister());
         new ComponentScannerImpl(packageName).getComponents().forEach(register::register);
-        this.factory = new CachedServiceFactory(new ServiceRegisterFactory());
+        this.factory = new CachedServiceFactory(new ServiceCreatorRegistry());
     }
 
     @Override

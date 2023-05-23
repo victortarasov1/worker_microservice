@@ -6,18 +6,22 @@ import java.util.Map;
 
 class CachedServiceFactory implements DependencyInjectionFactory {
     private final Map<Class<?>, Object> cachedInstances;
-    private final RegisterFactory serviceFactory;
+    private final InstanceCreatorRegistry registry;
 
-    public CachedServiceFactory(RegisterFactory serviceFactory) {
-        this.serviceFactory = serviceFactory;
+    public CachedServiceFactory(InstanceCreatorRegistry registry) {
+        this.registry = registry;
         cachedInstances = new HashMap<>();
     }
 
     @Override
     public <T> T createInstance(Class<T> type) {
-        if (cachedInstances.containsKey(type))
-            return type.cast(cachedInstances.get(type));
-        T instance = serviceFactory.createInstance(type, this);
+        return cachedInstances.containsKey(type) ?
+                type.cast(cachedInstances.get(type))
+                : cacheInstance(type);
+    }
+
+    private <T> T cacheInstance(Class<T> type) {
+        T instance = type.cast(registry.getCreatorFunction(type).apply(this));
         cachedInstances.put(type, instance);
         return instance;
     }

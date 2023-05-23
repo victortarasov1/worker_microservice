@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.function.Function;
 
 
-public class ServiceRegisterFactory implements RegisterFactory {
+public class ServiceCreatorRegistry implements InstanceCreatorRegistry {
     private static final Map<Class<?>, Function<DependencyInjectionFactory, ?>> serviceMap = new HashMap<>();
 
     @Override
-    public <T> T createInstance(Class<T> type, DependencyInjectionFactory factory) {
+    public Function<DependencyInjectionFactory, ?> getCreatorFunction(Class<?> type) {
         if (!serviceMap.containsKey(type)) throw new UnregisteredClassException(type);
-        return type.cast(serviceMap.get(type).apply(factory));
+        return serviceMap.get(type);
     }
 
     /**

@@ -4,7 +4,7 @@ import executor.service.annotation.Component;
 import executor.service.exception.ConstructorNotFoundException;
 import executor.service.exception.InstanceCreationException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
-import executor.service.factory.difactory.ServiceRegisterFactory;
+import executor.service.factory.difactory.ServiceCreatorRegistry;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -34,7 +34,7 @@ public class ComponentRegister implements InstanceRegister {
         Predicate<Class<?>> isDesiredInterface = interfaceClazz
                 -> interfaceClazz.getPackage().getName().startsWith(packageName);
         Arrays.stream(clazz.getInterfaces()).filter(isDesiredInterface)
-                .forEach(interfaceClazz -> ServiceRegisterFactory.register(interfaceClazz, getInstance(clazz)));
+                .forEach(interfaceClazz -> ServiceCreatorRegistry.register(interfaceClazz, getInstance(clazz)));
     }
 
     private Function<DependencyInjectionFactory, Object> getInstance(Class<?> clazz) {
