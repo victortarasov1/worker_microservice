@@ -44,6 +44,12 @@
       <artifactId>maven-slf4j-provider</artifactId>
       <version>3.9.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.3.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
