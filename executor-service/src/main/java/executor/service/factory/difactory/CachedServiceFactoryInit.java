@@ -1,8 +1,8 @@
 package executor.service.factory.difactory;
 
-import executor.service.factory.difactory.register.ComponentRegister;
-import executor.service.factory.difactory.register.ConfigRegister;
-import executor.service.factory.difactory.register.InstanceRegister;
+import executor.service.factory.difactory.register.ComponentRegistrar;
+import executor.service.factory.difactory.register.ConfigRegistrar;
+import executor.service.factory.difactory.register.InstanceRegistrar;
 import executor.service.factory.difactory.scanner.ComponentScannerImpl;
 
 class CachedServiceFactoryInit implements ServiceFactoryInitializer {
@@ -11,8 +11,8 @@ class CachedServiceFactoryInit implements ServiceFactoryInitializer {
 
     public CachedServiceFactoryInit() {
         String packageName = "executor.service";
-        InstanceRegister register = new ComponentRegister(packageName);
-        register.setNextRegister(new ConfigRegister());
+        InstanceRegistrar register = new ComponentRegistrar(packageName);
+        register.setNextRegister(new ConfigRegistrar());
         new ComponentScannerImpl(packageName).getComponents().forEach(register::register);
         this.factory = new CachedServiceFactory(new ServiceCreatorRegistry());
     }

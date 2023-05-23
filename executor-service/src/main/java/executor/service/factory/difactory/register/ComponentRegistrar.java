@@ -13,11 +13,11 @@ import java.util.Arrays;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class ComponentRegister implements InstanceRegister {
-    private InstanceRegister nextRegister;
+public class ComponentRegistrar implements InstanceRegistrar {
+    private InstanceRegistrar nextRegister;
     private final String packageName;
 
-    public ComponentRegister(String packageName) {
+    public ComponentRegistrar(String packageName) {
         this.packageName = packageName;
     }
     @Override
@@ -27,7 +27,7 @@ public class ComponentRegister implements InstanceRegister {
     }
 
     @Override
-    public void setNextRegister(InstanceRegister nextRegister) {
+    public void setNextRegister(InstanceRegistrar nextRegister) {
         this.nextRegister = nextRegister;
     }
     private void registerComponent(Class<?> clazz) {

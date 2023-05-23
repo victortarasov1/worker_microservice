@@ -12,8 +12,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class ConfigRegister implements InstanceRegister {
-    private InstanceRegister nextRegister;
+public class ConfigRegistrar implements InstanceRegistrar {
+    private InstanceRegistrar nextRegister;
 
     @Override
     public void register(Class<?> clazz) {
@@ -22,7 +22,7 @@ public class ConfigRegister implements InstanceRegister {
     }
 
     @Override
-    public void setNextRegister(InstanceRegister nextRegister) {
+    public void setNextRegister(InstanceRegistrar nextRegister) {
         this.nextRegister = nextRegister;
     }
 
