@@ -10,15 +10,10 @@ import org.openqa.selenium.WebDriver;
 import java.util.List;
 
 public class ScenarioExecutorImpl implements ScenarioExecutor {
-    private final ClickXpath clickXpath;
-    private final ClickCss clickCss;
-    private final Sleep sleep;
+    private ClickXpath clickXpath = new ClickXpath();
+    private final ClickCss clickCss = new ClickCss();
+    private final Sleep sleep = new Sleep();
 
-    public ScenarioExecutorImpl(ClickXpath clickXpath, ClickCss clickCss, Sleep sleep) {
-        this.clickXpath = clickXpath;
-        this.clickCss= clickCss;
-        this.sleep = sleep;
-    }
     @Override
     public void execute(ScenarioDto scenarioDto, WebDriver webDriver) {
         webDriver.get(scenarioDto.getSite());
@@ -34,6 +29,5 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
         }
         webDriver.quit();
     }
-
 
 }
