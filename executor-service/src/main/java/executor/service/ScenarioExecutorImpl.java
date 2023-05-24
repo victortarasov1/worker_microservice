@@ -11,8 +11,8 @@ import java.util.List;
 
 public class ScenarioExecutorImpl implements ScenarioExecutor {
     private ClickXpath clickXpath = new ClickXpath();
-    private final ClickCss clickCss = new ClickCss();
-    private final Sleep sleep = new Sleep();
+    private ClickCss clickCss = new ClickCss();
+    private Sleep sleep = new Sleep();
 
     @Override
     public void execute(ScenarioDto scenarioDto, WebDriver webDriver) {
