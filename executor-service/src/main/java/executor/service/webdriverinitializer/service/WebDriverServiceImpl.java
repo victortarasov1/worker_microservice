@@ -1,6 +1,6 @@
 package executor.service.webdriverinitializer.service;
 
-import executor.service.model.ProxyConfigHolder;
+import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.WebDriverConfigDto;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
@@ -46,7 +46,7 @@ public class WebDriverServiceImpl implements WebDriverService {
     }
 
     @Override
-    public void setProxy(ProxyConfigHolder proxyConfigHolder) {
+    public void setProxy(ProxyConfigHolderDto proxyConfigHolder) {
 
         if (proxyConfigHolder != null && webDriver != null) {
 

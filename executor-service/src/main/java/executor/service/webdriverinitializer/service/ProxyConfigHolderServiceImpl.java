@@ -1,12 +1,12 @@
 package executor.service.webdriverinitializer.service;
 
-import executor.service.model.ProxyConfigHolder;
+import executor.service.model.ProxyConfigHolderDto;
 
 public class ProxyConfigHolderServiceImpl implements ProxyConfigHolderService{
-    private ProxyConfigHolder proxyConfig;
+    private ProxyConfigHolderDto proxyConfig;
 
     @Override
-    public ProxyConfigHolder getProxyConfig() {
+    public ProxyConfigHolderDto getProxyConfig() {
         return proxyConfig;
     }
 }

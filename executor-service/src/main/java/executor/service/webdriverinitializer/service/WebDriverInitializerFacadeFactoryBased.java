@@ -1,6 +1,6 @@
 package executor.service.webdriverinitializer.service;
 
-import executor.service.model.ProxyConfigHolder;
+import executor.service.model.ProxyConfigHolderDto;
 import executor.service.webdriverinitializer.factory.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 
@@ -22,7 +22,7 @@ public class WebDriverInitializerFacadeFactoryBased implements WebDriverInitiali
         webDriverService.setWebDriver(webDriver);
         webDriverService.initializeWebDriver();
 
-        ProxyConfigHolder proxyConfig = proxyConfigHolderService.getProxyConfig();
+        ProxyConfigHolderDto proxyConfig = proxyConfigHolderService.getProxyConfig();
         webDriverService.setProxy(proxyConfig);
 
         return webDriver;
