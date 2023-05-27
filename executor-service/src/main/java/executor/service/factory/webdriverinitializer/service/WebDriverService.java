@@ -1,12 +1,13 @@
-package executor.service.webdriverinitializer.service;
+package executor.service.factory.webdriverinitializer.service;
 
 import executor.service.model.ProxyConfigHolderDto;
+import executor.service.model.WebDriverConfigDto;
 import org.openqa.selenium.WebDriver;
 
 public interface WebDriverService {
 
-    WebDriver createWebDriver();
-    void setProxy(ProxyConfigHolderDto proxyConfigHolder);
+    WebDriverConfigDto readConfigFromProperties();
+    WebDriver createWebDriver(WebDriverConfigDto config);
     void setWebDriver(WebDriver webDriver);
     WebDriver getWebDriver();
     void initializeWebDriver();

@@ -1,11 +1,9 @@
-package executor.service.webdriverinitializer.service;
+package executor.service.factory.webdriverinitializer.service;
 
+import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.WebDriverConfigDto;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +16,6 @@ public class WebDriverServiceImpl implements WebDriverService {
     private Properties configProperties;
 
     public WebDriverServiceImpl() {
-
         configProperties = new Properties();
         try {
             InputStream inputStream = getClass().getResourceAsStream("/config.properties");
@@ -29,47 +26,28 @@ public class WebDriverServiceImpl implements WebDriverService {
             }
         } catch (IOException e) {
             System.out.println("Error loading config.properties file: " + e.getMessage());
-
         }
-
     }
     @Override
-    public WebDriver createWebDriver() {
-
+    public WebDriverConfigDto readConfigFromProperties() {
         WebDriverConfigDto config = new WebDriverConfigDto();
         config.setWebDriverExecutable(configProperties.getProperty("executorservice.common.webDriverExecutable"));
         config.setUserAgent(configProperties.getProperty("executorservice.common.userAgent"));
         config.setPageLoadTimeout(Long.parseLong(configProperties.getProperty("executorservice.common.pageLoadTimeout")));
         config.setImplicitlyWait(Long.parseLong(configProperties.getProperty("executorservice.common.driverWait")));
 
-        return new ChromeDriver();
+        return config;
     }
-
     @Override
-    public void setProxy(ProxyConfigHolderDto proxyConfigHolder) {
-
-        if (proxyConfigHolder != null && webDriver != null) {
-
-            Proxy proxy = new Proxy();
-            String proxyAddress = proxyConfigHolder.getProxyNetworkConfig().getHostname()
-                    + ":" + proxyConfigHolder.getProxyNetworkConfig().getPort();
-            proxy.setHttpProxy(proxyAddress);
-            proxy.setSslProxy(proxyAddress);
-            ChromeOptions options = new ChromeOptions();
-            options.setProxy(proxy);
-            webDriver = new ChromeDriver(options);
-
-            System.out.println("Proxy Configuration:");
-            System.out.println("Hostname: " + proxyConfigHolder.getProxyNetworkConfig().getHostname());
-            System.out.println("Port: " + proxyConfigHolder.getProxyNetworkConfig().getPort());
-        }
+    public WebDriver createWebDriver(WebDriverConfigDto config) {
+        ProxyConfigHolderDto proxyConfigHolderDto = ProxyProvider.createProxyConfigHolder();
+        return ProxyProvider.createProxyChromeDriver(proxyConfigHolderDto,config);
     }
 
     @Override
     public void setWebDriver(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
-
     @Override
     public WebDriver getWebDriver() {
         return webDriver;
@@ -83,7 +61,6 @@ public class WebDriverServiceImpl implements WebDriverService {
             webDriver.manage().window().maximize();
         }
     }
-
     @Override
     public void quitWebDriver() {
         if (webDriver != null) {

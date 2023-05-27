@@ -1,4 +1,4 @@
-package executor.service.webdriverinitializer.service;
+package executor.service.factory.webdriverinitializer.initializer;
 
 import org.openqa.selenium.WebDriver;
 
