@@ -59,6 +59,7 @@ public class WebDriverServiceImpl implements WebDriverService {
         if (webDriver != null) {
             webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             webDriver.manage().window().maximize();
+
         }
     }
     @Override

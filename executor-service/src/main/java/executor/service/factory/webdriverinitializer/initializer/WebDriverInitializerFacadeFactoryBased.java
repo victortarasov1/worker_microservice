@@ -38,12 +38,11 @@ public class WebDriverInitializerFacadeFactoryBased implements WebDriverInitiali
         System.out.println("User Agent: " + webDriverConfig.getUserAgent());
         System.out.println("Page Load Timeout: " + webDriverConfig.getPageLoadTimeout());
         System.out.println("Driver Wait: " + webDriverConfig.getImplicitlyWait());
-        // Print Proxy Configuration
+
         if (proxyConfig != null && proxyConfig.getProxyNetworkConfig() != null) {
             System.out.println("Proxy Configuration:");
             System.out.println("Hostname: " + proxyConfig.getProxyNetworkConfig().getHostname());
             System.out.println("Port: " + proxyConfig.getProxyNetworkConfig().getPort());
-            // Print additional properties if available
         } else {
             System.out.println("No proxy configuration found.");
         }

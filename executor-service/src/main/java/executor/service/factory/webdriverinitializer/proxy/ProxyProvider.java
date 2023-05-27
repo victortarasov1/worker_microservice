@@ -4,7 +4,6 @@ import org.openqa.selenium.Proxy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import executor.service.model.ProxyConfigHolderDto;
-import executor.service.model.ProxyNetworkConfigDTO;
 import executor.service.model.WebDriverConfigDto;
 
 public class ProxyProvider {

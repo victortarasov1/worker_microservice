@@ -1,6 +1,5 @@
 package executor.service.factory.webdriverinitializer.service;
 
-import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.WebDriverConfigDto;
 import org.openqa.selenium.WebDriver;
 

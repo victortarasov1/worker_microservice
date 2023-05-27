@@ -1,6 +1,5 @@
 package executor.service.factory.webdriverinitializer.proxy;
 
-import executor.service.factory.webdriverinitializer.proxy.ProxyConfigHolderService;
 import executor.service.model.ProxyConfigHolderDto;
 
 public class ProxyConfigHolderServiceImpl implements ProxyConfigHolderService {

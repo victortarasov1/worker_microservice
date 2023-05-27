@@ -4,4 +4,5 @@ import org.openqa.selenium.WebDriver;
 
 public interface WebDriverInitializer {
     WebDriver initializeWebDriver();
+
 }
