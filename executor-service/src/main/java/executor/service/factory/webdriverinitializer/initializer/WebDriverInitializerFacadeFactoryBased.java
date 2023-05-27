@@ -30,7 +30,7 @@ public class WebDriverInitializerFacadeFactoryBased implements WebDriverInitiali
 
         WebDriver webDriver = ProxyProvider.createProxyChromeDriver( proxyConfig,webDriverConfig);
         webDriverService.setWebDriver(webDriver);
-        webDriverService.initializeWebDriver();
+        webDriverService.initializeWebDriver(webDriverConfig);
 
 
         System.out.println("WebDriver Configuration:");

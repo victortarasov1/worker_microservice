@@ -8,8 +8,6 @@ public interface WebDriverService {
     WebDriverConfigDto readConfigFromProperties();
     WebDriver createWebDriver(WebDriverConfigDto config);
     void setWebDriver(WebDriver webDriver);
-    WebDriver getWebDriver();
-    void initializeWebDriver();
-    void quitWebDriver();
+    void initializeWebDriver( WebDriverConfigDto config);
 
 }

@@ -4,10 +4,14 @@ import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.WebDriverConfigDto;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverServiceImpl implements WebDriverService {
@@ -48,24 +52,25 @@ public class WebDriverServiceImpl implements WebDriverService {
     public void setWebDriver(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
-    @Override
-    public WebDriver getWebDriver() {
-        return webDriver;
-    }
 
     @Override
-    public void initializeWebDriver() {
+    public void initializeWebDriver( WebDriverConfigDto config) {
 
         if (webDriver != null) {
-            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            webDriver.manage().timeouts().pageLoadTimeout(config.getPageLoadTimeout(),TimeUnit.MILLISECONDS);
+            webDriver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(),TimeUnit.SECONDS);
             webDriver.manage().window().maximize();
 
+            if (!(webDriver instanceof ChromeDriver)) {
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--user-agent=" + config.getUserAgent());
+                webDriver = new ChromeDriver(options);
+            }
         }
-    }
-    @Override
-    public void quitWebDriver() {
-        if (webDriver != null) {
-            webDriver.quit();
+        String threadsCount = configProperties.getProperty("executorservice.common.threadsCount");
+        if (threadsCount != null) {
+            int count = Integer.parseInt(threadsCount);
+            ExecutorService executorService = Executors.newFixedThreadPool(count);
         }
     }
 }
