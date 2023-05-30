@@ -9,15 +9,17 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.time.Duration;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class WebDriverServiceImpl implements WebDriverService {
 
     private WebDriver webDriver;
-    private Properties configProperties;
+    private final Properties configProperties;
+    private ProxyConfigHolderDto proxyConfig;
 
     public WebDriverServiceImpl() {
         configProperties = new Properties();
@@ -45,7 +47,7 @@ public class WebDriverServiceImpl implements WebDriverService {
     @Override
     public WebDriver createWebDriver(WebDriverConfigDto config) {
         ProxyConfigHolderDto proxyConfigHolderDto = ProxyProvider.createProxyConfigHolder();
-        return ProxyProvider.createProxyChromeDriver(proxyConfigHolderDto,config);
+        return ProxyProvider.createProxyChromeDriver(proxyConfigHolderDto);
     }
 
     @Override
@@ -57,8 +59,8 @@ public class WebDriverServiceImpl implements WebDriverService {
     public void initializeWebDriver( WebDriverConfigDto config) {
 
         if (webDriver != null) {
-            webDriver.manage().timeouts().pageLoadTimeout(config.getPageLoadTimeout(),TimeUnit.MILLISECONDS);
-            webDriver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(),TimeUnit.SECONDS);
+            webDriver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(config.getPageLoadTimeout()));
+            webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(config.getImplicitlyWait()));
             webDriver.manage().window().maximize();
 
             if (!(webDriver instanceof ChromeDriver)) {
@@ -73,4 +75,10 @@ public class WebDriverServiceImpl implements WebDriverService {
             ExecutorService executorService = Executors.newFixedThreadPool(count);
         }
     }
+
+    @Override
+    public void setProxyConfig(ProxyConfigHolderDto proxyConfig) {
+        this.proxyConfig = proxyConfig;
+    }
 }
+

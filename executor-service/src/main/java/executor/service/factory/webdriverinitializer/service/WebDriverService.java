@@ -1,5 +1,6 @@
 package executor.service.factory.webdriverinitializer.service;
 
+import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.WebDriverConfigDto;
 import org.openqa.selenium.WebDriver;
 
@@ -9,5 +10,6 @@ public interface WebDriverService {
     WebDriver createWebDriver(WebDriverConfigDto config);
     void setWebDriver(WebDriver webDriver);
     void initializeWebDriver( WebDriverConfigDto config);
+    void setProxyConfig(ProxyConfigHolderDto proxyConfig);
 
 }
