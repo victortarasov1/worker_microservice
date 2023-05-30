@@ -1,7 +1,10 @@
 package executor.service;
 
 import executor.service.model.ScenarioDto;
-import executor.service.model.StepDto;
+import executor.service.stepexecution.ClickCss;
+import executor.service.stepexecution.ClickXpath;
+import executor.service.stepexecution.Sleep;
+import executor.service.stepexecution.StepExecution;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,23 +15,23 @@ import java.util.List;
 
 class ScenarioExecutorImplTest {
     private WebDriver webDriver;
-    private ScenarioExecutorImpl scenarioExecutor;
+    private ScenarioExecutorImpl scenarioExecutorImpl;
     private ScenarioDto scenarioDto;
 
     @BeforeEach
     public void initEach() {
-        scenarioExecutor = Mockito.mock(ScenarioExecutorImpl.class);
+        List<StepExecution> stepsExecution = new ArrayList<>();
+        stepsExecution.add(new ClickXpath());
+        stepsExecution.add(new ClickCss());
+        stepsExecution.add(new Sleep());
+        scenarioExecutorImpl = new ScenarioExecutorImpl(stepsExecution);
         webDriver = Mockito.mock(WebDriver.class);
-        List<StepDto> steps = new ArrayList<>();
-        steps.add(new StepDto("clickXpath", "xpath test"));
-        steps.add(new StepDto("clickcss", "css test"));
-        steps.add(new StepDto("sleep", "5"));
-        scenarioDto = new ScenarioDto("test1", "site1", steps);
+        scenarioDto = Mockito.mock(ScenarioDto.class);
     }
 
     @Test
     public void testExecute() {
-        scenarioExecutor.execute(scenarioDto, webDriver);
+        scenarioExecutorImpl.execute(scenarioDto, webDriver);
         webDriver.quit();
     }
 }

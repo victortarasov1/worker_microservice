@@ -2,32 +2,29 @@ package executor.service;
 
 import executor.service.model.ScenarioDto;
 import executor.service.model.StepDto;
-import executor.service.stepexecution.ClickCss;
-import executor.service.stepexecution.ClickXpath;
-import executor.service.stepexecution.Sleep;
+import executor.service.stepexecution.StepExecution;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class ScenarioExecutorImpl implements ScenarioExecutor {
-    private ClickXpath clickXpath = new ClickXpath();
-    private ClickCss clickCss = new ClickCss();
-    private Sleep sleep = new Sleep();
+    private final Map<String, StepExecution> stepExecutionMap;
+
+    public ScenarioExecutorImpl(List<StepExecution> steps) {
+        this.stepExecutionMap = steps.stream()
+                .collect(Collectors.toMap(StepExecution::getStepAction, Function.identity()));
+    }
 
     @Override
     public void execute(ScenarioDto scenarioDto, WebDriver webDriver) {
         webDriver.get(scenarioDto.getSite());
-        List<StepDto> steps = scenarioDto.getSteps();
-        for (StepDto step : steps) {
-            if("clickXpath".equalsIgnoreCase(step.getAction())) {
-                clickXpath.step(webDriver, step);
-            } else if ("clickCss".equalsIgnoreCase(step.getAction())) {
-                clickCss.step(webDriver, step);
-            } else if ("sleep".equalsIgnoreCase(step.getAction())) {
-                sleep.step(webDriver, step);
-            }
-        }
-        webDriver.quit();
+        Consumer<StepDto> executeStep = v -> stepExecutionMap
+                .get(v.getAction())
+                .step(webDriver, v);
+        scenarioDto.getSteps().forEach(executeStep);
     }
-
 }
