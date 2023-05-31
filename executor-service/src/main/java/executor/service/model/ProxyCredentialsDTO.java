@@ -42,4 +42,12 @@ public class ProxyCredentialsDTO {
     public int hashCode() {
         return Objects.hash(username, password);
     }
+
+    @Override
+    public String toString() {
+        return "ProxyCredentialsDTO{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
