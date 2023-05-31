@@ -35,15 +35,11 @@ public class JsonScenarioSource implements ScenarioSource {
     }
 
     private File getFile() {
-        Path path = Paths.get(resourceName);
-        File file;
+        Path resourcePath = Paths.get(resourceName);
+        Path path;
 
-        if (path.isAbsolute()) {
-            file = path.toFile();
-        } else {
-            file = Paths.get(resourceFolder + resourceName).toFile();
-        }
+        path = resourcePath.isAbsolute() ? resourcePath : Paths.get(resourceFolder + resourceName);
 
-        return file;
+        return path.toFile();
     }
 }
