@@ -9,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
