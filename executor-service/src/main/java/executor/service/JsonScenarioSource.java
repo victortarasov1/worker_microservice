@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class JsonScenarioSource implements ScenarioSource {
@@ -23,12 +22,12 @@ public class JsonScenarioSource implements ScenarioSource {
 
     public List<ScenarioDto> getScenarios() {
         ObjectMapper mapper = new ObjectMapper();
-        List<ScenarioDto> scenarioDtos = new ArrayList<>();
+        List<ScenarioDto> scenarioDtos;
 
         try {
             scenarioDtos = mapper.readValue(getFile(), new TypeReference<>() {});
         } catch (IOException e)  {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
 
         return scenarioDtos;

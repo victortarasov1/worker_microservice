@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JsonScenarioSourceTest {
     @Test
@@ -21,14 +22,21 @@ class JsonScenarioSourceTest {
     public void testGetScenariosIfFileWithWrongName() {
         String resourceName = "scenarios.js";
         JsonScenarioSource reader = new JsonScenarioSource(getAbsolutePath(resourceName));
-        assertEquals(List.of(), reader.getScenarios());
+
+        Exception exception = assertThrows(RuntimeException.class, reader::getScenarios);
+        assertEquals(getAbsolutePath(resourceName) + " (No such file or directory)", exception.getMessage());
     }
 
     @Test
     public void testGetScenariosIfFileIsInvalid() {
         String resourceName = "invalid-scenarios.json";
         JsonScenarioSource reader = new JsonScenarioSource(getAbsolutePath(resourceName));
-        assertEquals(List.of(), reader.getScenarios());
+
+        Exception exception = assertThrows(RuntimeException.class, reader::getScenarios);
+        assertEquals("""
+                Unexpected character ('"' (code 34)): was expecting comma to separate Object entries
+                 at [Source: (File); line: 4, column: 6] (through reference chain: java.util.ArrayList[0])""",
+                exception.getMessage());
     }
 
     public List<ScenarioDto> getScenariosList() {
