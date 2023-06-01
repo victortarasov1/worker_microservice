@@ -6,13 +6,14 @@ import executor.service.model.ScenarioDto;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 public class JsonScenarioSource implements ScenarioSource {
     private String resourceName = "scenarios.json";
-    private final String resourceFolder = "src/main/resources/";
 
     public JsonScenarioSource() {}
 
@@ -22,23 +23,27 @@ public class JsonScenarioSource implements ScenarioSource {
 
     public List<ScenarioDto> getScenarios() {
         ObjectMapper mapper = new ObjectMapper();
-        List<ScenarioDto> scenarioDtos;
 
         try {
-            scenarioDtos = mapper.readValue(getFile(), new TypeReference<>() {});
-        } catch (IOException e)  {
+            return mapper.readValue(getFile(), new TypeReference<>() {});
+        } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
+        } catch (NullPointerException e) {
+            throw new RuntimeException("File " + resourceName + " not found in \"resources\" folder");
         }
-
-        return scenarioDtos;
     }
 
     private File getFile() {
         Path resourcePath = Paths.get(resourceName);
-        Path path;
+        File file;
 
-        path = resourcePath.isAbsolute() ? resourcePath : Paths.get(resourceFolder + resourceName);
+        if (resourcePath.isAbsolute()) {
+            file = resourcePath.toFile();
+        } else {
+            URL url = Objects.requireNonNull(this.getClass().getResource(resourceName));
+            file = new File(url.getFile());
+        }
 
-        return path.toFile();
+        return file;
     }
 }
