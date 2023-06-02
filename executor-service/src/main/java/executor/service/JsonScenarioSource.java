@@ -2,6 +2,7 @@ package executor.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import executor.service.exception.ResourceFileNotFoundException;
 import executor.service.model.ScenarioDto;
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class JsonScenarioSource implements ScenarioSource {
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         } catch (NullPointerException e) {
-            throw new RuntimeException("File " + resourceName + " not found in \"resources\" folder");
+            throw new ResourceFileNotFoundException(resourceName);
         }
     }
 

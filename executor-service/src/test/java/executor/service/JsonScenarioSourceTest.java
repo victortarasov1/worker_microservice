@@ -1,5 +1,6 @@
 package executor.service;
 
+import executor.service.exception.ResourceFileNotFoundException;
 import executor.service.model.ScenarioDto;
 import executor.service.model.StepDto;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class JsonScenarioSourceTest {
         String resourceName = "scenarios.js";
         JsonScenarioSource reader = new JsonScenarioSource(resourceName);
 
-        Exception exception = assertThrows(RuntimeException.class, reader::getScenarios);
+        Exception exception = assertThrows(ResourceFileNotFoundException.class, reader::getScenarios);
         assertEquals("File scenarios.js not found in \"resources\" folder", exception.getMessage());
     }
 
