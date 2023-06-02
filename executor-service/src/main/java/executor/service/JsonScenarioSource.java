@@ -35,15 +35,13 @@ public class JsonScenarioSource implements ScenarioSource {
 
     private File getFile() {
         Path resourcePath = Paths.get(resourceName);
-        File file;
 
         if (resourcePath.isAbsolute()) {
-            file = resourcePath.toFile();
-        } else {
-            URL url = Objects.requireNonNull(this.getClass().getResource(resourceName));
-            file = new File(url.getFile());
+            return resourcePath.toFile();
         }
 
-        return file;
+        URL url = Objects.requireNonNull(this.getClass().getResource(resourceName));
+
+        return new File(url.getFile());
     }
 }
