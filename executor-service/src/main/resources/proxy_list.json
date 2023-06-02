@@ -1,0 +1,36 @@
+[
+  {
+    "hostname": "host1",
+    "port": 8080,
+    "credential": [
+      {
+        "username": "Username",
+        "password": "password"
+      },
+      {
+        "username": "notValid",
+        "password": "password2"
+      }
+    ]
+  },
+  {
+    "hostname": "host2",
+    "port": 8081,
+    "credential": [
+      {
+        "username": "Username1",
+        "password": "password2"
+      }
+    ]
+  },
+  {
+    "hostname": "host3",
+    "port": 8080,
+    "credential": [
+      {
+        "username": "",
+        "password": ""
+      }
+    ]
+  }
+]

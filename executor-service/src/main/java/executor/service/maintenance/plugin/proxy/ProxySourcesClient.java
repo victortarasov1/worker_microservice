@@ -1,4 +1,4 @@
-package executor.service.maintenance.plugin;
+package executor.service.maintenance.plugin.proxy;
 
 import executor.service.model.ProxyConfigHolderDto;
 
