@@ -1,5 +1,6 @@
 package executor.service.maintenance.plugin.proxy;
 
+import executor.service.exception.NoMoreProxiesException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -27,7 +28,7 @@ class ProxySourcesClientImplTest {
     void testGetProxy() {
         System.out.println("==== testGetProxy =====");
         ProxySourcesClientImpl client = new ProxySourcesClientImpl(new JsonProxySources());
-        Exception exception = Assertions.assertThrows(RuntimeException.class, createExecutable(client, 6));
+        Exception exception = Assertions.assertThrowsExactly(NoMoreProxiesException.class, createExecutable(client, 6));
         System.out.println("testGetProxy -> " + exception.getMessage() + "\n");
         assertEquals("No more proxies", exception.getMessage());
     }
@@ -36,7 +37,7 @@ class ProxySourcesClientImplTest {
     void testGetProxyIfListEmpty() {
         System.out.println("==== testGetProxyIfListEmpty =====");
         ProxySourcesClientImpl client = new ProxySourcesClientImpl(ArrayList::new);
-        Exception exception = Assertions.assertThrows(RuntimeException.class, createExecutable(client, 1));
+        Exception exception = Assertions.assertThrowsExactly(NoMoreProxiesException.class, createExecutable(client, 1));
         System.out.println("testGetProxyIfListEmpty -> " + exception.getMessage() + "\n");
         assertEquals("No more proxies", exception.getMessage());
     }

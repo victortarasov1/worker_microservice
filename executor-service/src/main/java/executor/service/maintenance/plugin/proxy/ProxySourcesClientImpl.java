@@ -1,5 +1,6 @@
 package executor.service.maintenance.plugin.proxy;
 
+import executor.service.exception.NoMoreProxiesException;
 import executor.service.model.ProxyConfigHolderDto;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class ProxySourcesClientImpl implements ProxySourcesClient {
     private final ProxyValidator mValidator;
     private final List<ProxyConfigHolderDto> proxyConfigHolders;
     private Iterator<ProxyConfigHolderDto> mIterator;
-    boolean infinityLooping = false;
+    private boolean infinityLooping = false;
 
     public void setInfinityLooping(boolean value) {
         //todo Is it need this option?
@@ -30,7 +31,7 @@ public class ProxySourcesClientImpl implements ProxySourcesClient {
 
     private ProxyConfigHolderDto nextHolder() {
         if (!mIterator.hasNext()) {
-            if (proxyConfigHolders.isEmpty() || !infinityLooping) return null;
+            if (proxyConfigHolders.isEmpty() || !infinityLooping) throw new NoMoreProxiesException();
             mIterator = proxyConfigHolders.iterator();
         }
         return mIterator.next();
@@ -40,7 +41,6 @@ public class ProxySourcesClientImpl implements ProxySourcesClient {
     public ProxyConfigHolderDto getProxy() {
         while (true) {
             ProxyConfigHolderDto holder = nextHolder();
-            if (holder == null) throw new RuntimeException("No more proxies");
             if (mValidator != null && !mValidator.isValid(holder)) {
                 mIterator.remove();
                 continue;

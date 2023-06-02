@@ -1,13 +1,11 @@
 package executor.service.maintenance.plugin.proxy;
 
-import executor.service.maintenance.plugin.proxy.JsonProxySources;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ProxyCredentialsDTO;
 import executor.service.model.ProxyNetworkConfigDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JsonProxySourcesTest {
 
     @Test
-    void testInputStream() throws IOException {
+    void testInputStream() {
         InputStream actualIn = JsonProxySources.getInputStream();
         assertNotNull(actualIn);
     }
