@@ -11,11 +11,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonScenarioSourceTest {
-    private final String INCORRECT_FILENAME = "scenarios.js";
+    private final String INCORRECT_FILENAME = "test-scenarios.js";
 
     @Test
     public void testGetScenariosIfFileOk() {
-        String resourceName = "scenarios.json";
+        String resourceName = "test-scenarios.json";
         JsonScenarioSource reader = new JsonScenarioSource(getAbsolutePath(resourceName));
         assertEquals(getScenariosList(), reader.getScenarios());
     }
@@ -33,12 +33,12 @@ class JsonScenarioSourceTest {
         JsonScenarioSource reader = new JsonScenarioSource(INCORRECT_FILENAME);
 
         Exception exception = assertThrows(ResourceFileNotFoundException.class, reader::getScenarios);
-        assertEquals("File scenarios.js not found in \"resources\" folder", exception.getMessage());
+        assertEquals("File test-scenarios.js not found in \"resources\" folder", exception.getMessage());
     }
 
     @Test
     public void testGetScenariosIfFileIsInvalid() {
-        String resourceName = "invalid-scenarios.json";
+        String resourceName = "test-invalid-scenarios.json";
         JsonScenarioSource reader = new JsonScenarioSource(getAbsolutePath(resourceName));
 
         Exception exception = assertThrows(RuntimeException.class, reader::getScenarios);
