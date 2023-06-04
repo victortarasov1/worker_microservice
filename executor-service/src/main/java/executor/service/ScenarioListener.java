@@ -4,11 +4,9 @@ import executor.service.model.ScenarioDto;
 import org.openqa.selenium.WebDriver;
 
 public class ScenarioListener implements ScenarioSourceListener {
-    ScenarioExecutor scenarioExecutor;
-    WebDriver webDriver;
-    ScenarioSource scenarioSource;
-
-    ScenarioListener() {}
+    private final ScenarioExecutor scenarioExecutor;
+    private final WebDriver webDriver;
+    private final ScenarioSource scenarioSource;
 
     public ScenarioListener(ScenarioExecutor scenarioExecutor, WebDriver webDriver, ScenarioSource scenarioSource) {
         this.scenarioExecutor = scenarioExecutor;
