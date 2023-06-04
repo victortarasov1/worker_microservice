@@ -11,6 +11,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonScenarioSourceTest {
+    private final String INCORRECT_FILENAME = "scenarios.js";
+
     @Test
     public void testGetScenariosIfFileOk() {
         String resourceName = "scenarios.json";
@@ -20,17 +22,15 @@ class JsonScenarioSourceTest {
 
     @Test
     public void testGetScenariosIfFileWithWrongName() {
-        String resourceName = "scenarios.js";
-        JsonScenarioSource reader = new JsonScenarioSource(getAbsolutePath(resourceName));
+        JsonScenarioSource reader = new JsonScenarioSource(getAbsolutePath(INCORRECT_FILENAME));
 
         Exception exception = assertThrows(RuntimeException.class, reader::getScenarios);
-        assertEquals(getAbsolutePath(resourceName) + " (No such file or directory)", exception.getMessage());
+        assertEquals(getAbsolutePath(INCORRECT_FILENAME) + " (No such file or directory)", exception.getMessage());
     }
 
     @Test
     public void testGetScenariosIfFileWithWrongNameLocatedInResources() {
-        String resourceName = "scenarios.js";
-        JsonScenarioSource reader = new JsonScenarioSource(resourceName);
+        JsonScenarioSource reader = new JsonScenarioSource(INCORRECT_FILENAME);
 
         Exception exception = assertThrows(ResourceFileNotFoundException.class, reader::getScenarios);
         assertEquals("File scenarios.js not found in \"resources\" folder", exception.getMessage());
