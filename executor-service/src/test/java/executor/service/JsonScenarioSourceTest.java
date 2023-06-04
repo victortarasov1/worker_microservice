@@ -37,6 +37,12 @@ class JsonScenarioSourceTest {
     }
 
     @Test
+    public void testGetScenariosIfFileCorrectLocatedInResources() {
+        JsonScenarioSource reader = new JsonScenarioSource();
+        assertEquals(getScenariosList(), reader.getScenarios());
+    }
+
+    @Test
     public void testGetScenariosIfFileIsInvalid() {
         String resourceName = "test-invalid-scenarios.json";
         JsonScenarioSource reader = new JsonScenarioSource(getAbsolutePath(resourceName));

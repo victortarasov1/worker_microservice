@@ -41,7 +41,7 @@ public class JsonScenarioSource implements ScenarioSource {
             return resourcePath.toFile();
         }
 
-        URL url = Objects.requireNonNull(this.getClass().getResource(resourceName));
+        URL url = Objects.requireNonNull(this.getClass().getClassLoader().getResource(resourceName));
 
         return new File(url.getFile());
     }
