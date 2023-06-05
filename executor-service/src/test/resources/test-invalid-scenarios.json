@@ -1,0 +1,20 @@
+[
+  {
+    "name": "test scenario 1"
+    "site": "http://info.cern.ch",
+    "steps" : [
+      {
+        "action": "clickCss",
+        "value": "body > ul > li:nth-child(1) > a"
+      },
+      {
+        "action": "sleep",
+        "value": "5:10"
+      },
+      {
+        "action": "clickXpath",
+        "value": "/html/body/p"
+      }
+    ]
+  }
+]
