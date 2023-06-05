@@ -1,36 +1,37 @@
 package executor.service.maintenance.plugin.proxy;
 
+import executor.service.annotation.Component;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ProxyCredentialsDTO;
 import executor.service.model.ProxyNetworkConfigDTO;
-import executor.service.utl.Json;
+import executor.service.utl.JsonReader;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JsonProxySources implements ProxySources {
 
-    private static final String PROXY_LIST_FILENAME = "proxy_list.json";
+    private final String resourceName;
 
     private final List<ProxyConfigHolderDto> proxyConfigHolderDtoList = new ArrayList<>();
 
     public JsonProxySources() {
-        parse();
+        this.resourceName = "proxy_list.json";
     }
 
-    static InputStream getInputStream() {
-        return JsonProxySources.class.getResourceAsStream("/" + PROXY_LIST_FILENAME);
+    public JsonProxySources(String resourceName) {
+        this.resourceName = resourceName;
     }
 
     @Override
     public List<ProxyConfigHolderDto> getProxyConfigHolders() {
+        if (proxyConfigHolderDtoList.isEmpty()) parse();
         return proxyConfigHolderDtoList;
     }
 
     private void parse() {
-
-        JsonModel[] arr = Json.parseToArray(getInputStream(), JsonModel.class);
+        JsonModel[] arr = JsonReader.parseResource(resourceName, JsonModel.class);
 
         for (JsonModel model : arr) {
             for (ProxyCredentialsDTO credentials : model.credential) {
@@ -43,10 +44,6 @@ public class JsonProxySources implements ProxySources {
 
     }
 
-    private static class JsonModel {
-        public String hostname;
-        public Integer port;
-
-        public List<ProxyCredentialsDTO> credential;
+    record JsonModel(String hostname, Integer port, List<ProxyCredentialsDTO> credential) {
     }
 }

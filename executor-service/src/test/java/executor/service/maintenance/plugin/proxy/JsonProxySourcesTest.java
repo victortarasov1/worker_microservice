@@ -6,26 +6,22 @@ import executor.service.model.ProxyNetworkConfigDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class JsonProxySourcesTest {
-
-    @Test
-    void testInputStream() {
-        InputStream actualIn = JsonProxySources.getInputStream();
-        assertNotNull(actualIn);
-    }
 
     @Test
     void testHolders() {
         JsonProxySources sources = new JsonProxySources();
         List<ProxyConfigHolderDto> expectedList = createTestHoldersList();
         Assertions.assertArrayEquals(expectedList.toArray(), sources.getProxyConfigHolders().toArray());
+    }
 
+    @Test
+    void testHoldersIfCantRead() {
+        JsonProxySources sources = new JsonProxySources("wrong.json");
+        Assertions.assertThrows(RuntimeException.class, sources::getProxyConfigHolders);
     }
 
     private ProxyConfigHolderDto createTestHolder(String hostname, int port, String username, String password) {
