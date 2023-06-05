@@ -1,6 +1,7 @@
 package executor.service.utl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import executor.service.exception.ResourceFileNotFoundException;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class JsonReader {
     public static <T> T[] parseResource(String fileName, Class<T> tClass) {
         try (InputStream inputStream = JsonReader.class.getClassLoader().getResourceAsStream(fileName)) {
             if (inputStream == null) {
-                throw new RuntimeException("Can't read resource"); // todo or can be log
+                throw new ResourceFileNotFoundException(fileName); // todo or can be log
             }
             return JsonReader.parseToArray(inputStream, tClass);
         } catch (IOException e) {
