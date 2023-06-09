@@ -1,8 +1,8 @@
 package executor.service.stepexecution;
 
+import executor.service.exception.ClickXPathException;
 import executor.service.model.StepDto;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 
 public class ClickXpath implements StepExecution {
     @Override
@@ -12,6 +12,11 @@ public class ClickXpath implements StepExecution {
 
     @Override
     public void step(WebDriver webDriver, StepDto stepDto) {
-        webDriver.findElement(By.xpath(stepDto.getValue())).click();
+        try {
+            webDriver.findElement(By.xpath(stepDto.getValue())).click();
+        } catch (NoSuchElementException | ElementNotInteractableException
+                 | StaleElementReferenceException | TimeoutException ex) {
+            throw new ClickXPathException(ex.getMessage());
+        }
     }
 }

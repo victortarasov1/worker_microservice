@@ -1,5 +1,6 @@
 package executor.service.stepexecution;
 
+import executor.service.exception.SleepException;
 import executor.service.model.StepDto;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,9 +21,13 @@ public class Sleep implements StepExecution {
     }
 
     private Duration getDuration(StepDto step) {
-        String[] values = step.getValue().split(":");
-        int first = Integer.parseInt(values[0]);
-        int second = Integer.parseInt(values[1]);
-        return Duration.ofMillis(new Random().nextInt(second - first + 1) + first);
+        try {
+            String[] values = step.getValue().split(":");
+            int first = Integer.parseInt(values[0]);
+            int second = Integer.parseInt(values[1]);
+            return Duration.ofMillis(new Random().nextInt(second - first + 1) + first);
+        } catch ( ArrayIndexOutOfBoundsException | IllegalArgumentException ex) {
+            throw new SleepException(ex.getMessage());
+        }
     }
 }
