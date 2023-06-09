@@ -1,7 +1,7 @@
 package executor.service.exception;
 
 public class ClickCssException extends StepExecutionException {
-    public ClickCssException(String message) {
-        super("Failed to perform 'clickCss' step. Reason: " + message);
+    public ClickCssException(Throwable cause) {
+        super("Failed to perform 'clickCss' step.", cause);
     }
 }
