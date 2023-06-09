@@ -27,7 +27,7 @@ public class Sleep implements StepExecution {
             int second = Integer.parseInt(values[1]);
             return Duration.ofMillis(new Random().nextInt(second - first + 1) + first);
         } catch ( ArrayIndexOutOfBoundsException | IllegalArgumentException ex) {
-            throw new SleepException(ex.getMessage());
+            throw new SleepException(ex);
         }
     }
 }
