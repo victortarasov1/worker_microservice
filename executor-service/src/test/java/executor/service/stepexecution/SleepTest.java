@@ -1,5 +1,6 @@
 package executor.service.stepexecution;
 
+import executor.service.exception.SleepException;
 import executor.service.model.StepDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,27 +34,24 @@ public class SleepTest {
     }
 
     @Test
-    public void step_WhenInvalidFormat_ShouldThrowNumberFormatException() {
+    public void step_WhenInvalidFormat_ShouldThrowSleepException() {
         StepDto stepDto = new StepDto("sleep", "abc:def");
-
         assertThatThrownBy(() -> sleep.step(mockWebDriver, stepDto))
-                .isInstanceOf(NumberFormatException.class);
+                .isInstanceOf(SleepException.class);
     }
 
     @Test
-    public void step_WhenMissingColon_ShouldThrowArrayIndexOutOfBoundsException() {
+    public void step_WhenMissingColon_ShouldThrowSleepException() {
         StepDto stepDto = new StepDto("sleep", "100200");
-
         assertThatThrownBy(() -> sleep.step(mockWebDriver, stepDto))
-                .isInstanceOf(ArrayIndexOutOfBoundsException.class);
+                .isInstanceOf(SleepException.class);
     }
 
     @Test
-    public void step_WhenNegativeDuration_ShouldThrowIllegalArgumentException() {
+    public void step_WhenNegativeDuration_ShouldThrowSleepException() {
         StepDto stepDto = new StepDto("sleep", "200:100");
-
         assertThatThrownBy(() -> sleep.step(mockWebDriver, stepDto))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(SleepException.class);
     }
 
     @Test

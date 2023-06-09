@@ -1,5 +1,6 @@
 package executor.service.stepexecution;
 
+import executor.service.exception.ClickXPathException;
 import executor.service.model.StepDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,32 +40,32 @@ public class ClickXpathTest {
     }
 
     @Test
-    public void step_WhenNoSuchElement_ShouldThrowNoSuchElementException() {
+    public void step_WhenNoSuchElement_ShouldThrowClickXPathException() {
         when(mockWebDriver.findElement(By.xpath(stepDto.getValue()))).thenThrow(NoSuchElementException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, stepDto))
-                .isInstanceOf(NoSuchElementException.class);
+                .isInstanceOf(ClickXPathException.class);
     }
 
     @Test
-    public void step_WhenElementNotInteractable_ShouldThrowElementNotInteractableException() {
+    public void step_WhenElementNotInteractable_ShouldThrowClickXPathException() {
         when(mockWebDriver.findElement(By.xpath(stepDto.getValue()))).thenThrow(ElementNotInteractableException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, stepDto))
-                .isInstanceOf(ElementNotInteractableException.class);
+                .isInstanceOf(ClickXPathException.class);
     }
 
     @Test
-    public void step_WhenStaleElementReference_ShouldThrowStaleElementReferenceException() {
+    public void step_WhenStaleElementReference_ShouldThrowClickXPathException()  {
         when(mockWebDriver.findElement(By.xpath(stepDto.getValue()))).thenThrow(StaleElementReferenceException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, stepDto))
-                .isInstanceOf(StaleElementReferenceException.class);
+                .isInstanceOf(ClickXPathException.class);
     }
 
     @Test
-    public void step_WhenTimeoutException_ShouldThrowTimeoutException() {
+    public void step_WhenTimeoutException_ShouldThrowClickXPathException()  {
         when(mockWebDriver.findElement(By.xpath(stepDto.getValue())))
                 .thenThrow(TimeoutException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, stepDto))
-                .isInstanceOf(TimeoutException.class);
+                .isInstanceOf(ClickXPathException.class);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package executor.service.stepexecution;
 
+import executor.service.exception.ClickCssException;
 import executor.service.model.StepDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,36 +40,36 @@ public class ClickCssTest {
     }
 
     @Test
-    public void step_WhenNoSuchElement_ShouldThrowNoSuchElementException() {
+    public void step_WhenNoSuchElement_ShouldThrowClickCssException() {
         when(mockWebDriver.findElement(By.cssSelector(stepDto.getValue()))).thenThrow(NoSuchElementException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, stepDto))
-                .isInstanceOf(NoSuchElementException.class);
+                .isInstanceOf(ClickCssException.class);
     }
 
     @Test
-    public void step_WhenElementNotInteractable_ShouldThrowElementNotInteractableException() {
+    public void step_WhenElementNotInteractable_ShouldThrowClickCssException() {
         when(mockWebDriver.findElement(By.cssSelector(stepDto.getValue()))).thenThrow(ElementNotInteractableException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, stepDto))
-                .isInstanceOf(ElementNotInteractableException.class);
+                .isInstanceOf(ClickCssException.class);
     }
 
     @Test
-    public void step_WhenStaleElementReference_ShouldThrowStaleElementReferenceException() {
+    public void step_WhenStaleElementReference_ShouldThrowClickCssException() {
         when(mockWebDriver.findElement(By.cssSelector(stepDto.getValue()))).thenThrow(StaleElementReferenceException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, stepDto))
-                .isInstanceOf(StaleElementReferenceException.class);
+                .isInstanceOf(ClickCssException.class);
     }
 
     @Test
-    public void step_WhenTimeoutException_ShouldThrowTimeoutException() {
+    public void step_WhenTimeoutException_ShouldThrowClickCssException() {
         when(mockWebDriver.findElement(By.cssSelector(stepDto.getValue())))
                 .thenThrow(TimeoutException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, stepDto))
-                .isInstanceOf(TimeoutException.class);
+                .isInstanceOf(ClickCssException.class);
     }
 
     @Test
-    public void getStepAction_ShouldReturnClickCss() {
+    public void getStepAction_ShouldThrowClickCssException() {
         String stepAction = clickCss.getStepAction();
         assertThat(stepAction).isEqualTo("clickCss");
     }
