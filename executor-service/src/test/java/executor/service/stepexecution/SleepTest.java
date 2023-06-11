@@ -4,8 +4,7 @@ import executor.service.exception.SleepException;
 import executor.service.model.StepDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
 import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
@@ -15,21 +14,19 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 public class SleepTest {
 
-    @Mock
     private WebDriver mockWebDriver;
 
     private Sleep sleep;
 
     @BeforeEach
     public void setup() {
-        MockitoAnnotations.openMocks(this);
+        mockWebDriver = Mockito.mock(WebDriver.class);
         sleep = new Sleep();
     }
 
     @Test
     public void step_ShouldSleepForRandomDuration() {
         StepDto stepDto = new StepDto("sleep", "100:200");
-
         assertTimeoutPreemptively(Duration.ofMillis(300), () -> sleep.step(mockWebDriver, stepDto));
     }
 

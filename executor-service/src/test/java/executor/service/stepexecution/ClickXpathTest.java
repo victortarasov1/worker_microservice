@@ -4,9 +4,7 @@ import executor.service.exception.ClickXPathException;
 import executor.service.model.StepDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.openqa.selenium.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +14,6 @@ import static org.mockito.Mockito.when;
 
 public class ClickXpathTest {
 
-    @Mock
     private WebDriver mockWebDriver;
 
     private ClickXpath clickXpath;
@@ -24,7 +21,7 @@ public class ClickXpathTest {
 
     @BeforeEach
     public void setup() {
-        MockitoAnnotations.openMocks(this);
+        mockWebDriver = Mockito.mock(WebDriver.class);
         clickXpath = new ClickXpath();
         stepDto = new StepDto("clickXpath", "xpathExpression");
     }
