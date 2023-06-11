@@ -1,4 +1,5 @@
-package executor.service.exception;
+package executor.service.exception.stepexception;
+
 
 public class ClickCssException extends StepExecutionException {
     public ClickCssException(Throwable cause) {

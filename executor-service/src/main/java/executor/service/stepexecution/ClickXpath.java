@@ -1,6 +1,6 @@
 package executor.service.stepexecution;
 
-import executor.service.exception.ClickXPathException;
+import executor.service.exception.stepexception.ClickXPathException;
 import executor.service.model.StepDto;
 import org.openqa.selenium.*;
 

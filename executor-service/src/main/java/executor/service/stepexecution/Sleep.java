@@ -1,6 +1,6 @@
 package executor.service.stepexecution;
 
-import executor.service.exception.SleepException;
+import executor.service.exception.stepexception.SleepException;
 import executor.service.model.StepDto;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
