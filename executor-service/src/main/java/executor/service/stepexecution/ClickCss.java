@@ -1,8 +1,8 @@
 package executor.service.stepexecution;
 
+import executor.service.exception.stepexception.ClickCssException;
 import executor.service.model.StepDto;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 
 public class ClickCss implements StepExecution {
     @Override
@@ -12,6 +12,11 @@ public class ClickCss implements StepExecution {
 
     @Override
     public void step(WebDriver webDriver, StepDto stepDto) {
-        webDriver.findElement(By.cssSelector(stepDto.getValue())).click();
+        try {
+            webDriver.findElement(By.cssSelector(stepDto.getValue())).click();
+        } catch (NoSuchElementException | ElementNotInteractableException
+                 | StaleElementReferenceException | TimeoutException ex) {
+            throw new ClickCssException(ex);
+        }
     }
 }
