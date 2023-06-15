@@ -39,8 +39,7 @@ class ChromeWebDriverTest {
         TimeUnit.SECONDS.sleep(2);
         element.click();
         TimeUnit.SECONDS.sleep(5);
-        webDriver.quit();
-    }
+        webDriver.quit();    }
     @Test
     void testGoogleSearch() throws InterruptedException {
         WebDriver webDriver = driverProvider.create();
