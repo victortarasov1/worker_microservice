@@ -27,8 +27,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Install Chrome and ChromeDriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip libgconf-2-4 curl
+          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          wget -N https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+          export LATEST_CHROMEDRIVER_VERSION=$(cat LATEST_RELEASE)
+          wget https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /opt/chromedriver
+          sudo chown root:root /opt/chromedriver
+          sudo chmod +x /opt/chromedriver
+          google-chrome-stable --version
+          chromedriver --version
       - name: Build and Run Tests
         run: mvn test --batch-mode --fail-at-end --file executor-service/pom.xml
       - name: Publish Test Report
-        if: ${{ always() }} #publish report even if the tests are failing
+        if: ${{ always() }} # publish report even if the tests are failing
         uses: scacap/action-surefire-report@v1
