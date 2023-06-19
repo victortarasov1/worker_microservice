@@ -29,29 +29,30 @@ jobs:
           cache: maven
       - name: Install Chrome and ChromeDriver
         run: |
+          # Install dependencies
           sudo apt-get update
-          sudo apt-get install -y unzip libgconf-2-4 curl
-          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome-keyring.gpg > /dev/null
-          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get install -y curl unzip libgconf-2-4
+
+          # Install Chrome
+          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
-          sudo apt-get install -y google-chrome-stable=114.0.5735.90-1
-          export CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d '.' -f 1-3)
-          export CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
-#          wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          wget https://chromedriver.storage.googleapis.com/92.0.4515.107/chromedriver_linux64.zip
+          sudo apt-get install -y google-chrome-stable=114.0.5735.133-1
+
+          # Download and install ChromeDriver
+          CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d '.' -f 1-3)
+          CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
+          wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/chromedriver
-          sudo chown root:root /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
+          sudo mv chromedriver /opt/chromedriver
+          sudo chown root:root /opt/chromedriver
+          sudo chmod +x /opt/chromedriver
+
+          # Verify versions
           google-chrome-stable --version
           chromedriver --version
       - name: Build and Run Tests
-        run: |
-          mvn test --batch-mode --fail-at-end --file executor-service/pom.xml \
-            -Dwebdriver.chrome.driver=/usr/local/bin/chromedriver \
-            -Dwebdriver.chrome.logfile=/tmp/chromedriver.log \
-            -Dwebdriver.chrome.args="no-sandbox --disable-dev-shm-usage"
+        run: mvn test --batch-mode --fail-at-end --file executor-service/pom.xml
       - name: Publish Test Report
         if: ${{ always() }} # publish report even if the tests are failing
         uses: scacap/action-surefire-report@v1
