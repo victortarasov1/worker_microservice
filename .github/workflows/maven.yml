@@ -34,7 +34,7 @@ jobs:
           curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome-keyring.gpg > /dev/null
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+          sudo apt-get install -y google-chrome-stable=114.0.0.0-1
           export CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d '.' -f 1-3)
           export CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
           wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
@@ -45,8 +45,11 @@ jobs:
           google-chrome-stable --version
           chromedriver --version
       - name: Build and Run Tests
-        run: mvn test --batch-mode --fail-at-end --file executor-service/pom.xml
-          -DargLine="-Dwebdriver.chrome.args=--disable-dev-shm-usage"
+        run: |
+          mvn test --batch-mode --fail-at-end --file executor-service/pom.xml \
+            -Dwebdriver.chrome.driver=/usr/local/bin/chromedriver \
+            -Dwebdriver.chrome.logfile=/tmp/chromedriver.log \
+            -Dwebdriver.chrome.args="no-sandbox --disable-dev-shm-usage"
       - name: Publish Test Report
         if: ${{ always() }} # publish report even if the tests are failing
         uses: scacap/action-surefire-report@v1
