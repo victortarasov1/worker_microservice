@@ -3,9 +3,6 @@ package executor.service.stepexecution;
 import executor.service.exception.stepexception.SleepException;
 import executor.service.model.StepDto;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.util.Random;
 
 public class Sleep implements StepExecution {
@@ -16,17 +13,20 @@ public class Sleep implements StepExecution {
 
     @Override
     public void step(WebDriver webDriver, StepDto stepDto) {
-        new WebDriverWait(webDriver, getDuration(stepDto))
-                .until(v -> true);
+        try {
+            Thread.sleep(getDuration(stepDto));
+        } catch (InterruptedException e) {
+            throw new SleepException(e);
+        }
     }
 
-    private Duration getDuration(StepDto step) {
+    private int getDuration(StepDto step) {
         try {
             String[] values = step.getValue().split(":");
             int first = Integer.parseInt(values[0]);
             int second = Integer.parseInt(values[1]);
-            return Duration.ofMillis(new Random().nextInt(second - first + 1) + first);
-        } catch ( ArrayIndexOutOfBoundsException | IllegalArgumentException ex) {
+            return new Random().nextInt(second - first + 1) + first;
+        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException ex) {
             throw new SleepException(ex);
         }
     }

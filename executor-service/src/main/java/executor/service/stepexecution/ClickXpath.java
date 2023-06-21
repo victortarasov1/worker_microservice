@@ -15,7 +15,7 @@ public class ClickXpath implements StepExecution {
         try {
             webDriver.findElement(By.xpath(stepDto.getValue())).click();
         } catch (NoSuchElementException | ElementNotInteractableException
-                 | StaleElementReferenceException | TimeoutException ex) {
+                 | StaleElementReferenceException | TimeoutException | InvalidSelectorException ex) {
             throw new ClickXPathException(ex);
         }
     }

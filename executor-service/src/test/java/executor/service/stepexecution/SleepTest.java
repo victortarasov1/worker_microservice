@@ -2,6 +2,7 @@ package executor.service.stepexecution;
 
 import executor.service.exception.stepexception.SleepException;
 import executor.service.model.StepDto;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -11,7 +12,8 @@ import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class SleepTest {
 
     private WebDriver mockWebDriver;
@@ -57,4 +59,10 @@ public class SleepTest {
         assertThat(stepAction).isEqualTo("sleep");
     }
 
+    @Test
+    public void step_WhenInterruptedException_ShouldThrowSleepException() {
+        StepDto stepDto = new StepDto("sleep", "100:200");
+        Thread.currentThread().interrupt();
+        Assertions.assertThrows(SleepException.class, () -> sleep.step(mockWebDriver, stepDto));
+    }
 }

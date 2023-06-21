@@ -66,6 +66,13 @@ public class ClickXpathTest {
     }
 
     @Test
+    public void step_WhenInvalidSelector_ShouldThrowClickXPathException() {
+        when(mockWebDriver.findElement(By.xpath(stepDto.getValue())))
+                .thenThrow(InvalidSelectorException.class);
+        assertThatThrownBy(() -> clickXpath.step(mockWebDriver, stepDto))
+                .isInstanceOf(ClickXPathException.class);
+    }
+    @Test
     public void getStepAction_ShouldReturnClickXpath() {
         String stepAction = clickXpath.getStepAction();
         assertThat(stepAction).isEqualTo("clickXpath");
