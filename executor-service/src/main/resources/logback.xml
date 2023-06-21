@@ -6,7 +6,7 @@
         </encoder>
     </appender>
     <appender name="db" class="executor.service.appender.DataBaseAppender">
-        <connection class="executor.service.appender.connection.DBConnectionImpl">
+        <connection class="executor.service.appender.manager.LogDatabaseManagerImpl">
             <url>jdbc:h2:/tmp/logs</url>
             <username>root</username>
             <password>root</password>
