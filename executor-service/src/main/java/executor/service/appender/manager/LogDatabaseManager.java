@@ -2,10 +2,10 @@ package executor.service.appender.manager;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
-import executor.service.exception.connectionexception.ConnectionFailedException;
-import executor.service.exception.connectionexception.DisconnectionFailedException;
-import executor.service.exception.connectionexception.LogEventSaveException;
-import executor.service.exception.connectionexception.StackTraceSaveException;
+import executor.service.exception.dbmanagerexception.ConnectionFailedException;
+import executor.service.exception.dbmanagerexception.DisconnectionFailedException;
+import executor.service.exception.dbmanagerexception.LogEventSaveException;
+import executor.service.exception.dbmanagerexception.StackTraceSaveException;
 
 public interface LogDatabaseManager {
 

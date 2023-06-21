@@ -1,4 +1,4 @@
-package executor.service.exception.connectionexception;
+package executor.service.exception.dbmanagerexception;
 
 public class StackTraceSaveException extends RuntimeException {
     public StackTraceSaveException(Throwable cause) {
