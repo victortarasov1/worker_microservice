@@ -5,7 +5,15 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %msg%n</pattern>
         </encoder>
     </appender>
+    <appender name="db" class="executor.service.appender.DataBaseAppender">
+        <connection class="executor.service.appender.connection.DBConnectionImpl">
+            <url>jdbc:h2:/tmp/logs</url>
+            <username>root</username>
+            <password>root</password>
+        </connection>
+    </appender>
     <root level="INFO">
         <appender-ref ref="stdout"/>
+        <appender-ref ref="db"/>
     </root>
 </configuration>
