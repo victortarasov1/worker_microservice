@@ -71,4 +71,12 @@ public class ClickCssTest {
         assertThat(stepAction).isEqualTo("clickCss");
     }
 
+    @Test
+    public void step_WhenInvalidSelector_ShouldThrowClickCssException() {
+        when(mockWebDriver.findElement(By.cssSelector(stepDto.getValue())))
+                .thenThrow(InvalidSelectorException.class);
+        assertThatThrownBy(() -> clickCss.step(mockWebDriver, stepDto))
+                .isInstanceOf(ClickCssException.class);
+    }
+
 }
