@@ -4,7 +4,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.classic.spi.StackTraceElementProxy;
-import executor.service.appender.connection.DBConnection;
+import executor.service.appender.manager.LogDatabaseManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,21 +13,17 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+
 class DataBaseAppenderTest {
 
-    private DBConnection mockConnection;
-
-
+    private LogDatabaseManager mockConnection;
     private ILoggingEvent mockLoggingEvent;
-
-
     private IThrowableProxy mockThrowableProxy;
-
     private DataBaseAppender appender;
 
     @BeforeEach
     public void setUp() {
-        mockConnection = Mockito.mock(DBConnection.class);
+        mockConnection = Mockito.mock(LogDatabaseManager.class);
         mockLoggingEvent = Mockito.mock(ILoggingEvent.class);
         mockThrowableProxy = Mockito.mock(IThrowableProxy.class);
         appender = new DataBaseAppender();
@@ -36,7 +32,6 @@ class DataBaseAppenderTest {
 
     @Test
     public void testStart_ConnectToDb() {
-        System.out.println();
         appender.start();
         verify(mockConnection).connect();
     }
@@ -51,8 +46,10 @@ class DataBaseAppenderTest {
     public void testAppend_SaveEventToDb() {
         configureMockLoggingEvent();
         when(mockLoggingEvent.getLevel()).thenReturn(Level.INFO);
+
         appender.append(mockLoggingEvent);
-        verify(mockConnection).saveLogEvent(anyString(), anyString(),anyString(), anyString(), anyLong(), anyString(), anyString(),anyString(),anyString());
+
+        verify(mockConnection).saveLogEvent(mockLoggingEvent);
     }
 
     @Test
@@ -73,9 +70,9 @@ class DataBaseAppenderTest {
         when(mockThrowableProxy.getStackTraceElementProxyArray()).thenReturn(stackTraceElementProxies);
 
         appender.append(mockLoggingEvent);
-        verify(mockConnection).saveLogEvent(anyString(), anyString(),anyString(), anyString(), anyLong(), anyString(), anyString(),anyString(),anyString());
-        verify(mockConnection).saveExceptionStackTrace(anyLong(), anyList());
 
+        verify(mockConnection).saveLogEvent(mockLoggingEvent);
+        verify(mockConnection).saveExceptionStackTrace(anyLong(), any(IThrowableProxy.class));
     }
 
     private void configureMockLoggingEvent() {
