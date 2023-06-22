@@ -1,4 +1,4 @@
-package executor.service.exception.dbmanagerexception;
+package executor.service.exception.logstorage;
 
 public class DisconnectionFailedException extends RuntimeException {
     public DisconnectionFailedException(Throwable cause) {
