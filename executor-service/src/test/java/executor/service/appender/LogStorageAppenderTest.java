@@ -4,7 +4,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.classic.spi.StackTraceElementProxy;
-import executor.service.appender.manager.LogDatabaseManager;
+import executor.service.appender.manager.LogStorageManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,20 +14,20 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-class DataBaseAppenderTest {
+class LogStorageAppenderTest {
 
-    private LogDatabaseManager mockConnection;
+    private LogStorageManager mockConnection;
     private ILoggingEvent mockLoggingEvent;
     private IThrowableProxy mockThrowableProxy;
-    private DataBaseAppender appender;
+    private LogStorageAppender appender;
 
     @BeforeEach
     public void setUp() {
-        mockConnection = Mockito.mock(LogDatabaseManager.class);
+        mockConnection = Mockito.mock(LogStorageManager.class);
         mockLoggingEvent = Mockito.mock(ILoggingEvent.class);
         mockThrowableProxy = Mockito.mock(IThrowableProxy.class);
-        appender = new DataBaseAppender();
-        appender.setConnection(mockConnection);
+        appender = new LogStorageAppender();
+        appender.setLogStorageManager(mockConnection);
     }
 
     @Test
