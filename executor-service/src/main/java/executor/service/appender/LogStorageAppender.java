@@ -16,7 +16,7 @@ public class LogStorageAppender extends AppenderBase<ILoggingEvent> {
 
     @Override
     protected void append(ILoggingEvent event) {
-        var eventId = logStorageManager.saveLogEvent(event);
+        long eventId = logStorageManager.saveLogEvent(event);
         if (event.getThrowableProxy() != null) logStorageManager.saveExceptionStackTrace(eventId, event.getThrowableProxy());
 
     }
