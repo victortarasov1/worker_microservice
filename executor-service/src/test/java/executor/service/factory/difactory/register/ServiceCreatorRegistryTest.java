@@ -30,7 +30,7 @@ class ServiceCreatorRegistryTest {
         Object expectedResult = creator.apply(diFactory);
         Object result = creatorFunction.apply(diFactory);
         assertEquals(expectedResult, result);
-        assertSame(creatorFunction, creator);
+        assertSame(creator, creatorFunction);
 
     }
 
