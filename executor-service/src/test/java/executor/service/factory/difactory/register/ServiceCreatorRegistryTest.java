@@ -49,9 +49,13 @@ class ServiceCreatorRegistryTest {
     }
 
 
-    interface SomeInterface {}
+    interface SomeInterface {
+    }
 
-    interface SomeOtherInterface {}
-    record SomeImpl() implements SomeInterface, SomeOtherInterface {}
+    interface SomeOtherInterface {
+    }
+
+    record SomeImpl() implements SomeInterface, SomeOtherInterface {
+    }
 
 }

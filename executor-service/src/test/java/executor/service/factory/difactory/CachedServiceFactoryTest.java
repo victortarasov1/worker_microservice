@@ -45,10 +45,8 @@ class CachedServiceFactoryTest {
 
 
     interface SomeInterface {
-
     }
 
     static class SomeImpl implements SomeInterface {
-
     }
 }
