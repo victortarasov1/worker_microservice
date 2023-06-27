@@ -2,8 +2,8 @@ package executor.service.factory.difactory.register;
 
 import executor.service.annotation.Bean;
 import executor.service.annotation.Config;
-import executor.service.exception.ConfigurationRegistrationException;
-import executor.service.exception.MethodInvocationException;
+import executor.service.exception.registrar.ConfigurationRegistrationException;
+import executor.service.exception.registrar.MethodInvocationException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
 
 import java.lang.reflect.InvocationTargetException;
@@ -32,7 +32,7 @@ public class ConfigRegistrar implements InstanceRegistrar {
                     .forEach(v -> ServiceCreatorRegistry.register(v.getReturnType(), getInstance(instance, v)));
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
-            throw new ConfigurationRegistrationException(e.getMessage(), clazz);
+            throw new ConfigurationRegistrationException(clazz, e);
         }
     }
 
@@ -41,7 +41,7 @@ public class ConfigRegistrar implements InstanceRegistrar {
             try {
                 return method.invoke(instance);
             } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
-                throw new MethodInvocationException(e.getMessage(), instance.getClass());
+                throw new MethodInvocationException(instance.getClass(), e);
             }
         };
     }
