@@ -1,7 +1,7 @@
 package executor.service.factory.difactory.register;
 
-import executor.service.exception.DuplicateRegistrationException;
-import executor.service.exception.UnregisteredClassException;
+import executor.service.exception.register.DuplicateRegistrationException;
+import executor.service.exception.register.UnregisteredClassException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

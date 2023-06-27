@@ -1,4 +1,4 @@
-package executor.service.exception;
+package executor.service.exception.register;
 
 public class UnregisteredClassException extends RuntimeException{
 

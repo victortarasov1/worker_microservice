@@ -1,6 +1,6 @@
 package executor.service.factory.difactory.register;
 
-import executor.service.exception.registrar.InstanceRegistrarException;
+import executor.service.exception.register.InstanceRegistrarException;
 
 /**
  * Interface for registering instances of classes.

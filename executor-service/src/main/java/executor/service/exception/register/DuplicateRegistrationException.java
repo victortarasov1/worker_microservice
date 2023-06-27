@@ -1,4 +1,4 @@
-package executor.service.exception;
+package executor.service.exception.register;
 
 public class DuplicateRegistrationException extends RuntimeException {
     public DuplicateRegistrationException(Class<?> clazz){
