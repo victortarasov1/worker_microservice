@@ -22,7 +22,7 @@ class CachedServiceFactoryTest {
     }
 
     @Test
-    void testCreateInstance_interface_ReturnsImplementationClass() {
+    void testCreateInstance_returnsImplementationClass() {
         Class<SomeInterface> interfaceClass = SomeInterface.class;
         SomeImpl implementation = new SomeImpl();
         Function<DependencyInjectionFactory, SomeInterface> creatorFunction = f -> implementation;
@@ -32,7 +32,7 @@ class CachedServiceFactoryTest {
     }
 
     @Test
-    void testCreateInstance_interface_ReturnsSameInstanceOnMultipleCalls() {
+    void testCreateInstance_returnsSameInstanceOnMultipleCalls() {
         Class<SomeInterface> interfaceClass = SomeInterface.class;
         SomeImpl implementation = new SomeImpl();
         Function<DependencyInjectionFactory, SomeInterface> creatorFunction = f -> implementation;

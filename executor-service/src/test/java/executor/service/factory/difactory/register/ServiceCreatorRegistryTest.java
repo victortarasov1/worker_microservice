@@ -22,7 +22,7 @@ class ServiceCreatorRegistryTest {
     }
 
     @Test
-    void testRegisterAndRetrieveCreatorFunction() {
+    void testGetCreatorFunction() {
         Function<DependencyInjectionFactory, ?> creator = factory -> new SomeImpl();
         ServiceCreatorRegistry.register(SomeInterface.class, creator);
         ServiceCreatorRegistry registry = new ServiceCreatorRegistry();
@@ -41,7 +41,7 @@ class ServiceCreatorRegistryTest {
     }
 
     @Test
-    void testRegisterShouldThrowDuplicateRegistrationException() {
+    void testRegister_ThrowsDuplicateRegistrationException() {
         Function<DependencyInjectionFactory, ?> creator = factory -> new SomeImpl();
         ServiceCreatorRegistry.register(SomeOtherInterface.class, creator);
         assertThatThrownBy(() -> ServiceCreatorRegistry.register(SomeOtherInterface.class, creator))
