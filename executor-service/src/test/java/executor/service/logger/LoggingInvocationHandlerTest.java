@@ -42,7 +42,7 @@ class LoggingInvocationHandlerTest {
 
     @Test
     public void testInvoke_shouldLogInvocationTargetExceptionBeforeRethrowing() throws NoSuchMethodException {
-        Method method = MyInterface.class.getMethod("doSomething", double.class);
+        Method method = MyInterface.class.getMethod(METHOD_NAME, double.class);
         Object[] args = new Object[]{3.D};
         RuntimeException targetException = new RuntimeException();
         when(mockTarget.doSomething(anyDouble())).thenThrow(targetException);

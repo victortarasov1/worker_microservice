@@ -18,7 +18,7 @@ class LoggingInvocationHandler<T> implements InvocationHandler {
     @Override
     public Object invoke(Object o, Method method, Object[] args) throws Throwable {
         logger.info(LogMessage.EXECUTING_METHOD.getMessage(), method.getName(), target.getClass().getSimpleName(), args);
-        var result = invokeMethod(method, args);
+        Object result = invokeMethod(method, args);
         logger.info(LogMessage.METHOD_EXECUTION_COMPLETED.getMessage(), target.getClass().getSimpleName(), result);
         return result;
     }
