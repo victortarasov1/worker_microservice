@@ -15,7 +15,7 @@ import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.*;
 
 class LoggingInvocationHandlerTest {
-    public static final String METHOD_NAME = "doSomething";
+    private static final String METHOD_NAME = "doSomething";
     private Logger mockLogger;
 
     private LoggingInvocationHandler<MyInterface> invocationHandler;
