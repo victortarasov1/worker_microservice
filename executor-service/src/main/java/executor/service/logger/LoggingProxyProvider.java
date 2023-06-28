@@ -9,7 +9,7 @@ public class LoggingProxyProvider {
     }
 
     public static <T> T createProxy(T target, Class<T> tInterface, Logger logger) {
-        var handler = new LoggingInvocationHandler<>(target, logger);
+        LoggingInvocationHandler<T> handler = new LoggingInvocationHandler<>(target, logger);
         return tInterface.cast(Proxy.newProxyInstance(
                 target.getClass().getClassLoader(),
                 target.getClass().getInterfaces(),
