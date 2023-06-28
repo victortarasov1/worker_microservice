@@ -1,4 +1,4 @@
-package executor.service.exception.registrar;
+package executor.service.exception.register;
 
 public class InstanceRegistrarException extends RuntimeException {
     public InstanceRegistrarException(String message) {
