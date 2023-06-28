@@ -6,7 +6,7 @@ import executor.service.annotation.Bean;
 import executor.service.annotation.Config;
 import executor.service.exception.CantReadProperties;
 import executor.service.model.WebDriverConfigDto;
-import executor.service.proxy.LoggingProxyProvider;
+import executor.service.logger.LoggingProxyProvider;
 import executor.service.stepexecution.ClickCss;
 import executor.service.stepexecution.ClickXpath;
 import executor.service.stepexecution.Sleep;

@@ -1,4 +1,4 @@
-package executor.service.proxy;
+package executor.service.logger;
 
 enum LogMessage {
     EXECUTING_METHOD("Executing method {} in class {} with arguments {}"),

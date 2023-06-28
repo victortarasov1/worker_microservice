@@ -1,4 +1,4 @@
-package executor.service.proxy;
+package executor.service.logger;
 
 import org.slf4j.Logger;
 import java.lang.reflect.Proxy;
