@@ -1,5 +1,6 @@
 package executor.service.config;
 
+import executor.service.ExecutionService;
 import executor.service.annotation.Bean;
 import executor.service.annotation.Config;
 import executor.service.exception.CantReadProperties;
@@ -31,5 +32,10 @@ public class Configuration {
         config.setPageLoadTimeout(Long.parseLong(properties.getProperty(PropertyKey.PAGE_LOAD_TIMEOUT.getKey())));
         config.setImplicitlyWait(Long.parseLong(properties.getProperty(PropertyKey.IMPLICITLY_WAIT.getKey())));
         return config;
+    }
+
+    @Bean
+    public ExecutionService getExecutionService() {
+        return new ExecutionService();
     }
 }
