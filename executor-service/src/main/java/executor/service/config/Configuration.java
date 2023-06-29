@@ -1,12 +1,22 @@
 package executor.service.config;
 
+import executor.service.ScenarioExecutor;
+import executor.service.ScenarioExecutorImpl;
 import executor.service.annotation.Bean;
 import executor.service.annotation.Config;
 import executor.service.exception.CantReadProperties;
 import executor.service.model.WebDriverConfigDto;
+import executor.service.logger.LoggingProxyProvider;
+import executor.service.stepexecution.ClickCss;
+import executor.service.stepexecution.ClickXpath;
+import executor.service.stepexecution.Sleep;
+import executor.service.stepexecution.StepExecution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
 @Config
@@ -31,5 +41,16 @@ public class Configuration {
         config.setPageLoadTimeout(Long.parseLong(properties.getProperty(PropertyKey.PAGE_LOAD_TIMEOUT.getKey())));
         config.setImplicitlyWait(Long.parseLong(properties.getProperty(PropertyKey.IMPLICITLY_WAIT.getKey())));
         return config;
+    }
+
+    @Bean
+    public ScenarioExecutor scenarioExecutor() {
+        Logger scenario_logger = LoggerFactory.getLogger("SCENARIO_LOGGER");
+        List<StepExecution> steps = List.of(
+                LoggingProxyProvider.createProxy(new ClickCss(), StepExecution.class, scenario_logger),
+                LoggingProxyProvider.createProxy(new ClickXpath(), StepExecution.class, scenario_logger),
+                LoggingProxyProvider.createProxy(new Sleep(), StepExecution.class, scenario_logger)
+        );
+        return LoggingProxyProvider.createProxy(new ScenarioExecutorImpl(steps), ScenarioExecutor.class, scenario_logger);
     }
 }
