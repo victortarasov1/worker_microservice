@@ -37,7 +37,7 @@ class ServiceCreatorRegistryTest {
     @Test
     void testGetCreatorFunction_ThrowsUnregisteredClassException() {
         ServiceCreatorRegistry registry = new ServiceCreatorRegistry();
-        assertThatThrownBy(() -> registry.getCreatorFunction(SomeInterface.class)).isInstanceOf(UnregisteredClassException.class);
+        assertThatThrownBy(() -> registry.getCreatorFunction(UnregisteredInterface.class)).isInstanceOf(UnregisteredClassException.class);
     }
 
     @Test
@@ -53,6 +53,9 @@ class ServiceCreatorRegistryTest {
     }
 
     interface SomeOtherInterface {
+    }
+    interface UnregisteredInterface {
+
     }
 
     record SomeImpl() implements SomeInterface, SomeOtherInterface {
