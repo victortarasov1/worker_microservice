@@ -46,9 +46,9 @@ public class ConfigRegistrarTest {
     }
 
     @Component
-    private static class ComponentAnnotatedClass {
+    static class ComponentAnnotatedClass {
     }
     @Config
-    private static class ConfigAnnotatedClass{
+    static class ConfigAnnotatedClass{
     }
 }
