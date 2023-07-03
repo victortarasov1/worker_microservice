@@ -6,6 +6,9 @@ import executor.service.ScenarioExecutorImpl;
 import executor.service.annotation.Bean;
 import executor.service.annotation.Config;
 import executor.service.exception.CantReadProperties;
+import executor.service.maintenance.plugin.proxy.JsonProxySources;
+import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
+import executor.service.maintenance.plugin.proxy.ProxySourcesClientImpl;
 import executor.service.model.WebDriverConfigDto;
 import executor.service.logger.LoggingProxyProvider;
 import executor.service.stepexecution.ClickCss;
@@ -57,5 +60,11 @@ public class Configuration {
                 LoggingProxyProvider.createProxy(new Sleep(), StepExecution.class, scenario_logger)
         );
         return LoggingProxyProvider.createProxy(new ScenarioExecutorImpl(steps), ScenarioExecutor.class, scenario_logger);
+    }
+
+
+    @Bean
+    public ProxySourcesClient proxySourcesClient(){
+        return new ProxySourcesClientImpl(new JsonProxySources());
     }
 }

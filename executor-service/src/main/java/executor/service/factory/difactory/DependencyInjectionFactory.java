@@ -1,6 +1,6 @@
 package executor.service.factory.difactory;
 
-import executor.service.exception.UnregisteredClassException;
+import executor.service.exception.register.UnregisteredClassException;
 
 /**
  * A factory interface for creating instances of classes based on their interface.
