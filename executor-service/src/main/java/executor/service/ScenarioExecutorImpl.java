@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -15,8 +16,8 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
     private final Map<String, StepExecution> stepExecutionMap;
 
     public ScenarioExecutorImpl(List<StepExecution> steps) {
-        this.stepExecutionMap = steps.stream()
-                .collect(Collectors.toMap(StepExecution::getStepAction, Function.identity()));
+        this.stepExecutionMap = new ConcurrentHashMap<>(steps.stream()
+                .collect(Collectors.toMap(StepExecution::getStepAction, Function.identity())));
     }
 
     @Override
