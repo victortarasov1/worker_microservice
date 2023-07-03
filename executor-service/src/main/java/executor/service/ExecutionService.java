@@ -16,6 +16,8 @@ public class ExecutionService {
             scenarioExecutor.execute(scenario.get(), webDriver);
             scenario = scenarioSourceListener.getScenario();
         }
+        
+        webDriver.close();
     }
 
 }
