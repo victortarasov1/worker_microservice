@@ -1,23 +1,28 @@
 package executor.service;
 
+import executor.service.annotation.Component;
 import executor.service.model.ScenarioDto;
-import org.openqa.selenium.WebDriver;
 
+import java.util.Deque;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedDeque;
+
+@Component
 public class ScenarioListener implements ScenarioSourceListener {
-    private final ScenarioExecutor scenarioExecutor;
-    private final WebDriver webDriver;
     private final ScenarioSource scenarioSource;
+    private Deque<ScenarioDto> scenarios;
 
-    public ScenarioListener(ScenarioExecutor scenarioExecutor, WebDriver webDriver, ScenarioSource scenarioSource) {
-        this.scenarioExecutor = scenarioExecutor;
-        this.webDriver = webDriver;
+    public ScenarioListener(ScenarioSource scenarioSource) {
         this.scenarioSource = scenarioSource;
     }
 
     @Override
     public void execute() {
-        for (ScenarioDto scenarioDto : scenarioSource.getScenarios()) {
-            scenarioExecutor.execute(scenarioDto, webDriver);
-        }
+        scenarios = new ConcurrentLinkedDeque<>(scenarioSource.getScenarios());
+    }
+
+    @Override
+    public Optional<ScenarioDto> getScenario() {
+        return Optional.ofNullable(scenarios.pollFirst());
     }
 }
