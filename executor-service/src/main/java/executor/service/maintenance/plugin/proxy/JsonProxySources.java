@@ -31,7 +31,7 @@ public class JsonProxySources implements ProxySources {
     }
 
     private void parse() {
-        JsonModel[] arr = JsonReader.parseResource(resourceName, JsonModel.class);
+        JsonModel[] arr = JsonReader.parseResourceToArray(resourceName, JsonModel.class);
 
         for (JsonModel model : arr) {
             for (ProxyCredentialsDTO credentials : model.credential) {

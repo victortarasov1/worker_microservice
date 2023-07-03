@@ -6,6 +6,8 @@ import executor.service.exception.ResourceFileNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 public class JsonReader {
     private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -15,7 +17,7 @@ public class JsonReader {
         return objectMapper.readerForArrayOf(tClass).readValue(inputStream);
     }
 
-    public static <T> T[] parseToList(File file, Class<T> tClass) throws IOException {
+    public static <T> List<T> parseToList(File file, Class<T> tClass) throws IOException {
         return objectMapper.readerForListOf(tClass).readValue(file);
     }
 
@@ -23,7 +25,7 @@ public class JsonReader {
         return objectMapper;
     }
 
-    public static <T> T[] parseResource(String fileName, Class<T> tClass) {
+    public static <T> T[] parseResourceToArray(String fileName, Class<T> tClass) {
         try (InputStream inputStream = JsonReader.class.getClassLoader().getResourceAsStream(fileName)) {
             if (inputStream == null) {
                 throw new ResourceFileNotFoundException(fileName); // todo or can be log
@@ -32,5 +34,9 @@ public class JsonReader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static <T> List<T> parseResourceToList(String fileName, Class<T> tClass) {
+        return Arrays.asList(parseResourceToArray(fileName, tClass));
     }
 }
