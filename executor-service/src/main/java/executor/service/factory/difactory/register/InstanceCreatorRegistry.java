@@ -1,5 +1,6 @@
 package executor.service.factory.difactory.register;
 
+import executor.service.exception.register.UnregisteredClassException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
 
 import java.util.function.Function;
@@ -14,7 +15,7 @@ public interface InstanceCreatorRegistry {
      *
      * @param type the class type for which to retrieve the creator function
      * @return the creator function that creates an instance of the class
-     * @throws executor.service.exception.UnregisteredClassException if the specified class is not registered in the registry
+     * @throws UnregisteredClassException if the specified class is not registered in the registry
      */
     Function<DependencyInjectionFactory, ?> getCreatorFunction(Class<?> type);
 }

@@ -1,9 +1,8 @@
 package executor.service.factory.difactory.register;
 
-import executor.service.exception.DuplicateRegistrationException;
-import executor.service.exception.UnregisteredClassException;
+import executor.service.exception.register.DuplicateRegistrationException;
+import executor.service.exception.register.UnregisteredClassException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
-import executor.service.factory.difactory.register.InstanceCreatorRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

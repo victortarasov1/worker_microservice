@@ -1,8 +1,8 @@
 package executor.service.factory.difactory.register;
 
 import executor.service.annotation.Component;
-import executor.service.exception.ConstructorNotFoundException;
-import executor.service.exception.InstanceCreationException;
+import executor.service.exception.register.ConstructorNotFoundException;
+import executor.service.exception.register.InstanceCreationException;
 import executor.service.factory.difactory.DependencyInjectionFactory;
 
 import java.lang.reflect.Constructor;
@@ -44,7 +44,7 @@ public class ComponentRegistrar implements InstanceRegistrar {
                 Object[] objects = Arrays.stream(constructor.getParameters()).map(Parameter::getType).map(serviceFactory::createInstance).toArray();
                 return constructor.newInstance(objects);
             } catch (InvocationTargetException | InstantiationException | IllegalAccessException | IllegalArgumentException ex) {
-                throw new InstanceCreationException(ex.getMessage(), clazz);
+                throw new InstanceCreationException(clazz, ex);
             }
         };
     }
