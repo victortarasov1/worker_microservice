@@ -1,5 +1,6 @@
 package executor.service.config;
 
+import executor.service.ExecutionServiceImpl;
 import executor.service.ScenarioExecutor;
 import executor.service.ScenarioExecutorImpl;
 import executor.service.annotation.Bean;
@@ -27,6 +28,7 @@ public class Configuration {
     private final Properties properties;
     private static final String CONFIG_FILE_PATH = "/config.properties";
 
+
     public Configuration() {
         properties = new Properties();
         try (InputStream inputStream = getClass().getResourceAsStream(CONFIG_FILE_PATH)) {
@@ -46,7 +48,6 @@ public class Configuration {
         return config;
     }
 
-    @Bean
     public ScenarioExecutor scenarioExecutor() {
         Logger scenario_logger = LoggerFactory.getLogger("SCENARIO_LOGGER");
         List<StepExecution> steps = List.of(
@@ -56,7 +57,6 @@ public class Configuration {
         );
         return LoggingProxyProvider.createProxy(new ScenarioExecutorImpl(steps), ScenarioExecutor.class, scenario_logger);
     }
-
 
     @Bean
     public ProxySourcesClient proxySourcesClient(){
