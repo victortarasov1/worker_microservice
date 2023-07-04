@@ -1,6 +1,5 @@
 package executor.service.config;
 
-import executor.service.ExecutionServiceImpl;
 import executor.service.ScenarioExecutor;
 import executor.service.ScenarioExecutorImpl;
 import executor.service.annotation.Bean;
@@ -48,6 +47,7 @@ public class Configuration {
         return config;
     }
 
+    @Bean
     public ScenarioExecutor scenarioExecutor() {
         Logger scenario_logger = LoggerFactory.getLogger("SCENARIO_LOGGER");
         List<StepExecution> steps = List.of(
