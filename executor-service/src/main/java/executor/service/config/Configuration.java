@@ -1,5 +1,4 @@
 package executor.service.config;
-
 import executor.service.ScenarioExecutor;
 import executor.service.ScenarioExecutorImpl;
 import executor.service.annotation.Bean;
@@ -14,39 +13,41 @@ import executor.service.stepexecution.ClickCss;
 import executor.service.stepexecution.ClickXpath;
 import executor.service.stepexecution.Sleep;
 import executor.service.stepexecution.StepExecution;
+import org.apache.commons.configuration2.FileBasedConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
 import java.util.List;
-import java.util.Properties;
 
 @Config
 public class Configuration {
-    private final Properties properties;
-    private static final String CONFIG_FILE_PATH = "/config.properties";
-
+    private final PropertiesConfiguration properties;
 
     public Configuration() {
-        properties = new Properties();
-        try (InputStream inputStream = getClass().getResourceAsStream(CONFIG_FILE_PATH)) {
-            properties.load(inputStream);
-        } catch (IOException ex) {
+        try {
+            Parameters params = new Parameters();
+            FileBasedConfigurationBuilder<PropertiesConfiguration> builder =
+                    new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
+                            .configure(params.properties()
+                                    .setFileName("config.properties"));
+            properties = builder.getConfiguration();
+        } catch (Exception ex) {
             throw new CantReadProperties(ex.getMessage());
         }
     }
-
     @Bean
     public WebDriverConfigDto webDriverConfigDto() {
         WebDriverConfigDto config = new WebDriverConfigDto();
-        config.setWebDriverExecutable(properties.getProperty(PropertyKey.WEB_DRIVER_EXECUTABLE.getKey()));
-        config.setUserAgent(properties.getProperty(PropertyKey.USER_AGENT.getKey()));
-        config.setPageLoadTimeout(Long.parseLong(properties.getProperty(PropertyKey.PAGE_LOAD_TIMEOUT.getKey())));
-        config.setImplicitlyWait(Long.parseLong(properties.getProperty(PropertyKey.IMPLICITLY_WAIT.getKey())));
+        config.setWebDriverExecutable(properties.getString(PropertyKey.WEB_DRIVER_EXECUTABLE.getKey()));
+        config.setUserAgent(properties.getString(PropertyKey.USER_AGENT.getKey()));
+        config.setPageLoadTimeout(properties.getLong(PropertyKey.PAGE_LOAD_TIMEOUT.getKey()));
+        config.setImplicitlyWait(properties.getLong(PropertyKey.IMPLICITLY_WAIT.getKey()));
         return config;
     }
-
     @Bean
     public ScenarioExecutor scenarioExecutor() {
         Logger scenario_logger = LoggerFactory.getLogger("SCENARIO_LOGGER");
@@ -57,9 +58,8 @@ public class Configuration {
         );
         return LoggingProxyProvider.createProxy(new ScenarioExecutorImpl(steps), ScenarioExecutor.class, scenario_logger);
     }
-
     @Bean
-    public ProxySourcesClient proxySourcesClient(){
+    public ProxySourcesClient proxySourcesClient() {
         return new ProxySourcesClientImpl(new JsonProxySources());
     }
 }
