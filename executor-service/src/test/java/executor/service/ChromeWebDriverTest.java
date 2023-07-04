@@ -1,6 +1,6 @@
 package executor.service;
 
-import executor.service.config.Configuration;
+import executor.service.config.CustomConfiguration;
 import executor.service.factory.webdriverinitializer.ChromeDriverProviderImpl;
 import executor.service.factory.webdriverinitializer.WebDriverProvider;
 import executor.service.factory.webdriverinitializer.proxy.ProxyProviderImpl;
@@ -55,7 +55,7 @@ class ChromeWebDriverTest {
         webDriver.quit();
     }
     private WebDriverConfigDto createWebDriverConfig() {
-        Configuration configuration = new Configuration();
+        CustomConfiguration configuration = new CustomConfiguration();
         return configuration.webDriverConfigDto();
     }
 }
