@@ -3,6 +3,7 @@ import executor.service.ScenarioExecutor;
 import executor.service.ScenarioExecutorImpl;
 import executor.service.annotation.Bean;
 import executor.service.annotation.Config;
+import executor.service.exception.CantReadProperties;
 import executor.service.maintenance.plugin.proxy.JsonProxySources;
 import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
 import executor.service.maintenance.plugin.proxy.ProxySourcesClientImpl;
@@ -43,7 +44,7 @@ public class CustomConfiguration {
                     config.getLong(PropertyKey.PAGE_LOAD_TIMEOUT.getKey()),
                     config.getLong(PropertyKey.IMPLICITLY_WAIT.getKey()));
         }catch (ConfigurationException e) {
-            return null;
+            throw new CantReadProperties(e.getMessage());
         }
     }
 
@@ -59,7 +60,7 @@ public class CustomConfiguration {
             return new ThreadPoolConfigDto(config.getInt(PropertyKey.CORE_POOL_SIZE.getKey()),
                     config.getLong(PropertyKey.KEEP_ALIVE_TIME.getKey()));
         } catch (ConfigurationException e) {
-            return null;
+            throw new CantReadProperties(e.getMessage());
         }
     }
 

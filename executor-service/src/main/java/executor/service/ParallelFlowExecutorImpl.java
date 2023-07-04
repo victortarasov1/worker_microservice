@@ -1,9 +1,6 @@
 package executor.service;
 
 import executor.service.annotation.Component;
-import executor.service.config.CustomConfiguration;
-import executor.service.factory.difactory.CachedServiceFactoryProvider;
-import executor.service.factory.difactory.DependencyInjectionFactory;
 import executor.service.factory.webdriverinitializer.WebDriverProvider;
 
 import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
@@ -18,28 +15,22 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor{
 
     private final ExecutionService executionService;
     private final ThreadPoolConfigDto threadPoolConfigDto;
-
     private final ProxySourcesClient proxySourcesClient;
     private final ScenarioSourceListener scenarioSourceListener;
     private final ScenarioExecutor scenarioExecutor;
-
     private final WebDriverProvider driverProvider;
-
-    private static final DependencyInjectionFactory factory = CachedServiceFactoryProvider.getFactory();
-    private static final CustomConfiguration configurations = new CustomConfiguration();
     private static int MAXIMUM_POOL_SIZE;
 
-    public ParallelFlowExecutorImpl(ExecutionService executionService, ScenarioSourceListener scenarioSourceListener) {
-        this.threadPoolConfigDto = configurations.threadPoolConfigDtoFromProperties();
-        MAXIMUM_POOL_SIZE = configurations.readMaxPoolSizeFromProperties();
-
+    public ParallelFlowExecutorImpl(ExecutionService executionService, ScenarioSourceListener scenarioSourceListener, WebDriverProvider driverProvider,
+                                    ThreadPoolConfigDto threadPoolConfigDto, Integer maxPoolSizeFromProperties,
+                                    ProxySourcesClient proxySourcesClient, ScenarioExecutor scenarioExecutor) {
+        this.threadPoolConfigDto = threadPoolConfigDto;
+        MAXIMUM_POOL_SIZE = maxPoolSizeFromProperties;
         this.executionService = executionService;
         this.scenarioSourceListener = scenarioSourceListener;
-
-        this.proxySourcesClient = configurations.proxySourcesClient();
-        this.scenarioExecutor = configurations.scenarioExecutor();
-
-        this.driverProvider = factory.createInstance(WebDriverProvider.class);
+        this.proxySourcesClient = proxySourcesClient;
+        this.scenarioExecutor = scenarioExecutor;
+        this.driverProvider = driverProvider;
     }
 
     public void runInParallelFlow() {
