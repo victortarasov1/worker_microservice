@@ -33,7 +33,7 @@ public class CustomConfiguration {
     }
 
     @Bean
-    public int maxPoolSize() {
+    public Integer maxPoolSize() {
         return PropertyReader.readMaxPoolSizeFromProperties();
     }
 
