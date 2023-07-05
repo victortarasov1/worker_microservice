@@ -14,12 +14,13 @@ import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.*;
 
 class LoggingInvocationHandlerTest {
-    private static final String METHOD_NAME = "doSomething";
+
     private Logger mockLogger;
 
     private LoggingInvocationHandler<MyInterface> invocationHandler;
     private MyInterface mockTarget;
-    private final static String PRIVATE_METHOD_NAME = "doSomethingAnother";
+    private static final String PRIVATE_METHOD_NAME = "doSomethingAnother";
+    private static final String METHOD_NAME = "doSomething";
 
     @BeforeEach
     void setUp() {
