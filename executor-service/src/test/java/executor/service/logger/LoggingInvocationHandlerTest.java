@@ -20,7 +20,7 @@ class LoggingInvocationHandlerTest {
     private LoggingInvocationHandler<MyInterface> invocationHandler;
     private MyInterface mockTarget;
     private static final String PRIVATE_METHOD_NAME = "doSomethingAnother";
-    private static final String METHOD_NAME = "doSomething";
+    private static final String PUBLIC_METHOD_NAME = "doSomething";
 
     @BeforeEach
     void setUp() {
@@ -31,7 +31,7 @@ class LoggingInvocationHandlerTest {
 
     @Test
     public void testInvoke() throws Throwable {
-        Method method = MyInterface.class.getMethod(METHOD_NAME, double.class);
+        Method method = MyInterface.class.getMethod(PUBLIC_METHOD_NAME, double.class);
         Object[] args = new Object[]{3.D};
         when(mockTarget.doSomething(anyDouble())).thenReturn(5.D);
         Object result = invocationHandler.invoke(null, method, args);
@@ -43,7 +43,7 @@ class LoggingInvocationHandlerTest {
 
     @Test
     public void testInvoke_shouldLogInvocationTargetExceptionBeforeRethrowing() throws NoSuchMethodException {
-        Method method = MyInterface.class.getMethod(METHOD_NAME, double.class);
+        Method method = MyInterface.class.getMethod(PUBLIC_METHOD_NAME, double.class);
         Object[] args = new Object[]{3.D};
         RuntimeException targetException = new RuntimeException();
         when(mockTarget.doSomething(anyDouble())).thenThrow(targetException);
