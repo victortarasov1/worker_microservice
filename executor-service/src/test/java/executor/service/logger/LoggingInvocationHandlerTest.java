@@ -1,12 +1,10 @@
 package executor.service.logger;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -21,6 +19,7 @@ class LoggingInvocationHandlerTest {
 
     private LoggingInvocationHandler<MyInterface> invocationHandler;
     private MyInterface mockTarget;
+    private final static String PRIVATE_METHOD_NAME = "doSomethingAnother";
 
     @BeforeEach
     void setUp() {
@@ -53,19 +52,20 @@ class LoggingInvocationHandlerTest {
         verify(mockLogger).error(LogMessage.INVOCATION_TARGET_EXCEPTION.getMessage(), mockTarget.getClass().getSimpleName(), targetException);
     }
 
-    @Disabled("Faulty mock breaks a lot of tests :(")
+
     @Test
-    public void testInvoke_shouldThrowIllegalAccessException() throws InvocationTargetException, IllegalAccessException {
+    public void testInvoke_shouldThrowIllegalAccessException() throws NoSuchMethodException {
         Object[] args = new Object[]{3.D};
-        Exception targetException = new IllegalAccessException();
-        Method mockMethod = mock(Method.class);
-        doThrow(targetException).when(mockMethod).invoke(any(), any());
-        assertThatThrownBy(() -> invocationHandler.invoke(null, mockMethod, args))
+        Method method = MyInterface.class.getDeclaredMethod(PRIVATE_METHOD_NAME);
+        assertThatThrownBy(() -> invocationHandler.invoke(null, method, args))
                 .isInstanceOf(IllegalAccessException.class);
-        verify(mockLogger).info(LogMessage.EXECUTING_METHOD.getMessage(), mockMethod.getName(), mockTarget.getClass().getSimpleName(), args);
+        verify(mockLogger).info(LogMessage.EXECUTING_METHOD.getMessage(), method.getName(), mockTarget.getClass().getSimpleName(), args);
     }
 
     interface MyInterface {
         double doSomething(double value);
+        private void doSomethingAnother(){
+
+        }
     }
 }
