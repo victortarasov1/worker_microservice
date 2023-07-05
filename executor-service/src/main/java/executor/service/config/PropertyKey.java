@@ -1,6 +1,6 @@
 package executor.service.config;
 
-enum PropertyKey {
+public enum PropertyKey {
     WEB_DRIVER_EXECUTABLE("executorservice.common.webDriverExecutable"),
     USER_AGENT("executorservice.common.userAgent"),
     PAGE_LOAD_TIMEOUT("executorservice.common.pageLoadTimeout"),
@@ -14,7 +14,7 @@ enum PropertyKey {
         this.key = key;
     }
 
-    String getKey() {
+    public String getKey() {
         return key;
     }
 }
