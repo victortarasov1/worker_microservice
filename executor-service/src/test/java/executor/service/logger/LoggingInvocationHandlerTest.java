@@ -17,6 +17,7 @@ import static org.mockito.Mockito.*;
 
 class LoggingInvocationHandlerTest {
     private static final String METHOD_NAME = "doSomething";
+    private static final String PRIVATE_METHOD_NAME = "doSomethingAnother";
     private Logger mockLogger;
 
     private LoggingInvocationHandler<MyInterface> invocationHandler;
@@ -55,7 +56,7 @@ class LoggingInvocationHandlerTest {
 
    
     @Test
-    public void testInvoke_shouldThrowIllegalAccessException() throws InvocationTargetException, IllegalAccessException {
+    public void testInvoke_shouldThrowIllegalAccessException() throws NoSuchMethodException {
         Object[] args = new Object[]{3.D};
         Method method = MyInterface.class.getDeclaredMethod(PRIVATE_METHOD_NAME);
         assertThatThrownBy(() -> invocationHandler.invoke(null, method, args)).isInstanceOf(IllegalAccessException.class);
@@ -64,5 +65,8 @@ class LoggingInvocationHandlerTest {
 
     interface MyInterface {
         double doSomething(double value);
+        private void doSomethingAnother(){
+
+        }
     }
 }
