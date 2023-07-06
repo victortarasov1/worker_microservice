@@ -5,6 +5,7 @@ import executor.service.factory.webdriverinitializer.WebDriverProvider;
 
 import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
 
+import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ThreadPoolConfigDto;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -41,11 +42,9 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor{
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(threadPoolConfigDto.getCorePoolSize(),
                 MAXIMUM_POOL_SIZE, threadPoolConfigDto.getKeepAliveTime(),
                 TimeUnit.MILLISECONDS, workQueue);
-
+        ProxyConfigHolderDto proxy = proxySourcesClient.getProxy();
         threadPoolExecutor.execute(() -> executionService.execute
-                (driverProvider.create(proxySourcesClient.getProxy()),
-                        scenarioSourceListener, scenarioExecutor));
-
+                (driverProvider.create(proxy), scenarioSourceListener, scenarioExecutor));
         threadPoolExecutor.shutdown();
     }
 

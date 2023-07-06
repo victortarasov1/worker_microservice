@@ -10,6 +10,6 @@ import org.openqa.selenium.WebDriver;
  */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        CachedServiceFactoryProvider.getFactory().createInstance(ParallelFlowExecutor.class).runInParallelFlow();
     }
 }
