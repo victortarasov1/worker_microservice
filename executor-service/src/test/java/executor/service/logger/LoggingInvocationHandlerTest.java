@@ -58,8 +58,7 @@ class LoggingInvocationHandlerTest {
     public void testInvoke_shouldThrowIllegalAccessException() throws NoSuchMethodException {
         Object[] args = new Object[]{3.D};
         Method method = MyInterface.class.getDeclaredMethod(PRIVATE_METHOD_NAME);
-        assertThatThrownBy(() -> invocationHandler.invoke(null, method, args))
-                .isInstanceOf(IllegalAccessException.class);
+        assertThatThrownBy(() -> invocationHandler.invoke(null, method, args)).isInstanceOf(IllegalAccessException.class);
         verify(mockLogger).info(LogMessage.EXECUTING_METHOD.getMessage(), method.getName(), mockTarget.getClass().getSimpleName(), args);
     }
 
