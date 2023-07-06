@@ -20,7 +20,7 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor{
     private final ScenarioExecutor scenarioExecutor;
     private final WebDriverProvider driverProvider;
     private final ThreadPoolExecutor threadPoolExecutor;
-    private final ProxyConfigHolderDto proxy;
+    private ProxyConfigHolderDto proxy;
     private static  Integer MAXIMUM_POOL_SIZE;
 
     public ParallelFlowExecutorImpl(ExecutionService executionService, ScenarioSourceListener scenarioSourceListener, WebDriverProvider driverProvider,
@@ -36,7 +36,6 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor{
         this.threadPoolExecutor = new ThreadPoolExecutor(threadPoolConfigDto.getCorePoolSize(),
                 MAXIMUM_POOL_SIZE, threadPoolConfigDto.getKeepAliveTime(),
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
-        this.proxy = proxySourcesClient.getProxy();
     }
 
     public ParallelFlowExecutorImpl(ExecutionService executionService, ScenarioSourceListener scenarioSourceListener,
@@ -51,10 +50,11 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor{
         this.scenarioExecutor = scenarioExecutor;
         this.driverProvider = driverProvider;
         this.threadPoolExecutor = threadPoolExecutor;
-        this.proxy = proxySourcesClient.getProxy();
     }
 
     public void runInParallelFlow() {
+        this.proxy = proxySourcesClient.getProxy();
+
         scenarioSourceListener.execute();
 
         threadPoolExecutor.execute(() -> executionService.execute
