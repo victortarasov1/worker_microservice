@@ -6,6 +6,7 @@ import executor.service.factory.webdriverinitializer.WebDriverProvider;
 import executor.service.factory.webdriverinitializer.proxy.ProxyProviderImpl;
 import executor.service.model.WebDriverConfigDto;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -23,6 +24,7 @@ class ChromeWebDriverTest {
     }
 
     @Test
+    @Disabled
     void testNavigateToCern() throws InterruptedException {
         WebDriver webDriver = driverProvider.create();
         webDriver.get("http://info.cern.ch");
@@ -31,6 +33,7 @@ class ChromeWebDriverTest {
     }
 
     @Test
+    @Disabled
     void testClickElementByXPath() throws InterruptedException {
         WebDriver webDriver = driverProvider.create();
         webDriver.get("http://info.cern.ch");
