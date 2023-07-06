@@ -2,7 +2,6 @@ package executor.service;
 
 import executor.service.factory.webdriverinitializer.WebDriverProvider;
 import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
-import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ThreadPoolConfigDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,8 +27,6 @@ class ParallelFlowExecutorImplTest {
     private ProxySourcesClient proxySourcesClient;
     @Mock
     private ScenarioExecutor scenarioExecutor;
-    @Mock
-    private ProxyConfigHolderDto proxy;
 
     private static final Integer MAXIMUM_POOL_SIZE = 3;
 
@@ -41,7 +38,7 @@ class ParallelFlowExecutorImplTest {
         MockitoAnnotations.openMocks(this);
         parallelFlowExecutor = new ParallelFlowExecutorImpl(executionService, scenarioSourceListener,
                 driverProvider, threadPoolConfigDto, MAXIMUM_POOL_SIZE, proxySourcesClient,
-                scenarioExecutor, threadPoolExecutor, proxy);
+                scenarioExecutor, threadPoolExecutor);
     }
 
     @Test

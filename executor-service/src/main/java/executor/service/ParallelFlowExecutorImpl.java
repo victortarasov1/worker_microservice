@@ -42,8 +42,7 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor{
     public ParallelFlowExecutorImpl(ExecutionService executionService, ScenarioSourceListener scenarioSourceListener,
                                     WebDriverProvider driverProvider, ThreadPoolConfigDto threadPoolConfigDto,
                                     Integer maxPoolSizeFromProperties, ProxySourcesClient proxySourcesClient,
-                                    ScenarioExecutor scenarioExecutor, ThreadPoolExecutor threadPoolExecutor,
-                                    ProxyConfigHolderDto proxy){
+                                    ScenarioExecutor scenarioExecutor, ThreadPoolExecutor threadPoolExecutor){
         this.threadPoolConfigDto = threadPoolConfigDto;
         MAXIMUM_POOL_SIZE = maxPoolSizeFromProperties;
         this.executionService = executionService;
@@ -52,7 +51,7 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor{
         this.scenarioExecutor = scenarioExecutor;
         this.driverProvider = driverProvider;
         this.threadPoolExecutor = threadPoolExecutor;
-        this.proxy = proxy;
+        this.proxy = proxySourcesClient.getProxy();
     }
 
     public void runInParallelFlow() {
