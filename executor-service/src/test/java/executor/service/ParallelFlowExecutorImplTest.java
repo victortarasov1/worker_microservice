@@ -45,8 +45,6 @@ class ParallelFlowExecutorImplTest {
         when(threadPoolConfigDto.getCorePoolSize()).thenReturn(NUMBER_OF_THREADS);
         when(driverProvider.create(proxy)).thenReturn(driver);
 
-        scenarioSourceListener.execute();
-
         parallelFlowExecutor.runInParallelFlow();
 
         verify(executionService, times(NUMBER_OF_THREADS))
