@@ -33,11 +33,6 @@ public class CustomConfiguration {
     }
 
     @Bean
-    public Integer maxPoolSize() {
-        return PropertyReader.readMaxPoolSizeFromProperties();
-    }
-
-    @Bean
     public ScenarioExecutor scenarioExecutor() {
         Logger scenario_logger = LoggerFactory.getLogger("SCENARIO_LOGGER");
         List<StepExecution> steps = List.of(

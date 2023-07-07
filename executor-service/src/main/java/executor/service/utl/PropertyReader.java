@@ -36,8 +36,4 @@ public class PropertyReader {
             return new ThreadPoolConfigDto(config.getInt(PropertyKey.CORE_POOL_SIZE.getKey()),
                     config.getLong(PropertyKey.KEEP_ALIVE_TIME.getKey()));
     }
-
-    public static int readMaxPoolSizeFromProperties() {
-            return config.getInt(PropertyKey.MAXIMUM_POOL_SIZE.getKey());
-    }
 }
