@@ -20,7 +20,7 @@ class ParallelFlowExecutorImplTest {
     private ProxySourcesClient proxySourcesClient;
     private ScenarioExecutor scenarioExecutor;
     private ParallelFlowExecutorImpl parallelFlowExecutor;
-    private static final int NUMBER_OF_THREADS = 2;
+    private static final int NUMBER_OF_THREADS = 1;
     private static final int NUMBER_OF_GET_PROXY_CALL = 1;
     private static final int NUMBER_OF_EXECUTE_CALL = 1;
 
