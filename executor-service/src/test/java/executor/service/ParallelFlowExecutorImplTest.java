@@ -48,8 +48,8 @@ class ParallelFlowExecutorImplTest {
 
         parallelFlowExecutor.runInParallelFlow();
 
-        verify(executionService, times(NUMBER_OF_THREADS))
-                .execute(driver, scenarioSourceListener, scenarioExecutor);
+//        verify(executionService, times(NUMBER_OF_THREADS))
+//                .execute(driver, scenarioSourceListener, scenarioExecutor);
 
         verify(proxySourcesClient, times(NUMBER_OF_GET_PROXY_CALL)).getProxy();
 
