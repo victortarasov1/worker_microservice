@@ -4,11 +4,12 @@ import executor.service.annotation.Logged;
 import executor.service.exception.scenario.ScenarioExecutionException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
-@Logged
+@Aspect
 public class ScenarioExceptionHandlingAspect {
     private final Logger logger;
 
