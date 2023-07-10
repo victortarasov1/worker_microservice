@@ -1,6 +1,5 @@
 package executor.service.logger;
 
-import executor.service.annotation.Logged;
 import executor.service.exception.scenario.ScenarioExecutionException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
