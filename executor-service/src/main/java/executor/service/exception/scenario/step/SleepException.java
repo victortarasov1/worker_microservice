@@ -1,4 +1,4 @@
-package executor.service.exception.stepexception;
+package executor.service.exception.scenario.step;
 
 
 public class SleepException extends StepExecutionException {

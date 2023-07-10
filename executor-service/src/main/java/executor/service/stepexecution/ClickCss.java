@@ -1,6 +1,6 @@
 package executor.service.stepexecution;
 
-import executor.service.exception.stepexception.ClickCssException;
+import executor.service.exception.scenario.step.ClickCssException;
 import executor.service.model.StepDto;
 import org.openqa.selenium.*;
 
