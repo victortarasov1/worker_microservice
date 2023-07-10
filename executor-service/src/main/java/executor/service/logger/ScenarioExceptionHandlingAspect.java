@@ -16,7 +16,7 @@ public class ScenarioExceptionHandlingAspect {
         this.logger = logger;
     }
 
-    @Around("execution(* executor.service.ScenarioExecutor+.*(..))")
+    @Around("execution(* executor.service.maintenance.plugin.proxy.ScenarioExecutor+.*(..))")
     public void handle(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             joinPoint.proceed();
