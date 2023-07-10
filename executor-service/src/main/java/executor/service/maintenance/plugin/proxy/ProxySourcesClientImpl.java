@@ -1,8 +1,8 @@
 package executor.service.maintenance.plugin.proxy;
 
-import executor.service.exception.NoMoreProxiesException;
 import executor.service.model.ProxyConfigHolderDto;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,11 +14,6 @@ public class ProxySourcesClientImpl implements ProxySourcesClient {
     private Iterator<ProxyConfigHolderDto> mIterator;
     private boolean infinityLooping = false;
 
-    public void setInfinityLooping(boolean value) {
-        //todo Is it need this option?
-        infinityLooping = value;
-    }
-
     public ProxySourcesClientImpl(ProxySources sources) {
         this(sources, null);
     }
@@ -29,18 +24,25 @@ public class ProxySourcesClientImpl implements ProxySourcesClient {
         mIterator = proxyConfigHolders.iterator();
     }
 
+    public void setInfinityLooping(boolean value) {
+        //todo Is it need this option?
+        infinityLooping = value;
+    }
+
     private ProxyConfigHolderDto nextHolder() {
         if (!mIterator.hasNext()) {
-            if (proxyConfigHolders.isEmpty() || !infinityLooping) throw new NoMoreProxiesException();
+            if (proxyConfigHolders.isEmpty() || !infinityLooping) return null;
             mIterator = proxyConfigHolders.iterator();
         }
         return mIterator.next();
     }
 
+    @Nullable
     @Override
     public ProxyConfigHolderDto getProxy() {
         while (true) {
             ProxyConfigHolderDto holder = nextHolder();
+            if (holder == null) return null;
             if (mValidator != null && !mValidator.isValid(holder)) {
                 mIterator.remove();
                 continue;
@@ -49,7 +51,11 @@ public class ProxySourcesClientImpl implements ProxySourcesClient {
         }
     }
 
-    public List<ProxyConfigHolderDto> getListCopy(){
+    public int getProxyCount(){
+        return proxyConfigHolders.size();
+    }
+
+    public List<ProxyConfigHolderDto> getListCopy() {
         return new ArrayList<>(proxyConfigHolders);
     }
 }
