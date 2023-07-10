@@ -1,9 +1,13 @@
 package executor.service.stepexecution;
 
+import executor.service.annotation.Logged;
 import executor.service.exception.scenario.step.ClickCssException;
 import executor.service.model.StepDto;
 import org.openqa.selenium.*;
+import org.springframework.stereotype.Component;
 
+@Component
+@Logged
 public class ClickCss implements StepExecution {
     @Override
     public String getStepAction() {

@@ -1,9 +1,13 @@
 package executor.service.stepexecution;
 
+import executor.service.annotation.Logged;
 import executor.service.exception.scenario.step.ClickXPathException;
 import executor.service.model.StepDto;
 import org.openqa.selenium.*;
+import org.springframework.stereotype.Component;
 
+@Component
+@Logged
 public class ClickXpath implements StepExecution {
     @Override
     public String getStepAction() {
