@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ProxySourcesClientImplTest {
 
@@ -25,21 +26,18 @@ class ProxySourcesClientImplTest {
     }
 
     @Test
-    void testGetProxy() {
+    void testGetProxy() throws Throwable {
         System.out.println("==== testGetProxy =====");
         ProxySourcesClientImpl client = new ProxySourcesClientImpl(new JsonProxySources());
-        Exception exception = Assertions.assertThrowsExactly(NoMoreProxiesException.class, createExecutable(client, 6));
-        System.out.println("testGetProxy -> " + exception.getMessage() + "\n");
-        assertEquals("No more proxies", exception.getMessage());
+        createExecutable(client, client.getProxyCount()).execute();
+        assertNull(client.getProxy());
     }
 
     @Test
     void testGetProxyIfListEmpty() {
         System.out.println("==== testGetProxyIfListEmpty =====");
         ProxySourcesClientImpl client = new ProxySourcesClientImpl(ArrayList::new);
-        Exception exception = Assertions.assertThrowsExactly(NoMoreProxiesException.class, createExecutable(client, 1));
-        System.out.println("testGetProxyIfListEmpty -> " + exception.getMessage() + "\n");
-        assertEquals("No more proxies", exception.getMessage());
+        assertNull(client.getProxy());
     }
 
     @Test
