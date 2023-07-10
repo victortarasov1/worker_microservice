@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -29,13 +30,32 @@ class ScenarioExceptionHandlingAspectTest {
     }
 
     @Test
-    void testHandle_shouldLogScenarioExecutionException() throws Throwable {
+    void testHandle_shouldLogScenarioExecutionExceptionWhenItIsThrown() throws Throwable {
         when(joinPoint.getTarget()).thenReturn(new TestClass());
         when(signature.getName()).thenReturn(METHOD_NAME);
         when(joinPoint.proceed()).thenThrow(ScenarioExecutionException.class);
         scenarioExceptionHandlingAspect.handle(joinPoint);
         verify(logger).error(eq(LogMessage.INVOCATION_TARGET_EXCEPTION.getMessage()), eq(METHOD_NAME), eq(CLASS_NAME), any(ScenarioExecutionException.class));
 
+    }
+
+    @Test
+    void testHandle_shouldNotLogScenarioExecutionExceptionWhenItIsNotThrown() throws Throwable {
+        when(joinPoint.getTarget()).thenReturn(new TestClass());
+        when(signature.getName()).thenReturn(METHOD_NAME);
+        when(joinPoint.proceed()).thenReturn(null);
+        scenarioExceptionHandlingAspect.handle(joinPoint);
+        verify(logger, never()).error(eq(LogMessage.INVOCATION_TARGET_EXCEPTION.getMessage()), eq(METHOD_NAME), eq(CLASS_NAME), any(ScenarioExecutionException.class));
+    }
+
+    @Test
+    void testHandle_shouldPropagateNonScenarioExecutionExceptionAndNotLog() throws Throwable {
+        when(joinPoint.getTarget()).thenReturn(new TestClass());
+        when(signature.getName()).thenReturn(METHOD_NAME);
+        when(joinPoint.proceed()).thenThrow(RuntimeException.class);
+        assertThatThrownBy(() -> scenarioExceptionHandlingAspect.handle(joinPoint))
+                .isInstanceOf(RuntimeException.class);
+        verify(logger, never()).error(eq(LogMessage.INVOCATION_TARGET_EXCEPTION.getMessage()), eq(METHOD_NAME), eq(CLASS_NAME), any(ScenarioExecutionException.class));
     }
 
     private static class TestClass {
