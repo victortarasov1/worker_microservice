@@ -1,4 +1,4 @@
-package executor.service;
+package executor.service.maintenance.plugin.proxy;
 
 import executor.service.maintenance.plugin.proxy.ScenarioExecutorImpl;
 import executor.service.model.ScenarioDto;
