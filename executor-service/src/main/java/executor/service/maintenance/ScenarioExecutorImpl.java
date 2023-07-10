@@ -1,10 +1,10 @@
-package executor.service.maintenance.plugin.proxy;
+package executor.service.maintenance;
 
 
 import executor.service.annotation.Logged;
 import executor.service.exception.scenario.SiteNotFoundException;
 import executor.service.exception.scenario.step.UnknownStepException;
-import executor.service.maintenance.plugin.proxy.ScenarioExecutor;
+import executor.service.maintenance.ScenarioExecutor;
 import executor.service.model.ScenarioDto;
 import executor.service.model.StepDto;
 import executor.service.stepexecution.StepExecution;

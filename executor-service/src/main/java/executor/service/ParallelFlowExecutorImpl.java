@@ -3,9 +3,9 @@ package executor.service;
 import executor.service.annotation.Component;
 import executor.service.factory.webdriverinitializer.WebDriverProvider;
 
+import executor.service.maintenance.ScenarioExecutor;
 import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
 
-import executor.service.maintenance.plugin.proxy.ScenarioExecutor;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ThreadPoolConfigDto;
 

@@ -1,6 +1,6 @@
-package executor.service.maintenance.plugin.proxy;
+package executor.service.maintenance;
 
-import executor.service.maintenance.plugin.proxy.ScenarioExecutorImpl;
+import executor.service.maintenance.ScenarioExecutorImpl;
 import executor.service.model.ScenarioDto;
 import executor.service.stepexecution.ClickCss;
 import executor.service.stepexecution.ClickXpath;
