@@ -16,7 +16,7 @@ public class PropertyReader {
         Parameters params = new Parameters();
         FileBasedConfigurationBuilder<PropertiesConfiguration> builder =
                 new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
-                        .configure(params.properties().setFileName("config.properties"));
+                        .configure(params.properties().setFileName("application.properties"));
         try {
             config = builder.getConfiguration();
         } catch (ConfigurationException e) {
