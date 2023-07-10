@@ -33,16 +33,6 @@ public class CustomConfiguration {
     }
 
     @Bean
-    public ScenarioExecutor scenarioExecutor() {
-        Logger scenario_logger = LoggerFactory.getLogger("SCENARIO_LOGGER");
-        List<StepExecution> steps = List.of(
-                LoggingProxyProvider.createProxy(new ClickCss(), StepExecution.class, scenario_logger),
-                LoggingProxyProvider.createProxy(new ClickXpath(), StepExecution.class, scenario_logger),
-                LoggingProxyProvider.createProxy(new Sleep(), StepExecution.class, scenario_logger)
-        );
-        return LoggingProxyProvider.createProxy(new ScenarioExecutorImpl(steps), ScenarioExecutor.class, scenario_logger);
-    }
-    @Bean
     public ProxySourcesClient proxySourcesClient() {
         return new ProxySourcesClientImpl(new JsonProxySources());
     }
