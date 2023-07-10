@@ -1,29 +1,16 @@
 package executor.service.config;
-import executor.service.annotation.Bean;
-import executor.service.annotation.Config;
-import executor.service.maintenance.plugin.proxy.JsonProxySources;
-import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
-import executor.service.maintenance.plugin.proxy.ProxySourcesClientImpl;
-import executor.service.model.ThreadPoolConfigDto;
-import executor.service.model.WebDriverConfigDto;
-import executor.service.utl.PropertyReader;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 
-@Config
+@Configuration
 public class CustomConfiguration {
 
     @Bean
-    public WebDriverConfigDto webDriverConfigDto() {
-        return PropertyReader.webDriverConfigDtoFromProperties();
-    }
-
-    @Bean
-    public ThreadPoolConfigDto threadPoolConfigDto() {
-        return PropertyReader.threadPoolConfigDtoFromProperties();
-    }
-
-    @Bean
-    public ProxySourcesClient proxySourcesClient() {
-        return new ProxySourcesClientImpl(new JsonProxySources());
+    public Logger logger() {
+        return LoggerFactory.getLogger("PROJECT_LOGGER");
     }
 }
