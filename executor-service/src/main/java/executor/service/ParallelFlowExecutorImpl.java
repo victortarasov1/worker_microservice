@@ -1,18 +1,18 @@
 package executor.service;
 
-import executor.service.annotation.Component;
 import executor.service.factory.webdriverinitializer.WebDriverProvider;
 
 import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
 
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ThreadPoolConfigDto;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-@Component
+@Service
 public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final ExecutionService executionService;
     private final ThreadPoolConfigDto threadPoolConfigDto;

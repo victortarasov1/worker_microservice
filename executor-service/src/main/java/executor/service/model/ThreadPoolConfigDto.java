@@ -1,9 +1,14 @@
 package executor.service.model;
 
-import java.util.Objects;
+import executor.service.annotation.Component;
+import org.springframework.beans.factory.annotation.Value;
 
+import java.util.Objects;
+@Component
 public class ThreadPoolConfigDto {
+    @Value("executorservice.common.threadsCount")
     private Integer corePoolSize;
+    @Value("executorservice.common.keepAliveTime")
     private Long keepAliveTime;
 
     public ThreadPoolConfigDto() {}
