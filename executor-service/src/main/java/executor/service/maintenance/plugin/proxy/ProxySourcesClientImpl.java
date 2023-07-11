@@ -1,12 +1,15 @@
 package executor.service.maintenance.plugin.proxy;
 
 import executor.service.model.ProxyConfigHolderDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Service
 public class ProxySourcesClientImpl implements ProxySourcesClient {
 
     private final ProxyValidator mValidator;
@@ -14,6 +17,7 @@ public class ProxySourcesClientImpl implements ProxySourcesClient {
     private Iterator<ProxyConfigHolderDto> mIterator;
     private boolean infinityLooping = false;
 
+    @Autowired
     public ProxySourcesClientImpl(ProxySources sources) {
         this(sources, null);
     }

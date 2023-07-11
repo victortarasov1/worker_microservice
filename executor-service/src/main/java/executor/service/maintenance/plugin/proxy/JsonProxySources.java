@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@Component
 public class JsonProxySources implements ProxySources {
 
     private final String resourceName;
