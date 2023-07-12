@@ -2,8 +2,8 @@ package executor.service.logger;
 
 enum LogMessage {
     EXECUTING_METHOD("Executing method {} in class {} with arguments {}"),
-    METHOD_EXECUTION_COMPLETED("Method execution completed in class {}: Result - {}"),
-    INVOCATION_TARGET_EXCEPTION("Method execution failed in class: {}");
+    METHOD_EXECUTION_COMPLETED("Method {} execution completed in class {}"),
+    INVOCATION_TARGET_EXCEPTION("Method {} execution failed in class: {}");
 
     private final String message;
 

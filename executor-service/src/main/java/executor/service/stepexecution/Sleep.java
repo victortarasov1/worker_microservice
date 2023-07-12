@@ -1,10 +1,14 @@
 package executor.service.stepexecution;
 
-import executor.service.exception.stepexception.SleepException;
+import executor.service.annotation.Logged;
+import executor.service.exception.scenario.step.SleepException;
 import executor.service.model.StepDto;
 import org.openqa.selenium.WebDriver;
-import java.util.Random;
+import org.springframework.stereotype.Component;
 
+import java.util.Random;
+@Component
+@Logged
 public class Sleep implements StepExecution {
     @Override
     public String getStepAction() {

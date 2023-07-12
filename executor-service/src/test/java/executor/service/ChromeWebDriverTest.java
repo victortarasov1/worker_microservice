@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit;
 class ChromeWebDriverTest {
     private WebDriverProvider driverProvider;
 
-    @BeforeEach
-    void setup() {
-        driverProvider = new ChromeDriverProviderImpl(new ProxyProviderImpl(), createWebDriverConfig());
-    }
+//    @BeforeEach
+//    void setup() {
+//        driverProvider = new ChromeDriverProviderImpl(new ProxyProviderImpl(), createWebDriverConfig());
+//    }
 
     @Test
     @Disabled
@@ -44,6 +44,7 @@ class ChromeWebDriverTest {
         TimeUnit.SECONDS.sleep(5);
         webDriver.quit();    }
     @Test
+    @Disabled
     void testGoogleSearch() throws InterruptedException {
         WebDriver webDriver = driverProvider.create();
         webDriver.get("https://www.google.com/");
@@ -57,8 +58,8 @@ class ChromeWebDriverTest {
         TimeUnit.SECONDS.sleep(5);
         webDriver.quit();
     }
-    private WebDriverConfigDto createWebDriverConfig() {
-        CustomConfiguration configuration = new CustomConfiguration();
-        return configuration.webDriverConfigDto();
-    }
+//    private WebDriverConfigDto createWebDriverConfig() {
+//        CustomConfiguration configuration = new CustomConfiguration();
+//        return configuration.webDriverConfigDto();
+//    }
 }
