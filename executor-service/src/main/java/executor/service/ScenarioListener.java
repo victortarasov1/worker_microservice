@@ -1,13 +1,13 @@
 package executor.service;
 
-import executor.service.annotation.Component;
 import executor.service.model.ScenarioDto;
+import org.springframework.stereotype.Service;
 
 import java.util.Deque;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-@Component
+@Service
 public class ScenarioListener implements ScenarioSourceListener {
     private final ScenarioSource scenarioSource;
     private Deque<ScenarioDto> scenarios;

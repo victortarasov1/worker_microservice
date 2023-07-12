@@ -1,12 +1,12 @@
 package executor.service;
 
-import executor.service.annotation.Component;
 import executor.service.model.ScenarioDto;
 import executor.service.utl.JsonReader;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class JsonScenarioSource implements ScenarioSource {
     private String resourceName = "scenarios.json";
 
