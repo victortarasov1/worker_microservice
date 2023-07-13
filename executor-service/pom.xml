@@ -27,6 +27,7 @@
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <spring-boot-starter.version>3.1.1</spring-boot-starter.version>
         <aspectj.version>1.9.19</aspectj.version>
+        <flyway.version>9.20.0</flyway.version>
     </properties>
 
     <dependencies>
@@ -76,6 +77,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>${flyway.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -87,6 +93,10 @@
         </plugins>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (maybe moved to parent pom) -->
             <plugins>
+                <plugin>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-maven-plugin</artifactId>
+                </plugin>
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
