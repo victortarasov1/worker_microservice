@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 @Component
 public class ThreadPoolConfigDto {
-    @Value("executorservice.common.threadsCount")
+    @Value("${executorservice.common.threadsCount}")
     private Integer corePoolSize;
-    @Value("executorservice.common.keepAliveTime")
+    @Value("${executorservice.common.keepAliveTime}")
     private Long keepAliveTime;
 
     public ThreadPoolConfigDto() {}
