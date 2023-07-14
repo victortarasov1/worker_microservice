@@ -1,13 +1,13 @@
 package executor.service;
 
-import executor.service.annotation.Component;
 import executor.service.maintenance.ScenarioExecutor;
 import executor.service.model.ScenarioDto;
 import org.openqa.selenium.WebDriver;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Component
+@Service
 public class ExecutionServiceImpl implements ExecutionService {
 
     @Override
