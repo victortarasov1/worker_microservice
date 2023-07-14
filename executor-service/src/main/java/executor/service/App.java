@@ -1,15 +1,14 @@
 package executor.service;
 
-import executor.service.factory.difactory.CachedServiceFactoryProvider;
-import executor.service.factory.webdriverinitializer.WebDriverProvider;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Hello world!
  */
+@SpringBootApplication
 public class App {
     public static void main(String[] args) {
-        CachedServiceFactoryProvider.getFactory().createInstance(ParallelFlowExecutor.class).runInParallelFlow();
+        SpringApplication.run(App.class, args);
     }
 }
