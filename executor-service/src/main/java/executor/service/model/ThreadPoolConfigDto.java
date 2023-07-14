@@ -1,7 +1,7 @@
 package executor.service.model;
 
-import executor.service.annotation.Component;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 @Component

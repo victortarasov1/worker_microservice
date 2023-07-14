@@ -1,10 +1,10 @@
 package executor.service.maintenance.plugin.proxy;
 
-import executor.service.annotation.Component;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ProxyCredentialsDTO;
 import executor.service.model.ProxyNetworkConfigDTO;
 import executor.service.utl.JsonReader;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
