@@ -4,25 +4,21 @@ import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ProxyCredentialsDTO;
 import executor.service.model.ProxyNetworkConfigDTO;
 import executor.service.utl.JsonReader;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Component
 public class JsonProxySources implements ProxySources {
 
-    private final String resourceName;
-
+    final String source;
     private final List<ProxyConfigHolderDto> proxyConfigHolderDtoList = new ArrayList<>();
 
     public JsonProxySources() {
-        this.resourceName = "proxy_list.json";
+        this.source = "proxy_list.json";
     }
 
     public JsonProxySources(String resourceName) {
-        this.resourceName = resourceName;
+        this.source = resourceName;
     }
 
     @Override
@@ -32,7 +28,7 @@ public class JsonProxySources implements ProxySources {
     }
 
     private void parse() {
-        JsonModel[] arr = JsonReader.parseResourceToArray(resourceName, JsonModel.class);
+        JsonModel[] arr = getJsonArray();
 
         for (JsonModel model : arr) {
             for (ProxyCredentialsDTO credentials : model.credential) {
@@ -42,7 +38,10 @@ public class JsonProxySources implements ProxySources {
                 proxyConfigHolderDtoList.add(holder);
             }
         }
+    }
 
+    protected JsonModel[] getJsonArray() {
+        return JsonReader.parseResourceToArray(source, JsonModel.class);
     }
 
     record JsonModel(String hostname, Integer port, List<ProxyCredentialsDTO> credential) {

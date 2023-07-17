@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 @Service
 public class ProxySourcesClientImpl implements ProxySourcesClient {
 
@@ -55,7 +56,7 @@ public class ProxySourcesClientImpl implements ProxySourcesClient {
         }
     }
 
-    public int getProxyCount(){
+    public int getProxyCount() {
         return proxyConfigHolders.size();
     }
 
