@@ -16,4 +16,7 @@
         <appender-ref ref="stdout"/>
         <appender-ref ref="db"/>
     </root>
+    <logger name="Debug" level="INFO" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
 </configuration>
