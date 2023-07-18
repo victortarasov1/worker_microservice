@@ -57,7 +57,7 @@ class ValidationServiceTest {
         Assertions.assertFalse(service.isRunning());
     }
 
-    // huge test, for local testing, recommended to set root level="INFO" and logger name="Debug" level="DEBUG" on logback.xml
+    // huge test, for local testing, recommended to set root level="DEBUG" and logger name="Debug" level="DEBUG" on logback.xml
     @Test
     @Disabled
     void testRealProxyValidation() throws InterruptedException {
