@@ -4,12 +4,14 @@ import executor.service.model.ProxyConfigHolderDto;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
+@Service
 public class ProxyValidationAsyncService implements ProxyValidationService{
     private static final Logger LOGGER = LoggerFactory.getLogger("Debug");
     private static final int MAXIMUM_POOL_SIZE = 4;

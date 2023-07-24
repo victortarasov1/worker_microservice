@@ -5,6 +5,7 @@ import executor.service.model.ProxyCredentialsDTO;
 import executor.service.model.ProxyNetworkConfigDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+
+@Component
 public class HTTPProxyValidator implements ProxyValidator {
     private static final Logger LOGGER = LoggerFactory.getLogger("Debug");
     private static final int CONNECT_TIMEOUT = 10000;

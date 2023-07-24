@@ -1,10 +1,10 @@
 package executor.service.maintenance.plugin.proxy;
 
+import executor.service.model.ProxyConfigHolderDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -19,6 +19,7 @@ class ProxyClientTest {
     void testGetProxy() throws Throwable {
         System.out.println("==== testGetProxy =====");
         ProxyClient client = new ProxyClient(new JsonProxySources());
+        client.fetchData();
         createExecutable(client, client.getProxyCount()).execute();
         assertNull(client.getProxy());
     }
@@ -26,7 +27,8 @@ class ProxyClientTest {
     @Test
     void testGetProxyIfListEmpty() {
         System.out.println("==== testGetProxyIfListEmpty =====");
-        ProxyClient client = new ProxyClient(ArrayList::new);
+        ProxyClient client = new ProxyClient(() -> new ProxyConfigHolderDto[0]);
+        client.fetchData();
         assertNull(client.getProxy());
     }
 
@@ -34,6 +36,7 @@ class ProxyClientTest {
     void testGetProxyWithInfinityLoop() {
         System.out.println("==== testGetProxyWithInfinityLoop =====");
         ProxyClient client = new ProxyClient(new JsonProxySources());
+        client.fetchData();
         client.setInfinityLooping(true);
         Assertions.assertDoesNotThrow(createExecutable(client, 10));
         System.out.println();

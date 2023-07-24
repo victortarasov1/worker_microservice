@@ -2,21 +2,22 @@ package executor.service.maintenance.plugin.proxy;
 
 import executor.service.maintenance.proxy.ProxyValidationService;
 import executor.service.model.ProxyConfigHolderDto;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProxyClientWithAsyncValidation extends ProxyClient {
+
     private final ProxyValidationService mValidationService;
-    private final List<ProxyConfigHolderDto> sourceProxies;
+    private final List<ProxyConfigHolderDto> sourceProxies = new ArrayList<>();
 
     private boolean validated = false;
 
     public ProxyClientWithAsyncValidation(ProxySources sources, ProxyValidationService validationService) {
-        super(new ArrayList<>());
-        sourceProxies = sources.getProxyConfigHolders();
+        super(sources);
         mValidationService = validationService;
-        validate();
     }
 
     void validate() {
@@ -26,7 +27,7 @@ public class ProxyClientWithAsyncValidation extends ProxyClient {
 
         mValidationService.startValidateAsync(sourceProxies, null);
         ProxyConfigHolderDto proxy = mValidationService.waitForValidatedProxy();// wait for first valid proxy
-        if (proxy != null) sourceProxies.add(proxy);
+        if (proxy != null) proxies.add(proxy);
     }
 
     private void drainProxies() {
@@ -38,6 +39,14 @@ public class ProxyClientWithAsyncValidation extends ProxyClient {
                 validated = true;
             }
         }
+    }
+
+    @Override
+    public void fetchData() {
+        sourceProxies.clear();
+        Collections.addAll(sourceProxies, mSources.getProxyConfigHolders());
+        LoggerFactory.getLogger("Debug").info("Proxy: fetched " + sourceProxies.size() + " proxies");
+        validate();
     }
 
     ProxyConfigHolderDto nextProxy() {

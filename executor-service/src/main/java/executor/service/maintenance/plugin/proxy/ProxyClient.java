@@ -4,20 +4,18 @@ import executor.service.model.ProxyConfigHolderDto;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProxyClient implements ProxySourcesClient {
-    final List<ProxyConfigHolderDto> proxies;
+    final List<ProxyConfigHolderDto> proxies = new ArrayList<>();
+    final ProxySources mSources;
 
     int counter;
     private boolean infinityLooping = false;
 
     public ProxyClient(ProxySources sources) {
-        proxies = sources.getProxyConfigHolders();
-    }
-
-    ProxyClient(List<ProxyConfigHolderDto> proxies) {
-        this.proxies = proxies;
+        mSources = sources;
     }
 
     public void setInfinityLooping(boolean value) {
@@ -40,6 +38,11 @@ public class ProxyClient implements ProxySourcesClient {
     @Override
     public ProxyConfigHolderDto getProxy() {
         return nextProxy();
+    }
+
+    @Override
+    public void fetchData() {
+        Collections.addAll(proxies, mSources.getProxyConfigHolders());
     }
 
     int getProxyCount() {

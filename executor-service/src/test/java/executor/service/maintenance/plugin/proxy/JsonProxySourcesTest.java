@@ -15,7 +15,7 @@ class JsonProxySourcesTest {
     void testHolders() {
         JsonProxySources sources = new JsonProxySources();
         List<ProxyConfigHolderDto> expectedList = createTestHoldersList();
-        Assertions.assertArrayEquals(expectedList.toArray(), sources.getProxyConfigHolders().toArray());
+        Assertions.assertArrayEquals(expectedList.toArray(), sources.getProxyConfigHolders());
     }
 
     @Test
@@ -24,6 +24,7 @@ class JsonProxySourcesTest {
         Assertions.assertThrows(RuntimeException.class, sources::getProxyConfigHolders);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private ProxyConfigHolderDto createTestHolder(String hostname, int port, String username, String password) {
         return new ProxyConfigHolderDto(
                 new ProxyNetworkConfigDTO(hostname, port),
@@ -32,10 +33,9 @@ class JsonProxySourcesTest {
 
     private List<ProxyConfigHolderDto> createTestHoldersList() {
         List<ProxyConfigHolderDto> list = new ArrayList<>();
-        list.add(createTestHolder("host1", 8080, "Username", "password"));
-        list.add(createTestHolder("host1", 8080, "notValid", "password2"));
-        list.add(createTestHolder("host2", 8081, "Username1", "password2"));
-        list.add(createTestHolder("host3", 8080, "", ""));
+        list.add(createTestHolder("localhost", 80, null, null));
+        list.add(createTestHolder("localhost", 90, null, null));
+        list.add(createTestHolder("localhost3", 880, null, null));
         return list;
     }
 

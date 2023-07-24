@@ -1,7 +1,7 @@
 package executor.service.maintenance.proxy;
 
 import executor.service.maintenance.plugin.proxy.ProxySources;
-import executor.service.maintenance.plugin.proxy.ProxySourcesClientDecorator;
+import executor.service.maintenance.plugin.proxy.ProxySourcesClientService;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ProxyCredentialsDTO;
 import executor.service.model.ProxyNetworkConfigDTO;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 class ValidationServiceTest {
 
     private static ProxyConfigHolderDto createHolder(String proxy) {
-        String[] arr = proxy.split(":");
+        String[] arr = proxy.trim().split(":");
         return new ProxyConfigHolderDto(
                 new ProxyNetworkConfigDTO(arr[0], Integer.parseInt(arr[1])),
                 new ProxyCredentialsDTO());
@@ -64,12 +64,12 @@ class ValidationServiceTest {
         ProxyValidationAsyncService validationService = new ProxyValidationAsyncService(new HTTPProxyValidator());
         TestProxySources testProxySources = new TestProxySources();
 
-        final boolean testServiceOnly = true;
+        final boolean testServiceOnly = false;
         //noinspection ConstantValue
         if (testServiceOnly) {
             long startTime = System.currentTimeMillis();
             List<ProxyConfigHolderDto> vp = new ArrayList<>();
-            validationService.validate(testProxySources.mProxies,  vp);
+            validationService.validate(Arrays.asList(testProxySources.mProxies),  vp);
             long endTime = System.currentTimeMillis() - startTime;
             System.out.println("Valid proxies: " + vp.size());
             vp.forEach(proxy -> {
@@ -77,7 +77,8 @@ class ValidationServiceTest {
             });
             System.out.println("Validation ended: " + !validationService.isRunning() +  ", take time " + endTime + " ms");
         } else {
-            ProxySourcesClientDecorator clientDecorator = new ProxySourcesClientDecorator(testProxySources, validationService);
+            ProxySourcesClientService clientDecorator = new ProxySourcesClientService(testProxySources, validationService);
+            clientDecorator.fetchData();
             while (true) {
                 ProxyConfigHolderDto proxy = clientDecorator.getProxy();
                 if (proxy == null) {
@@ -98,7 +99,7 @@ class ValidationServiceTest {
 
     private static class TestProxySources implements ProxySources {
 
-        private final List<ProxyConfigHolderDto> mProxies = new ArrayList<>();
+        private final ProxyConfigHolderDto[] mProxies;
 
         public TestProxySources() {
             String proxies = """
@@ -111,15 +112,11 @@ class ValidationServiceTest {
                             13.95.173.197:80
                             117.251.103.186:8080
                     """;
-            Arrays.stream(proxies.split("\n")).forEach(address -> TestProxySources.this.addProxy(address.trim()));
-        }
-
-        private void addProxy(String address) {
-            mProxies.add(createHolder(address));
+            mProxies = Arrays.stream(proxies.split("\n")).map(ValidationServiceTest::createHolder).toArray(ProxyConfigHolderDto[]::new);
         }
 
         @Override
-        public List<ProxyConfigHolderDto> getProxyConfigHolders() {
+        public ProxyConfigHolderDto[] getProxyConfigHolders() {
             return mProxies;
         }
     }
