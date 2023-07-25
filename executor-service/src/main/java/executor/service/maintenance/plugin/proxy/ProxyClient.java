@@ -1,6 +1,7 @@
 package executor.service.maintenance.plugin.proxy;
 
 import executor.service.model.ProxyConfigHolderDto;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -37,7 +38,9 @@ public class ProxyClient implements ProxySourcesClient {
     @Nullable
     @Override
     public ProxyConfigHolderDto getProxy() {
-        return nextProxy();
+        ProxyConfigHolderDto proxy = nextProxy();
+        LoggerFactory.getLogger("Debug").info("Proxy: getProxy: " + (proxy == null ? null : proxy.getProxyNetworkConfig()));
+        return proxy;
     }
 
     @Override
