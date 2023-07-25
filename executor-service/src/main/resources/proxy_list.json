@@ -1,36 +1,32 @@
 [
   {
-    "hostname": "host1",
-    "port": 8080,
-    "credential": [
-      {
-        "username": "Username",
-        "password": "password"
-      },
-      {
-        "username": "notValid",
-        "password": "password2"
-      }
-    ]
+    "proxyNetworkConfig": {
+      "hostname": "localhost",
+      "port": 80
+    },
+    "proxyCredentials": {
+      "username": null,
+      "password": null
+    }
   },
   {
-    "hostname": "host2",
-    "port": 8081,
-    "credential": [
-      {
-        "username": "Username1",
-        "password": "password2"
-      }
-    ]
+    "proxyNetworkConfig": {
+      "hostname": "localhost",
+      "port": 90
+    },
+    "proxyCredentials": {
+      "username": null,
+      "password": null
+    }
   },
   {
-    "hostname": "host3",
-    "port": 8080,
-    "credential": [
-      {
-        "username": "",
-        "password": ""
-      }
-    ]
+    "proxyNetworkConfig": {
+      "hostname": "localhost3",
+      "port": 880
+    },
+    "proxyCredentials": {
+      "username": null,
+      "password": null
+    }
   }
 ]
