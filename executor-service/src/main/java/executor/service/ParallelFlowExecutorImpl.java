@@ -7,6 +7,7 @@ import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
 
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.ThreadPoolConfigDto;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.Executors;
@@ -33,8 +34,10 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
         this.driverProvider = driverProvider;
     }
 
+    @Scheduled(fixedRate = 120000)
     @Override
     public void runInParallelFlow() {
+        proxySourcesClient.fetchData();
         ProxyConfigHolderDto proxy = proxySourcesClient.getProxy();
         scenarioSourceListener.execute();
         ThreadPoolExecutor fixedThreadPool = (ThreadPoolExecutor)
@@ -45,7 +48,6 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
                     (driverProvider.create(proxy), scenarioSourceListener, scenarioExecutor));
         }
         fixedThreadPool.shutdown();
-
     }
 
 }
