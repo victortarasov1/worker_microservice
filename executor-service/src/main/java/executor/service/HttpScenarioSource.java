@@ -58,6 +58,7 @@ public class HttpScenarioSource implements ScenarioSource {
                 .url(scenariosUrl)
                 .addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8")
                 .addHeader(HttpHeaders.AUTHORIZATION, AuthorizationType.BEARER.getPrefix() + token)
+                .delete()
                 .build();
 
         try {
