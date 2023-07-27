@@ -4,12 +4,14 @@ import executor.service.model.ProxyConfigHolderDto;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public interface ProxyValidationService {
 
     void startValidateAsync(List<ProxyConfigHolderDto> sourceProxies);
-    void startValidateAsync(List<ProxyConfigHolderDto> sourceProxies, List<ProxyConfigHolderDto> validatedProxies);
+
+    void cancelValidate(long value, TimeUnit nanoseconds);
 
     void cancelValidate();
 

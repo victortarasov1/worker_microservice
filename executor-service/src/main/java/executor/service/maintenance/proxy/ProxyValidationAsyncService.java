@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -24,13 +23,9 @@ public class ProxyValidationAsyncService implements ProxyValidationService{
         mValidator = validator;
         validatedProxiesQueue = new LinkedBlockingQueue<>();
     }
-    @Override
-    public void startValidateAsync(List<ProxyConfigHolderDto> sourceProxies) {
-        startValidateAsync(sourceProxies, null);
-    }
 
     @Override
-    public void startValidateAsync(List<ProxyConfigHolderDto> sourceProxies, List<ProxyConfigHolderDto> validatedProxies) {
+    public void startValidateAsync(List<ProxyConfigHolderDto> sourceProxies) {
 
         if (isRunning()) {
             throw new IllegalStateException("Cannot execute task: the task is already running.");
@@ -38,19 +33,13 @@ public class ProxyValidationAsyncService implements ProxyValidationService{
         executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(MAXIMUM_POOL_SIZE);
         validatedProxiesQueue.clear();
 
-        List<ProxyConfigHolderDto> syncValidatedProxies = validatedProxies == null ?
-                null : Collections.synchronizedList(validatedProxies);
-
         runningTaskCounter.set(sourceProxies.size());
         for (ProxyConfigHolderDto proxy : sourceProxies) {
             executor.execute(() -> {
                 LOGGER.debug("Thread started. Tasks: " + runningTaskCounter);
 
-                if (mValidator.isValid(proxy)) {
+                if (mValidator.isValid(proxy) && !Thread.currentThread().isInterrupted()) {
                     validatedProxiesQueue.add(proxy);
-                    if (syncValidatedProxies != null) {
-                        syncValidatedProxies.add(proxy);
-                    }
                 } else {
                     if (runningTaskCounter.get() == 1) {
                         validatedProxiesQueue.add(poisonPill);
@@ -65,20 +54,25 @@ public class ProxyValidationAsyncService implements ProxyValidationService{
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
-    public void cancelValidate() {
+    public void cancelValidate(long value, TimeUnit nanoseconds) {
         if (executor == null) return;
         executor.shutdownNow();
         try {
-            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            executor.awaitTermination(value, nanoseconds);
         } catch (InterruptedException ignored) {
         }
-        runningTaskCounter.set(0);
-        LOGGER.debug("Stop validate. Active threads: " + executor.getActiveCount());
+        runningTaskCounter.set(executor.getActiveCount());
+        LOGGER.debug("Validation stopped. Active threads: " + executor.getActiveCount());
+    }
+
+    @Override
+    public void cancelValidate() {
+        cancelValidate(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
     }
 
     @Override
     public void validate(List<ProxyConfigHolderDto> sourceProxies, List<ProxyConfigHolderDto> validatedProxies) {
-        startValidateAsync(sourceProxies, null);
+        startValidateAsync(sourceProxies);
         waitForValidatedProxies(validatedProxies);
     }
 
