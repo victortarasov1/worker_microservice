@@ -11,16 +11,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.concurrent.TimeUnit;
 
+@SpringBootTest
 class ChromeWebDriverTest {
 
     private WebDriverProvider driverProvider;
+    @Autowired
+    private WebDriverConfigDto webDriverConfigDto;
 
     @BeforeEach
     void setup() {
-        WebDriverConfigDto webDriverConfigDto = new WebDriverConfigDto("/usr/local/bin/chromedriver", "desktop", 3000L, 3L);
         driverProvider = new ChromeDriverProviderImpl(new ProxyProviderImpl(), webDriverConfigDto);
     }
 
