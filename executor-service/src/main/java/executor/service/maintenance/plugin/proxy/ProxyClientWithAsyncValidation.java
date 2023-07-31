@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ProxyClientWithAsyncValidation extends ProxyClient {
 
@@ -25,8 +26,9 @@ public class ProxyClientWithAsyncValidation extends ProxyClient {
         validated = false;
         proxies.clear();
 
-        mValidationService.startValidateAsync(sourceProxies, null);
+        mValidationService.startValidateAsync(sourceProxies);
         ProxyConfigHolderDto proxy = mValidationService.waitForValidatedProxy();// wait for first valid proxy
+        mValidationService.cancelValidate(0, TimeUnit.NANOSECONDS);
         if (proxy != null) proxies.add(proxy);
     }
 

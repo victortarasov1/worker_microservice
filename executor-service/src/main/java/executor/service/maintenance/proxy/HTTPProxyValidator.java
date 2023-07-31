@@ -46,12 +46,13 @@ public class HTTPProxyValidator implements ProxyValidator {
             validate(proxy, holder.getProxyCredentials());
             result = true;
         } catch (Exception e) {
-            LOGGER.error("Proxy " + config.getHostname() + ":" + config.getPort() + ". Validation error: " + e.getMessage());
+            if (!Thread.currentThread().isInterrupted()) {
+                LOGGER.error("Proxy " + config.getHostname() + ":" + config.getPort() + ". Validation error: " + e.getMessage());
+            }
         }
 
         LOGGER.debug("Proxy " + config.getHostname() + ":" + config.getPort() + (result ? "" : " not") + " validated. " +
                 "Time cost " + (System.currentTimeMillis() - startTime) + " ms");
-        LOGGER.debug("==============");
 
         return result;
     }
@@ -96,5 +97,4 @@ public class HTTPProxyValidator implements ProxyValidator {
             return sb.toString();
         }
     }
-
 }
