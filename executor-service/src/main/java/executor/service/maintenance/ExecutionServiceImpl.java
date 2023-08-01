@@ -1,6 +1,5 @@
-package executor.service;
+package executor.service.maintenance;
 
-import executor.service.maintenance.ScenarioExecutor;
 import executor.service.model.ScenarioDto;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Service;

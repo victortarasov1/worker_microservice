@@ -2,6 +2,7 @@ package executor.service;
 
 import executor.service.exception.okhttp.OkHttpException;
 import executor.service.exception.okhttp.UnsuccessfulResponseException;
+import executor.service.maintenance.HttpScenarioSource;
 import executor.service.model.ScenarioDto;
 import executor.service.model.StepDto;
 import okhttp3.Call;
