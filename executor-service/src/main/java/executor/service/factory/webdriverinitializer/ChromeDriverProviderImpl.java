@@ -1,5 +1,6 @@
 package executor.service.factory.webdriverinitializer;
 
+import executor.service.factory.webdriverinitializer.setting.BrowserOptions;
 import org.springframework.stereotype.Component;
 import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
 import executor.service.factory.webdriverinitializer.setting.UserAgentArgument;
@@ -48,6 +49,7 @@ public class ChromeDriverProviderImpl implements WebDriverProvider {
         ChromeOptions options = new ChromeOptions();
         if(proxyConfigHolder != null) options.setProxy(proxyProvider.getProxy(proxyConfigHolder));
         options.addArguments(UserAgentArgument.CHROME.getArgument() + webDriverConfig.getUserAgent());
+        options.addArguments(BrowserOptions.DISABLE_SANDBOX.getOption());
         return options;
     }
 
