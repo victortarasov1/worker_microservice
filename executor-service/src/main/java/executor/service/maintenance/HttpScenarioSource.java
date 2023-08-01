@@ -1,4 +1,4 @@
-package executor.service;
+package executor.service.maintenance;
 
 import com.google.common.net.HttpHeaders;
 import executor.service.enums.AuthorizationType;
