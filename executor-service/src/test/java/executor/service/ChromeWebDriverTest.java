@@ -13,10 +13,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
+@ContextConfiguration(classes = WebDriverConfigDto.class)
 class ChromeWebDriverTest {
 
     private WebDriverProvider driverProvider;
