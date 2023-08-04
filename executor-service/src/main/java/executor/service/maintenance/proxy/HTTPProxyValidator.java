@@ -47,7 +47,7 @@ public class HTTPProxyValidator implements ProxyValidator {
             result = true;
         } catch (Exception e) {
             if (!Thread.currentThread().isInterrupted()) {
-                LOGGER.error("Proxy " + config.getHostname() + ":" + config.getPort() + ". Validation error: " + e.getMessage());
+                LOGGER.warn("Proxy " + config.getHostname() + ":" + config.getPort() + ". Validation error: " + e.getMessage());
             }
         }
 
