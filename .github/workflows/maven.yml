@@ -33,7 +33,7 @@ jobs:
           chromedriver-version: '114.0.5735.90'
       - name: Move ChromeDriver to /opt
         run: |
-            sudo mv $RUNNER_TEMP/chromedriver_linux64/chromedriver /opt/chromedriver
+            sudo mv /usr/local/bin/chromedriver /opt/chromedriver
             sudo chmod +x /opt/chromedriver
       - name: Build and Run Tests
         run: |
