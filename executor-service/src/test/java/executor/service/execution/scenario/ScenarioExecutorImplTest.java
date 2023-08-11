@@ -1,11 +1,11 @@
-package executor.service.maintenance;
+package executor.service.execution.scenario;
 
-import executor.service.maintenance.ScenarioExecutorImpl;
+import executor.service.exectuion.scenario.ScenarioExecutorImpl;
 import executor.service.model.ScenarioDto;
-import executor.service.stepexecution.ClickCss;
-import executor.service.stepexecution.ClickXpath;
-import executor.service.stepexecution.Sleep;
-import executor.service.stepexecution.StepExecution;
+import executor.service.exectuion.scenario.step.ClickCss;
+import executor.service.exectuion.scenario.step.ClickXpath;
+import executor.service.exectuion.scenario.step.Sleep;
+import executor.service.exectuion.scenario.step.StepExecution;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -1,4 +1,4 @@
-package executor.service.stepexecution;
+package executor.service.exectuion.scenario.step;
 
 import executor.service.model.StepDto;
 import org.openqa.selenium.WebDriver;

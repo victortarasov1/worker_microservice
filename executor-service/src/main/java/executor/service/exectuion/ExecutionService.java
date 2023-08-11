@@ -1,5 +1,7 @@
-package executor.service.maintenance;
+package executor.service.exectuion;
 
+import executor.service.exectuion.scenario.ScenarioExecutor;
+import executor.service.maintenance.ScenarioSourceListener;
 import org.openqa.selenium.WebDriver;
 
 public interface ExecutionService {
