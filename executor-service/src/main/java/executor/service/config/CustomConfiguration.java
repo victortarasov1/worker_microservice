@@ -1,7 +1,6 @@
 package executor.service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import executor.service.maintenance.proxy.ProxyValidator;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.RemoteConnectionDto;
 import executor.service.model.ScenarioDto;
@@ -41,7 +40,7 @@ public class CustomConfiguration {
     }
 
     @Bean
-    public SourceListener<ProxyConfigHolderDto> proxySourceListener(OkhttpLoader loader, RemoteConnectionDto remoteConnectionDto, ProxyValidator validator) {
-        return new ProxySourceListener(loader, new ConcurrentLinkedQueue<>(), remoteConnectionDto, validator);
+    public SourceListener<ProxyConfigHolderDto> proxySourceListener(OkhttpLoader loader, RemoteConnectionDto remoteConnectionDto) {
+        return new ProxySourceListener(loader, new ConcurrentLinkedQueue<>(), remoteConnectionDto);
     }
 }
