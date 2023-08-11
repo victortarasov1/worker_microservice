@@ -1,5 +1,6 @@
 package executor.service.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,5 +18,10 @@ public class CustomConfiguration {
     @Bean
     public OkHttpClient getOkHttpClient() {
         return new OkHttpClient();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 }
