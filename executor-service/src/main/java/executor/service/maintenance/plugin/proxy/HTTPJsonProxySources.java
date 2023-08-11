@@ -26,7 +26,7 @@ public class HTTPJsonProxySources extends JsonProxySources {
 
     @Autowired
     public HTTPJsonProxySources(@Value("${publisher.proxy.url}") String url,
-                                @Value("${publisher.server.token}") String token,
+                                @Value("${publisher.jwt.token}") String token,
                                 OkHttpClient okHttpClient) {
         super(url);
         this.token = token;

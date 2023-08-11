@@ -28,8 +28,8 @@ public class HttpScenarioSource implements ScenarioSource {
     private final String token;
     private final OkHttpClient httpClient;
 
-    public HttpScenarioSource(@Value("${publisher.scenarios.url}") String scenariosUrl,
-                              @Value("${publisher.server.token}") String token, OkHttpClient okHttpClient) {
+    public HttpScenarioSource(@Value("${publisher.scenario.url}") String scenariosUrl,
+                              @Value("${publisher.jwt.token}") String token, OkHttpClient okHttpClient) {
         if (StringUtils.isBlank(scenariosUrl))  {
             throw new InvalidParameterException("Scenarios url is invalid");
         }
