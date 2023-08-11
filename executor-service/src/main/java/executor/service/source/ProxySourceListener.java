@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 
+import static com.google.common.net.HttpHeaders.AUTHORIZATION;
+
 public class ProxySourceListener implements SourceListener<ProxyConfigHolderDto> {
     private final OkhttpLoader loader;
     private final Request request;
@@ -21,7 +23,7 @@ public class ProxySourceListener implements SourceListener<ProxyConfigHolderDto>
         this.loader = loader;
         this.proxies = proxies;
         request = new Request.Builder().url(remoteConnectionDto.getProxyUrl())
-                .delete().header(AuthorizationType.BEARER.getPrefix(), remoteConnectionDto.getToken()).build();
+                .delete().header(AUTHORIZATION, AuthorizationType.BEARER.getPrefix() + remoteConnectionDto.getToken()).build();
         this.validator = validator;
     }
 

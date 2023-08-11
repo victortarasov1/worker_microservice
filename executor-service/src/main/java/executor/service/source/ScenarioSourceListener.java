@@ -9,6 +9,8 @@ import okhttp3.Request;
 import java.util.Optional;
 import java.util.Queue;
 
+import static com.google.common.net.HttpHeaders.AUTHORIZATION;
+
 public class ScenarioSourceListener implements SourceListener<ScenarioDto> {
 
     private final OkhttpLoader loader;
@@ -19,7 +21,7 @@ public class ScenarioSourceListener implements SourceListener<ScenarioDto> {
         this.loader = loader;
         this.scenarios = scenarios;
         request = new Request.Builder().url(remoteConnectionDto.getScenarioUrl())
-                .delete().addHeader(AuthorizationType.BEARER.getPrefix(), remoteConnectionDto.getToken()).build();
+                .delete().addHeader(AUTHORIZATION, AuthorizationType.BEARER.getPrefix() + remoteConnectionDto.getToken()).build();
     }
 
     @Override
