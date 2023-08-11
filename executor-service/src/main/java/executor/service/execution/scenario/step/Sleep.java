@@ -1,4 +1,4 @@
-package executor.service.stepexecution;
+package executor.service.execution.scenario.step;
 
 import executor.service.annotation.Logged;
 import executor.service.exception.scenario.step.SleepException;

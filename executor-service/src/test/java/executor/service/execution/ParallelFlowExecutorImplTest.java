@@ -1,9 +1,7 @@
-package executor.service;
+package executor.service.execution;
 
 import executor.service.factory.webdriverinitializer.WebDriverProvider;
-import executor.service.maintenance.ExecutionService;
-import executor.service.maintenance.ParallelFlowExecutorImpl;
-import executor.service.maintenance.ScenarioExecutor;
+import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.maintenance.ScenarioSourceListener;
 import executor.service.maintenance.plugin.proxy.ProxySourcesClient;
 import executor.service.model.ProxyConfigHolderDto;

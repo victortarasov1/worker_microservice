@@ -1,13 +1,12 @@
-package executor.service.maintenance;
+package executor.service.execution.scenario;
 
 
 import executor.service.annotation.Logged;
 import executor.service.exception.scenario.SiteNotFoundException;
 import executor.service.exception.scenario.step.UnknownStepException;
-import executor.service.maintenance.ScenarioExecutor;
 import executor.service.model.ScenarioDto;
 import executor.service.model.StepDto;
-import executor.service.stepexecution.StepExecution;
+import executor.service.execution.scenario.step.StepExecution;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,18 +31,22 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
 
     @Override
     public void execute(ScenarioDto scenarioDto, WebDriver webDriver) {
+        goToSite(scenarioDto.getSite(), webDriver);
+        scenarioDto.getSteps().forEach(v -> executeStep(v, webDriver));
+    }
+
+    private void goToSite(String url, WebDriver webDriver) {
         try {
-            webDriver.get(scenarioDto.getSite());
+            webDriver.get(url);
         } catch (WebDriverException ex) {
-            throw new SiteNotFoundException(scenarioDto.getSite(), ex);
+            throw new SiteNotFoundException(url, ex);
         }
-        Consumer<StepDto> executeStep = v -> {
-               StepExecution stepExecution = stepExecutionMap
-                       .get(v.getAction());
-               if(stepExecution == null) throw new UnknownStepException(v.getAction());
-               stepExecution.step(webDriver, v);
-        };
-        scenarioDto.getSteps().forEach(executeStep);
+    }
+
+    private void executeStep(StepDto step, WebDriver driver) {
+        Optional.ofNullable(stepExecutionMap.get(step.getAction()))
+                .orElseThrow(() -> new UnknownStepException(step.getAction()))
+                .step(driver, step);
     }
 }
 
