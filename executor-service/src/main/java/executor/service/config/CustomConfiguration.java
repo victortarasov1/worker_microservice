@@ -34,13 +34,4 @@ public class CustomConfiguration {
         return new ObjectMapper();
     }
 
-    @Bean
-    public SourceListener<ScenarioDto> scenarioSourceListener(OkhttpLoader loader, RemoteConnectionDto remoteConnectionDto) {
-        return new ScenarioSourceListener(loader, new ConcurrentLinkedQueue<>(), remoteConnectionDto);
-    }
-
-    @Bean
-    public SourceListener<ProxyConfigHolderDto> proxySourceListener(OkhttpLoader loader, RemoteConnectionDto remoteConnectionDto) {
-        return new ProxySourceListener(loader, new ConcurrentLinkedQueue<>(), remoteConnectionDto);
-    }
 }
