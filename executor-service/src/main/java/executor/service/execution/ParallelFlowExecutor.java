@@ -1,4 +1,4 @@
-package executor.service.exectuion;
+package executor.service.execution;
 
 public interface ParallelFlowExecutor {
     void runInParallelFlow();

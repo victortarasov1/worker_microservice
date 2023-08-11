@@ -1,4 +1,4 @@
-package executor.service.exectuion.scenario;
+package executor.service.execution.scenario;
 
 
 import executor.service.annotation.Logged;
@@ -6,7 +6,7 @@ import executor.service.exception.scenario.SiteNotFoundException;
 import executor.service.exception.scenario.step.UnknownStepException;
 import executor.service.model.ScenarioDto;
 import executor.service.model.StepDto;
-import executor.service.exectuion.scenario.step.StepExecution;
+import executor.service.execution.scenario.step.StepExecution;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.springframework.stereotype.Service;

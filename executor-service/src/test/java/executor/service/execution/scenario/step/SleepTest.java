@@ -1,7 +1,6 @@
 package executor.service.execution.scenario.step;
 
 import executor.service.exception.scenario.step.SleepException;
-import executor.service.exectuion.scenario.step.Sleep;
 import executor.service.model.StepDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

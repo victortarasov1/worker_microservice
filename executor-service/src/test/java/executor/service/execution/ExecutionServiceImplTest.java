@@ -1,9 +1,7 @@
 package executor.service.execution;
 
-import executor.service.exectuion.ExecutionService;
-import executor.service.exectuion.ExecutionServiceImpl;
-import executor.service.exectuion.scenario.ScenarioExecutor;
-import executor.service.exectuion.scenario.ScenarioExecutorImpl;
+import executor.service.execution.scenario.ScenarioExecutor;
+import executor.service.execution.scenario.ScenarioExecutorImpl;
 import executor.service.maintenance.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
