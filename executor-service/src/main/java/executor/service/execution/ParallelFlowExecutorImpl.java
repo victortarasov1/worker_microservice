@@ -12,7 +12,6 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -27,9 +26,9 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final ScenarioExecutor scenarioExecutor;
     private final WebDriverProvider driverProvider;
 
-    public ParallelFlowExecutorImpl(ExecutionService executionService,
-                                    WebDriverProvider driverProvider, ThreadPoolConfigDto threadPoolConfigDto,
-                                    SourceListener<ProxyConfigHolderDto> proxySourceListener, SourceListener<ScenarioDto> scenarioSourceListener, ScenarioExecutor scenarioExecutor) {
+    public ParallelFlowExecutorImpl(ExecutionService executionService, WebDriverProvider driverProvider,
+                                    ThreadPoolConfigDto threadPoolConfigDto, SourceListener<ProxyConfigHolderDto> proxySourceListener,
+                                    SourceListener<ScenarioDto> scenarioSourceListener, ScenarioExecutor scenarioExecutor) {
         this.threadPoolConfigDto = threadPoolConfigDto;
         this.executionService = executionService;
         this.proxySourceListener = proxySourceListener;
@@ -43,13 +42,11 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     public void runInParallelFlow() {
         proxySourceListener.fetchData();
         scenarioSourceListener.fetchData();
-        ProxyConfigHolderDto proxy = proxySourceListener.getOne().orElse(null);
-        ThreadPoolExecutor fixedThreadPool = (ThreadPoolExecutor)
-                Executors.newFixedThreadPool(threadPoolConfigDto.getCorePoolSize());
+        Supplier<WebDriver> createWebDriver = () -> proxySourceListener.getOne().map(driverProvider::create).orElseGet(driverProvider::create);
+        ThreadPoolExecutor fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadPoolConfigDto.getCorePoolSize());
         fixedThreadPool.setKeepAliveTime(threadPoolConfigDto.getKeepAliveTime(), TimeUnit.MILLISECONDS);
         for (int i = 0; i < threadPoolConfigDto.getCorePoolSize(); i++) {
-            fixedThreadPool.execute(() -> executionService.execute
-                    (driverProvider.create(proxy), scenarioSourceListener, scenarioExecutor));
+            fixedThreadPool.execute(() -> executionService.execute(createWebDriver.get(), scenarioSourceListener, scenarioExecutor));
         }
         fixedThreadPool.shutdown();
     }
