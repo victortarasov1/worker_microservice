@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -42,7 +43,8 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     public void runInParallelFlow() {
         proxySourceListener.fetchData();
         scenarioSourceListener.fetchData();
-        Supplier<WebDriver> createWebDriver = () -> proxySourceListener.getOne().map(driverProvider::create).orElseGet(driverProvider::create);
+        Optional<ProxyConfigHolderDto> proxy = proxySourceListener.getOne();
+        Supplier<WebDriver> createWebDriver = () -> proxy.map(driverProvider::create).orElseGet(driverProvider::create);
         ThreadPoolExecutor fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadPoolConfigDto.getCorePoolSize());
         fixedThreadPool.setKeepAliveTime(threadPoolConfigDto.getKeepAliveTime(), TimeUnit.MILLISECONDS);
         for (int i = 0; i < threadPoolConfigDto.getCorePoolSize(); i++) {

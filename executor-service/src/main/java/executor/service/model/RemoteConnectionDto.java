@@ -28,6 +28,16 @@ public class RemoteConnectionDto {
         return Objects.hash(scenarioUrl, proxyUrl, token);
     }
 
+    public RemoteConnectionDto() {
+
+    }
+
+    public RemoteConnectionDto(String scenarioUrl, String proxyUrl, String token) {
+        this.scenarioUrl = scenarioUrl;
+        this.proxyUrl = proxyUrl;
+        this.token = token;
+    }
+
     public String getProxyUrl() {
         return proxyUrl;
     }
