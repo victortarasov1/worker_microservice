@@ -2,7 +2,9 @@ package executor.service.execution;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.execution.scenario.ScenarioExecutorImpl;
-import executor.service.maintenance.*;
+import executor.service.model.ScenarioDto;
+import executor.service.source.ScenarioSourceListener;
+import executor.service.source.SourceListener;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,7 @@ class ExecutionServiceImplTest {
 
     private WebDriver webDriver;
 
-    private ScenarioSourceListener scenarioSourceListener;
+    private SourceListener<ScenarioDto> scenarioSourceListener;
 
     private ScenarioExecutor scenarioExecutor;
 
@@ -25,7 +27,7 @@ class ExecutionServiceImplTest {
     void setUp() {
         this.executionService = Mockito.mock(ExecutionServiceImpl.class);
         this.webDriver = Mockito.mock(ChromeDriver.class);
-        this.scenarioSourceListener = Mockito.mock(ScenarioListener.class);
+        this.scenarioSourceListener = Mockito.mock(ScenarioSourceListener.class);
         this.scenarioExecutor = Mockito.mock(ScenarioExecutorImpl.class);
     }
 
@@ -33,7 +35,6 @@ class ExecutionServiceImplTest {
     @Test
     void testSuccessfulExecution() {
         this.executionService.execute(this.webDriver, this.scenarioSourceListener, this.scenarioExecutor);
-
         Mockito.verify(this.executionService, Mockito.times(1))
                 .execute(this.webDriver, this.scenarioSourceListener, this.scenarioExecutor);
     }
