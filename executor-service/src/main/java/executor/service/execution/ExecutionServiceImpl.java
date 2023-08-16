@@ -3,7 +3,7 @@ package executor.service.execution;
 import executor.service.execution.scenario.ScenarioExecutor;
 
 import executor.service.model.ScenarioDto;
-import executor.service.source.SourceListener;
+import executor.service.queue.scenario.ScenarioSourceQueueHandler;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +13,12 @@ import java.util.Optional;
 public class ExecutionServiceImpl implements ExecutionService {
 
     @Override
-    public void execute(WebDriver webDriver, SourceListener<ScenarioDto> scenarioSourceListener,
-                        ScenarioExecutor scenarioExecutor) {
-
-        Optional<ScenarioDto> scenario = scenarioSourceListener.getOne();
-
-        while(scenario.isPresent()) {
+    public void execute(WebDriver webDriver, ScenarioSourceQueueHandler scenarios, ScenarioExecutor scenarioExecutor) {
+        Optional<ScenarioDto> scenario = scenarios.poll();
+        while (scenario.isPresent()) {
             scenarioExecutor.execute(scenario.get(), webDriver);
-            scenario = scenarioSourceListener.getOne();
+            scenario = scenarios.poll();
         }
-
         webDriver.close();
     }
 

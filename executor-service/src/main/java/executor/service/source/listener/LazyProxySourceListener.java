@@ -1,37 +1,30 @@
-package executor.service.source;
+package executor.service.source.listener;
 
 import executor.service.enums.AuthorizationType;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.RemoteConnectionDto;
+import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.source.okhttp.OkhttpLoader;
 import okhttp3.Request;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 @Component
-public class ProxySourceListener implements SourceListener<ProxyConfigHolderDto> {
+public class LazyProxySourceListener implements SourceListener {
     private final OkhttpLoader loader;
     private final Request request;
-    private final Queue<ProxyConfigHolderDto> proxies;
+    private final ProxySourceQueueHandler proxies;
 
-    public ProxySourceListener(OkhttpLoader loader, RemoteConnectionDto remoteConnectionDto) {
+    public LazyProxySourceListener(OkhttpLoader loader, RemoteConnectionDto remoteConnectionDto, ProxySourceQueueHandler proxies) {
         this.loader = loader;
-        this.proxies = new ConcurrentLinkedQueue<>();
+        this.proxies = proxies;
         request = new Request.Builder().url(remoteConnectionDto.getProxyUrl())
                 .delete().header(AUTHORIZATION, AuthorizationType.BEARER.getPrefix() + remoteConnectionDto.getToken()).build();
     }
 
     @Override
     public void fetchData() {
-       proxies.addAll(loader.loadData(request, ProxyConfigHolderDto.class));
-    }
-
-    @Override
-    public Optional<ProxyConfigHolderDto> getOne() {
-        return Optional.ofNullable(proxies.poll());
+        if(proxies.getSize() == 0) proxies.addAll(loader.loadData(request, ProxyConfigHolderDto.class));
     }
 }
