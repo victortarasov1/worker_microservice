@@ -17,45 +17,45 @@ using different appenders.
 ### Proxy Example
 ```json
 {
-	"proxyNetworkConfig": {
-		"hostname": "20.210.113.32",
-		"port": 8080
-	},
-	"proxyCredentials": {
-		"username": "",
-		"password": ""
-	}
+    "proxyNetworkConfig": {
+        "hostname": "20.210.113.32",
+        "port": 8080
+    },
+    "proxyCredentials": {
+        "username": "",
+        "password": ""
+    }
 }
 ```
 ### Scenario Example
 
 ```json
 {
-		"name":"linux scenario",
-		"site":"https://kernel.org/",
-		"steps" :[
-			{
-				"action": "sleep",
-				"value": "3000:5000"
-			},
-			{
-				"action":"clickCss",
-				"value":"#banner > nav > ul > li:nth-child(1) > a"
-			},
-			{
-				"action": "sleep",
-				"value": "3000:5000"
-			},
-			{
-				"action":"clickXpath",
-				"value": "/html/body/footer/address[2]/a[4]"
-			},
-			{
-				"action": "sleep",
-				"value": "3000:5000"
-			}
-		]
-	}
+    "name":"linux scenario",
+    "site":"https://kernel.org/",
+    "steps" :[
+        {
+            "action": "sleep",
+            "value": "3000:5000"
+        },
+        {
+            "action":"clickCss",
+            "value":"#banner > nav > ul > li:nth-child(1) > a"
+        },
+        {
+            "action": "sleep",
+            "value": "3000:5000"
+        },
+        {
+            "action":"clickXpath",
+            "value": "/html/body/footer/address[2]/a[4]"
+        },
+        {
+            "action": "sleep",
+            "value": "3000:5000"
+        }
+    ]
+}
 ```
 
 ## Used Technologies
