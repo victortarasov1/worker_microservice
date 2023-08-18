@@ -20,22 +20,18 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <selenium.version>4.9.1</selenium.version>
-        <reflections.version>0.10.2</reflections.version>
-        <jackson.version>2.15.1</jackson.version>
         <h2database.version>2.1.214</h2database.version>
-        <apache.commons>2.9.0</apache.commons>
-        <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <spring-boot-starter.version>3.1.1</spring-boot-starter.version>
         <aspectj.version>1.9.19</aspectj.version>
         <flyway.version>9.20.0</flyway.version>
+        <okhttp.version>4.11.0</okhttp.version>
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>4.11.0</version>
+            <version>${okhttp.version}</version>
         </dependency>
 
         <dependency>
@@ -44,29 +40,9 @@
             <version>${selenium.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>${reflections.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2database.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-configuration2</artifactId>
-            <version>${apache.commons}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${commons-beanutils.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,11 +64,6 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-maven-plugin</artifactId>
             <version>${flyway.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>mockwebserver</artifactId>
-            <version>4.11.0</version>
         </dependency>
     </dependencies>
 
