@@ -1,4 +1,4 @@
-package executor.service.enums;
+package executor.service.source.okhttp;
 
 public enum AuthorizationType {
     BEARER("Bearer ");

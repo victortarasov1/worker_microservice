@@ -1,6 +1,6 @@
 package executor.service.source.listener;
 
-import executor.service.enums.AuthorizationType;
+import executor.service.source.okhttp.AuthorizationType;
 import executor.service.model.ProxyConfigHolderDto;
 import executor.service.model.RemoteConnectionDto;
 import executor.service.queue.proxy.ProxySourceQueueHandler;
