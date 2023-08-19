@@ -1,5 +1,6 @@
 package executor.service.factory.webdriverinitializer;
 
+import executor.service.annotation.Logged;
 import executor.service.factory.webdriverinitializer.setting.BrowserOptions;
 import org.springframework.stereotype.Component;
 import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.time.Duration;
 
 @Component
+@Logged
 public class ChromeDriverProviderImpl implements WebDriverProvider {
     private final ProxyProvider proxyProvider;
     private final WebDriverConfigDto webDriverConfig;
