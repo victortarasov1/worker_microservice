@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ThreadSafeQueueHandlerTest {
@@ -28,7 +29,7 @@ class ThreadSafeQueueHandlerTest {
     }
 
     @Test
-    public void addTest() throws InterruptedException {
+    public void testAdd() throws InterruptedException {
         Runnable addRunnableTask = () -> {
             handler.add(new ScenarioDto());
             countDownLatch.countDown();
@@ -39,7 +40,7 @@ class ThreadSafeQueueHandlerTest {
     }
 
     @Test
-    public void addAllTest() throws InterruptedException {
+    public void testAddAll() throws InterruptedException {
         List<ScenarioDto> elements = IntStream.range(0, ELEMENT_COUNT).boxed().map(v -> new ScenarioDto()).toList();
         Runnable addAllRunnableTask = () -> {
             handler.addAll(elements);
@@ -51,9 +52,8 @@ class ThreadSafeQueueHandlerTest {
     }
 
     @Test
-    public void pollTest() throws InterruptedException {
-        IntStream.range(0, ELEMENT_COUNT).forEach
-                (i -> handler.add(new ScenarioDto()));
+    public void testPoll() throws InterruptedException {
+        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new ScenarioDto());
         Runnable pollRunnableTask = () -> {
             handler.poll();
             countDownLatch.countDown();
@@ -64,9 +64,8 @@ class ThreadSafeQueueHandlerTest {
     }
 
     @Test
-    public void removeAllTest() throws InterruptedException {
-        IntStream.range(0, ELEMENT_COUNT).forEach
-                (i -> handler.add(new ScenarioDto()));
+    public void testRemoveAll() throws InterruptedException {
+        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new ScenarioDto());
         AtomicInteger resultSize = new AtomicInteger(0);
         Runnable removeAllRunnableTask = () -> {
             resultSize.addAndGet(handler.removeAll().size());
@@ -76,5 +75,11 @@ class ThreadSafeQueueHandlerTest {
         countDownLatch.await();
         assertEquals(ELEMENT_COUNT, resultSize.get());
         assertEquals(0, handler.removeAll().size());
+    }
+
+    @Test
+    public void testGetSize() {
+        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new ScenarioDto());
+        assertThat(handler.getSize()).isEqualTo(ELEMENT_COUNT);
     }
 }
