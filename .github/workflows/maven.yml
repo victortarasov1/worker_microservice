@@ -29,8 +29,6 @@ jobs:
           cache: maven
       - name: Set up ChromeDriver
         uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: '114.0.5735.90'
       - name: Move ChromeDriver to /opt
         run: |
             sudo mv /usr/local/bin/chromedriver /opt/chromedriver
