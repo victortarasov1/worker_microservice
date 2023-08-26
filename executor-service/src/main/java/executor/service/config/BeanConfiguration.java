@@ -1,7 +1,6 @@
 package executor.service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import executor.service.model.ProxyConfigHolderDto;
 import executor.service.queue.ThreadSafeQueueHandler;
 import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.queue.proxy.ProxySourceQueueHandlerImpl;
@@ -15,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class CustomConfiguration {
+public class BeanConfiguration {
 
     @Bean
     public Logger logger() {
