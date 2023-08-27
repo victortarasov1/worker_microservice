@@ -33,9 +33,8 @@ public class ProxyCredentials {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProxyCredentials that = (ProxyCredentials) o;
-        return Objects.equals(username, that.username) && Objects.equals(password, that.password);
+        if (!(o instanceof ProxyCredentials proxyCredentials)) return false;
+        return Objects.equals(username, proxyCredentials.username) && Objects.equals(password, proxyCredentials.password);
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+
 @Component
 public class ThreadPoolConfig {
     @Value("${executorservice.common.threadsCount}")
@@ -11,7 +12,8 @@ public class ThreadPoolConfig {
     @Value("${executorservice.common.keepAliveTime}")
     private Long keepAliveTime;
 
-    public ThreadPoolConfig() {}
+    public ThreadPoolConfig() {
+    }
 
     public ThreadPoolConfig(Integer corePoolSize, Long keepAliveTime) {
         this.corePoolSize = corePoolSize;
@@ -37,12 +39,9 @@ public class ThreadPoolConfig {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ThreadPoolConfig threadPoolConfig = (ThreadPoolConfig) o;
-
-        return Objects.equals(corePoolSize, threadPoolConfig.corePoolSize) &&
-            Objects.equals(keepAliveTime, threadPoolConfig.keepAliveTime);
+        if (!(o instanceof ThreadPoolConfig threadPoolConfig)) return false;
+        return Objects.equals(corePoolSize, threadPoolConfig.corePoolSize)
+                && Objects.equals(keepAliveTime, threadPoolConfig.keepAliveTime);
     }
 
     @Override
@@ -53,8 +52,8 @@ public class ThreadPoolConfig {
     @Override
     public String toString() {
         return "ThreadPoolConfigDto{" +
-            "corePoolSize='" + corePoolSize + '\'' +
-            ", keepAliveTime='" + keepAliveTime + '\'' +
-            '}';
+                "corePoolSize='" + corePoolSize + '\'' +
+                ", keepAliveTime='" + keepAliveTime + '\'' +
+                '}';
     }
 }

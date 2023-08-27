@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Objects;
+
 @Configuration
 public class WebDriverConfig {
     @Value("${executorservice.common.webDriverExecutable}")
@@ -64,9 +65,11 @@ public class WebDriverConfig {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WebDriverConfig that = (WebDriverConfig) o;
-        return webDriverExecutable.equals(that.webDriverExecutable) && userAgent.equals(that.userAgent) && pageLoadTimeout.equals(that.pageLoadTimeout) && implicitlyWait.equals(that.implicitlyWait);
+        if (!(o instanceof WebDriverConfig webDriverConfig)) return false;
+        return webDriverExecutable.equals(webDriverConfig.webDriverExecutable)
+                && userAgent.equals(webDriverConfig.userAgent)
+                && pageLoadTimeout.equals(webDriverConfig.pageLoadTimeout)
+                && implicitlyWait.equals(webDriverConfig.implicitlyWait);
     }
 
     @Override

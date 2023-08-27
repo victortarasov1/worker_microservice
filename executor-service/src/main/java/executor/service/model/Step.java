@@ -33,12 +33,9 @@ public class Step {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Step step = (Step) o;
-
-        if (!Objects.equals(action, step.action)) return false;
-        return Objects.equals(value, step.value);
+        if (!(o instanceof Step step)) return false;
+        return Objects.equals(value, step.value)
+                && Objects.equals(action, step.action);
     }
 
     @Override
