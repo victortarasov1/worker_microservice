@@ -1,15 +1,12 @@
 package executor.service.factory.webdriverinitializer;
 
 import executor.service.factory.webdriverinitializer.proxy.ProxyProviderImpl;
-import executor.service.factory.webdriverinitializer.setting.BrowserOptions;
-import executor.service.factory.webdriverinitializer.setting.UserAgentArgument;
 import executor.service.model.WebDriverConfigDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ContextConfiguration(classes = {WebDriverConfigDto.class})
 class ChromeDriverProviderImplTest {
+    private static final String GET_USER_AGENT_SCRIPT = "return navigator.userAgent;";
     private WebDriverProvider driverProvider;
     @Autowired
     private WebDriverConfigDto webDriverConfigDto;
@@ -41,7 +39,7 @@ class ChromeDriverProviderImplTest {
         assertThat(driver).isNotNull();
         assertThat(driver).isInstanceOf(ChromeDriver.class);
         ChromeDriver chromeDriver = (ChromeDriver) driver;
-        Object userAgent = chromeDriver.executeScript("return navigator.userAgent;");
+        Object userAgent = chromeDriver.executeScript(GET_USER_AGENT_SCRIPT);
         assertThat(userAgent).isEqualTo(webDriverConfigDto.getUserAgent());
         Duration implicitWaitTimeout = chromeDriver.manage().timeouts().getImplicitWaitTimeout();
         assertThat(implicitWaitTimeout).isEqualTo(Duration.ofSeconds(webDriverConfigDto.getImplicitlyWait()));
