@@ -6,8 +6,8 @@ import org.openqa.selenium.remote.service.DriverService;
 import org.springframework.stereotype.Component;
 import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
 import executor.service.factory.webdriverinitializer.setting.UserAgentArgument;
-import executor.service.model.ProxyConfigHolderDto;
-import executor.service.model.WebDriverConfigDto;
+import executor.service.model.ProxyConfigHolder;
+import executor.service.model.WebDriverConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -20,17 +20,17 @@ import java.time.Duration;
 @Logged
 public class ChromeDriverProviderImpl implements WebDriverProvider {
     private final ProxyProvider proxyProvider;
-    private final WebDriverConfigDto webDriverConfig;
+    private final WebDriverConfig webDriverConfig;
     private final DriverService driverService;
 
-    public ChromeDriverProviderImpl(ProxyProvider proxyProvider, WebDriverConfigDto webDriverConfig, DriverService driverService) {
+    public ChromeDriverProviderImpl(ProxyProvider proxyProvider, WebDriverConfig webDriverConfig, DriverService driverService) {
         this.proxyProvider = proxyProvider;
         this.webDriverConfig = webDriverConfig;
         this.driverService = driverService;
     }
 
     @Override
-    public WebDriver create(ProxyConfigHolderDto proxyConfigHolder) {
+    public WebDriver create(ProxyConfigHolder proxyConfigHolder) {
         ChromeOptions options = createChromeOptions(proxyConfigHolder);
         return new ChromeDriver((ChromeDriverService) driverService, options);
     }
@@ -41,7 +41,7 @@ public class ChromeDriverProviderImpl implements WebDriverProvider {
     }
 
 
-    private ChromeOptions createChromeOptions(ProxyConfigHolderDto proxyConfigHolder) {
+    private ChromeOptions createChromeOptions(ProxyConfigHolder proxyConfigHolder) {
         ChromeOptions options = new ChromeOptions();
         if(proxyConfigHolder != null) options.setProxy(proxyProvider.getProxy(proxyConfigHolder));
         options.addArguments(UserAgentArgument.CHROME.getArgument() + webDriverConfig.getUserAgent());

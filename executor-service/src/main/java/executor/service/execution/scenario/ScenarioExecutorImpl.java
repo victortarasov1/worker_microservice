@@ -4,8 +4,8 @@ package executor.service.execution.scenario;
 import executor.service.annotation.Logged;
 import executor.service.exception.scenario.SiteNotFoundException;
 import executor.service.exception.scenario.step.UnknownStepException;
-import executor.service.model.ScenarioDto;
-import executor.service.model.StepDto;
+import executor.service.model.Scenario;
+import executor.service.model.Step;
 import executor.service.execution.scenario.step.StepExecution;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -30,9 +30,9 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
     }
 
     @Override
-    public void execute(ScenarioDto scenarioDto, WebDriver webDriver) {
-        goToSite(scenarioDto.getSite(), webDriver);
-        scenarioDto.getSteps().forEach(v -> executeStep(v, webDriver));
+    public void execute(Scenario scenario, WebDriver webDriver) {
+        goToSite(scenario.getSite(), webDriver);
+        scenario.getSteps().forEach(v -> executeStep(v, webDriver));
     }
 
     private void goToSite(String url, WebDriver webDriver) {
@@ -43,7 +43,7 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
         }
     }
 
-    private void executeStep(StepDto step, WebDriver driver) {
+    private void executeStep(Step step, WebDriver driver) {
         Optional.ofNullable(stepExecutionMap.get(step.getAction()))
                 .orElseThrow(() -> new UnknownStepException(step.getAction()))
                 .step(driver, step);

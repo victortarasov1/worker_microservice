@@ -2,7 +2,7 @@ package executor.service.execution.scenario.step;
 
 import executor.service.annotation.Logged;
 import executor.service.exception.scenario.step.ClickXPathException;
-import executor.service.model.StepDto;
+import executor.service.model.Step;
 import org.openqa.selenium.*;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,9 @@ public class ClickXpath implements StepExecution {
     }
 
     @Override
-    public void step(WebDriver webDriver, StepDto stepDto) {
+    public void step(WebDriver webDriver, Step step) {
         try {
-            webDriver.findElement(By.xpath(stepDto.getValue())).click();
+            webDriver.findElement(By.xpath(step.getValue())).click();
         } catch (NoSuchElementException | ElementNotInteractableException
                  | StaleElementReferenceException | TimeoutException | InvalidSelectorException ex) {
             throw new ClickXPathException(ex);

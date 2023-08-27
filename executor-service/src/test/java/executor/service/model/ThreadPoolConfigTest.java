@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ThreadPoolConfigDtoTest {
-    private ThreadPoolConfigDto underTest;
+public class ThreadPoolConfigTest {
+    private ThreadPoolConfig underTest;
     private static final Integer corePoolSizeDefault = 1;
     private static final Integer corePoolSizeChanged = 2;
     private static final Long keepAliveTimeDefault = 1000L;
@@ -13,14 +13,14 @@ public class ThreadPoolConfigDtoTest {
 
     @BeforeEach
     public void setUp() {
-        underTest = new ThreadPoolConfigDto(corePoolSizeDefault, keepAliveTimeDefault);
+        underTest = new ThreadPoolConfig(corePoolSizeDefault, keepAliveTimeDefault);
     }
 
     @Test
     public void objectWithEmptyConstructorCreatesCorrect() {
-        ThreadPoolConfigDto threadPoolConfigDto = new ThreadPoolConfigDto();
-        Assertions.assertNull(threadPoolConfigDto.getCorePoolSize());
-        Assertions.assertNull(threadPoolConfigDto.getKeepAliveTime());
+        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig();
+        Assertions.assertNull(threadPoolConfig.getCorePoolSize());
+        Assertions.assertNull(threadPoolConfig.getKeepAliveTime());
     }
 
     @Test
@@ -47,14 +47,14 @@ public class ThreadPoolConfigDtoTest {
 
     @Test
     public void objectsAreEqual() {
-        ThreadPoolConfigDto threadPoolConfigDto = new ThreadPoolConfigDto(corePoolSizeDefault, keepAliveTimeDefault);
-        Assertions.assertEquals(underTest, threadPoolConfigDto);
+        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig(corePoolSizeDefault, keepAliveTimeDefault);
+        Assertions.assertEquals(underTest, threadPoolConfig);
     }
 
     @Test
     public void objectsAreNotEqual() {
-        ThreadPoolConfigDto threadPoolConfigDto = new ThreadPoolConfigDto(corePoolSizeDefault, keepAliveTimeChanged);
-        Assertions.assertNotEquals(underTest, threadPoolConfigDto);
+        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig(corePoolSizeDefault, keepAliveTimeChanged);
+        Assertions.assertNotEquals(underTest, threadPoolConfig);
     }
 
     @Test
@@ -64,14 +64,14 @@ public class ThreadPoolConfigDtoTest {
 
     @Test
     public void hashCodesAreEqual() {
-        ThreadPoolConfigDto threadPoolConfigDto = new ThreadPoolConfigDto(corePoolSizeDefault, keepAliveTimeDefault);
-        Assertions.assertEquals(underTest.hashCode(), threadPoolConfigDto.hashCode());
+        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig(corePoolSizeDefault, keepAliveTimeDefault);
+        Assertions.assertEquals(underTest.hashCode(), threadPoolConfig.hashCode());
     }
 
     @Test
     public void hashCodesAreNotEqual() {
-        ThreadPoolConfigDto threadPoolConfigDto = new ThreadPoolConfigDto(corePoolSizeChanged, keepAliveTimeDefault);
-        Assertions.assertNotEquals(underTest.hashCode(), threadPoolConfigDto.hashCode());
+        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig(corePoolSizeChanged, keepAliveTimeDefault);
+        Assertions.assertNotEquals(underTest.hashCode(), threadPoolConfig.hashCode());
     }
 
     @Test

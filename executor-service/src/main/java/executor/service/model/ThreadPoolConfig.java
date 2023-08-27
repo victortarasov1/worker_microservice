@@ -5,15 +5,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 @Component
-public class ThreadPoolConfigDto {
+public class ThreadPoolConfig {
     @Value("${executorservice.common.threadsCount}")
     private Integer corePoolSize;
     @Value("${executorservice.common.keepAliveTime}")
     private Long keepAliveTime;
 
-    public ThreadPoolConfigDto() {}
+    public ThreadPoolConfig() {}
 
-    public ThreadPoolConfigDto(Integer corePoolSize, Long keepAliveTime) {
+    public ThreadPoolConfig(Integer corePoolSize, Long keepAliveTime) {
         this.corePoolSize = corePoolSize;
         this.keepAliveTime = keepAliveTime;
     }
@@ -39,10 +39,10 @@ public class ThreadPoolConfigDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ThreadPoolConfigDto threadPoolConfigDto = (ThreadPoolConfigDto) o;
+        ThreadPoolConfig threadPoolConfig = (ThreadPoolConfig) o;
 
-        return Objects.equals(corePoolSize, threadPoolConfigDto.corePoolSize) &&
-            Objects.equals(keepAliveTime, threadPoolConfigDto.keepAliveTime);
+        return Objects.equals(corePoolSize, threadPoolConfig.corePoolSize) &&
+            Objects.equals(keepAliveTime, threadPoolConfig.keepAliveTime);
     }
 
     @Override

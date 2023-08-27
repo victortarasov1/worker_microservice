@@ -1,6 +1,6 @@
 package executor.service.factory.webdriverinitializer;
 
-import executor.service.model.ProxyConfigHolderDto;
+import executor.service.model.ProxyConfigHolder;
 import org.openqa.selenium.WebDriver;
 
 public interface WebDriverProvider {
@@ -11,7 +11,7 @@ public interface WebDriverProvider {
      *                          setting up a proxy for the WebDriver instance.
      * @return A WebDriver instance configured with the specified proxy settings.
      */
-    WebDriver create(ProxyConfigHolderDto proxyConfigHolder);
+    WebDriver create(ProxyConfigHolder proxyConfigHolder);
 
     /**
      * Creates a WebDriver instance without proxy configuration.
