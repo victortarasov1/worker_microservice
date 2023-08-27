@@ -2,14 +2,14 @@ package executor.service.model;
 
 import java.util.Objects;
 
-public class ProxyNetworkConfigDTO {
+public class ProxyNetworkConfig {
     private String hostname;
     private Integer port;
 
-    public ProxyNetworkConfigDTO() {
+    public ProxyNetworkConfig() {
     }
 
-    public ProxyNetworkConfigDTO(String hostname, Integer port) {
+    public ProxyNetworkConfig(String hostname, Integer port) {
         this.hostname = hostname;
         this.port = port;
     }
@@ -32,13 +32,10 @@ public class ProxyNetworkConfigDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        ProxyNetworkConfigDTO that = (ProxyNetworkConfigDTO) o;
-        return Objects.equals(hostname, that.hostname)
-                && Objects.equals(port, that.port);
+        if (this == o) return true;
+        if (!(o instanceof ProxyNetworkConfig proxyNetworkConfig)) return false;
+        return Objects.equals(hostname, proxyNetworkConfig.hostname)
+                && Objects.equals(port, proxyNetworkConfig.port);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package executor.service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import executor.service.model.WebDriverConfigDto;
+import executor.service.model.WebDriverConfig;
 import executor.service.queue.ThreadSafeQueueHandler;
 import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.queue.proxy.ProxySourceQueueHandlerImpl;
@@ -20,9 +20,9 @@ import java.io.File;
 
 @Configuration
 public class BeanConfiguration {
-    private final WebDriverConfigDto webDriverConfig;
+    private final WebDriverConfig webDriverConfig;
 
-    public BeanConfiguration(WebDriverConfigDto webDriverConfig) {
+    public BeanConfiguration(WebDriverConfig webDriverConfig) {
         this.webDriverConfig = webDriverConfig;
     }
 

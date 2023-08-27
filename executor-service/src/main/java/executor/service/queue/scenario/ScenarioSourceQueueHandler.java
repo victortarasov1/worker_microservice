@@ -1,8 +1,8 @@
 package executor.service.queue.scenario;
 
 
-import executor.service.model.ScenarioDto;
+import executor.service.model.Scenario;
 import executor.service.queue.QueueHandler;
 
-public interface ScenarioSourceQueueHandler extends QueueHandler<ScenarioDto> {
+public interface ScenarioSourceQueueHandler extends QueueHandler<Scenario> {
 }

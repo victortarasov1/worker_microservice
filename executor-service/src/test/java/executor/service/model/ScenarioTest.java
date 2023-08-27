@@ -14,38 +14,38 @@ public class ScenarioTest {
     private static final String actualName = "name2";
     private static final String site = "site";
     private static final String actualSite = "site2";
-    private static final ArrayList<StepDto> stepList = new ArrayList<>();
-    private ScenarioDto scenarioDto;
-    private ScenarioDto actualDto;
-    private ScenarioDto expectedDto;
+    private static final ArrayList<Step> stepList = new ArrayList<>();
+    private Scenario scenario;
+    private Scenario actualDto;
+    private Scenario expectedDto;
 
     @BeforeEach
     public void initEach() {
-        scenarioDto = new ScenarioDto(name, site, stepList);
-        actualDto = new ScenarioDto(actualName, actualSite, stepList);
-        expectedDto = new ScenarioDto(name, site, stepList);
+        scenario = new Scenario(name, site, stepList);
+        actualDto = new Scenario(actualName, actualSite, stepList);
+        expectedDto = new Scenario(name, site, stepList);
     }
 
     @Test
     public void testEqualsAndHashCode() {
-        assertEquals(scenarioDto, expectedDto);
-        assertEquals(scenarioDto.hashCode(), expectedDto.hashCode());
+        assertEquals(scenario, expectedDto);
+        assertEquals(scenario.hashCode(), expectedDto.hashCode());
     }
 
     @Test
     public void settersTest() {
-        scenarioDto.setName(name);
-        scenarioDto.setSite(site);
-        scenarioDto.setSteps(stepList);
-        assertEquals(scenarioDto, expectedDto);
+        scenario.setName(name);
+        scenario.setSite(site);
+        scenario.setSteps(stepList);
+        assertEquals(scenario, expectedDto);
     }
 
     @Test
     public void gettersTest() {
-        scenarioDto.setName(actualDto.getName());
-        scenarioDto.setSite(actualDto.getSite());
-        scenarioDto.setSteps(actualDto.getSteps());
-        Assertions.assertEquals(actualDto, scenarioDto);
+        scenario.setName(actualDto.getName());
+        scenario.setSite(actualDto.getSite());
+        scenario.setSteps(actualDto.getSteps());
+        Assertions.assertEquals(actualDto, scenario);
     }
 
 }

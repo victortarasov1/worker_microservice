@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Objects;
+
 @Configuration
-public class WebDriverConfigDto {
+public class WebDriverConfig {
     @Value("${executorservice.common.webDriverExecutable}")
     private String webDriverExecutable;
 
@@ -18,11 +19,11 @@ public class WebDriverConfigDto {
     @Value("${executorservice.common.driverWait}")
     private Long implicitlyWait;
 
-    public WebDriverConfigDto() {
+    public WebDriverConfig() {
     }
 
-    public WebDriverConfigDto(String webDriverExecutable, String userAgent,
-                              Long pageLoadTimeout, Long implicitlyWait) {
+    public WebDriverConfig(String webDriverExecutable, String userAgent,
+                           Long pageLoadTimeout, Long implicitlyWait) {
         this.webDriverExecutable = webDriverExecutable;
         this.userAgent = userAgent;
         this.pageLoadTimeout = pageLoadTimeout;
@@ -64,9 +65,11 @@ public class WebDriverConfigDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WebDriverConfigDto that = (WebDriverConfigDto) o;
-        return webDriverExecutable.equals(that.webDriverExecutable) && userAgent.equals(that.userAgent) && pageLoadTimeout.equals(that.pageLoadTimeout) && implicitlyWait.equals(that.implicitlyWait);
+        if (!(o instanceof WebDriverConfig webDriverConfig)) return false;
+        return webDriverExecutable.equals(webDriverConfig.webDriverExecutable)
+                && userAgent.equals(webDriverConfig.userAgent)
+                && pageLoadTimeout.equals(webDriverConfig.pageLoadTimeout)
+                && implicitlyWait.equals(webDriverConfig.implicitlyWait);
     }
 
     @Override

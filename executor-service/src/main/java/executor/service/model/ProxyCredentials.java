@@ -2,14 +2,14 @@ package executor.service.model;
 
 import java.util.Objects;
 
-public class ProxyCredentialsDTO {
+public class ProxyCredentials {
     private String username;
     private String password;
 
-    public ProxyCredentialsDTO() {
+    public ProxyCredentials() {
     }
 
-    public ProxyCredentialsDTO(String username, String password) {
+    public ProxyCredentials(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -33,9 +33,8 @@ public class ProxyCredentialsDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProxyCredentialsDTO that = (ProxyCredentialsDTO) o;
-        return Objects.equals(username, that.username) && Objects.equals(password, that.password);
+        if (!(o instanceof ProxyCredentials proxyCredentials)) return false;
+        return Objects.equals(username, proxyCredentials.username) && Objects.equals(password, proxyCredentials.password);
     }
 
     @Override

@@ -4,8 +4,8 @@ import executor.service.factory.webdriverinitializer.WebDriverProvider;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 
-import executor.service.model.ProxyConfigHolderDto;
-import executor.service.model.ThreadPoolConfigDto;
+import executor.service.model.ProxyConfigHolder;
+import executor.service.model.ThreadPoolConfig;
 import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.SourceListener;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 @Service
 public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final ExecutionService executionService;
-    private final ThreadPoolConfigDto threadPoolConfigDto;
+    private final ThreadPoolConfig threadPoolConfig;
     private final List<SourceListener> listeners;
     private final ScenarioExecutor scenarioExecutor;
     private final WebDriverProvider driverProvider;
@@ -31,10 +31,10 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final ScenarioSourceQueueHandler scenarios;
 
     public ParallelFlowExecutorImpl(ExecutionService executionService, List<SourceListener> listeners, WebDriverProvider driverProvider,
-                                    ThreadPoolConfigDto threadPoolConfigDto, ScenarioExecutor scenarioExecutor,
+                                    ThreadPoolConfig threadPoolConfig, ScenarioExecutor scenarioExecutor,
                                     ProxySourceQueueHandler proxies, ScenarioSourceQueueHandler scenarios) {
         this.listeners = listeners;
-        this.threadPoolConfigDto = threadPoolConfigDto;
+        this.threadPoolConfig = threadPoolConfig;
         this.executionService = executionService;
         this.scenarioExecutor = scenarioExecutor;
         this.driverProvider = driverProvider;
@@ -50,11 +50,11 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     }
 
     private void executeScenarios() {
-        Optional<ProxyConfigHolderDto> proxy = proxies.poll();
+        Optional<ProxyConfigHolder> proxy = proxies.poll();
         Supplier<WebDriver> createWebDriver = () -> proxy.map(driverProvider::create).orElseGet(driverProvider::create);
-        ThreadPoolExecutor fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadPoolConfigDto.getCorePoolSize());
-        fixedThreadPool.setKeepAliveTime(threadPoolConfigDto.getKeepAliveTime(), TimeUnit.MILLISECONDS);
-        for (int i = 0; i < threadPoolConfigDto.getCorePoolSize(); i++) {
+        ThreadPoolExecutor fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadPoolConfig.getCorePoolSize());
+        fixedThreadPool.setKeepAliveTime(threadPoolConfig.getKeepAliveTime(), TimeUnit.MILLISECONDS);
+        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++) {
             fixedThreadPool.execute(() -> executionService.execute(createWebDriver.get(), scenarios, scenarioExecutor));
         }
         fixedThreadPool.shutdown();

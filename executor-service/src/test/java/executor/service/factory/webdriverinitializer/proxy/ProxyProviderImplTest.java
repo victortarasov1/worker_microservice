@@ -1,8 +1,8 @@
 package executor.service.factory.webdriverinitializer.proxy;
 
-import executor.service.model.ProxyConfigHolderDto;
-import executor.service.model.ProxyCredentialsDTO;
-import executor.service.model.ProxyNetworkConfigDTO;
+import executor.service.model.ProxyConfigHolder;
+import executor.service.model.ProxyCredentials;
+import executor.service.model.ProxyNetworkConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Proxy;
@@ -13,8 +13,8 @@ class ProxyProviderImplTest {
     private static final String HTTP_PROXY_DELIMITER = ":";
     private static final String AT_SIGN = "@";
 
-    private final ProxyNetworkConfigDTO proxyNetworkConfig = new ProxyNetworkConfigDTO("http://localhost", 8080);
-    private final ProxyCredentialsDTO proxyCredentials = new ProxyCredentialsDTO("user", "password");
+    private final ProxyNetworkConfig proxyNetworkConfig = new ProxyNetworkConfig("http://localhost", 8080);
+    private final ProxyCredentials proxyCredentials = new ProxyCredentials("user", "password");
     private ProxyProvider proxyProvider;
 
     @BeforeEach
@@ -23,7 +23,7 @@ class ProxyProviderImplTest {
     }
     @Test
     public void testGetProxyWithoutCredentials() {
-        ProxyConfigHolderDto proxyConfigHolder = new ProxyConfigHolderDto();
+        ProxyConfigHolder proxyConfigHolder = new ProxyConfigHolder();
         proxyConfigHolder.setProxyNetworkConfig(proxyNetworkConfig);
         String expected = proxyNetworkConfig.getHostname() + HTTP_PROXY_DELIMITER + proxyNetworkConfig.getPort();
         Proxy result = proxyProvider.getProxy(proxyConfigHolder);
@@ -32,7 +32,7 @@ class ProxyProviderImplTest {
 
     @Test
     public void testGetProxyWithCredentials() {
-        ProxyConfigHolderDto proxyConfigHolder = new ProxyConfigHolderDto(proxyNetworkConfig, proxyCredentials);
+        ProxyConfigHolder proxyConfigHolder = new ProxyConfigHolder(proxyNetworkConfig, proxyCredentials);
         String expected = proxyCredentials.getUsername() + HTTP_PROXY_DELIMITER + proxyCredentials.getPassword() + AT_SIGN +
                 proxyNetworkConfig.getHostname() + HTTP_PROXY_DELIMITER + proxyNetworkConfig.getPort();
         Proxy result = proxyProvider.getProxy(proxyConfigHolder);

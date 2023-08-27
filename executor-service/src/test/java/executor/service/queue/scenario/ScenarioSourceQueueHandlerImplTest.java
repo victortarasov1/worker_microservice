@@ -1,6 +1,6 @@
 package executor.service.queue.scenario;
 
-import executor.service.model.ScenarioDto;
+import executor.service.model.Scenario;
 import executor.service.queue.QueueHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 class ScenarioSourceQueueHandlerImplTest {
-    private QueueHandler<ScenarioDto> basicHandler;
+    private QueueHandler<Scenario> basicHandler;
     private ScenarioSourceQueueHandler queueHandler;
 
     @BeforeEach
@@ -22,14 +22,14 @@ class ScenarioSourceQueueHandlerImplTest {
 
     @Test
     void testAdd() {
-        ScenarioDto scenario = new ScenarioDto();
+        Scenario scenario = new Scenario();
         queueHandler.add(scenario);
         verify(basicHandler, times(1)).add(eq(scenario));
     }
 
     @Test
     void testAddAll() {
-        List<ScenarioDto> scenarios = List.of(new ScenarioDto(), new ScenarioDto());
+        List<Scenario> scenarios = List.of(new Scenario(), new Scenario());
         queueHandler.addAll(scenarios);
         verify(basicHandler, times(1)).addAll(eq(scenarios));
     }

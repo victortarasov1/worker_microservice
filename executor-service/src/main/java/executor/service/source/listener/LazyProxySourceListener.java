@@ -1,8 +1,8 @@
 package executor.service.source.listener;
 
 import executor.service.source.okhttp.AuthorizationType;
-import executor.service.model.ProxyConfigHolderDto;
-import executor.service.model.RemoteConnectionDto;
+import executor.service.model.ProxyConfigHolder;
+import executor.service.model.RemoteConnection;
 import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.source.okhttp.OkhttpLoader;
 import okhttp3.Request;
@@ -16,15 +16,15 @@ public class LazyProxySourceListener implements SourceListener {
     private final Request request;
     private final ProxySourceQueueHandler proxies;
 
-    public LazyProxySourceListener(OkhttpLoader loader, RemoteConnectionDto remoteConnectionDto, ProxySourceQueueHandler proxies) {
+    public LazyProxySourceListener(OkhttpLoader loader, RemoteConnection remoteConnection, ProxySourceQueueHandler proxies) {
         this.loader = loader;
         this.proxies = proxies;
-        request = new Request.Builder().url(remoteConnectionDto.getProxyUrl())
-                .delete().header(AUTHORIZATION, AuthorizationType.BEARER.getPrefix() + remoteConnectionDto.getToken()).build();
+        request = new Request.Builder().url(remoteConnection.getProxyUrl())
+                .delete().header(AUTHORIZATION, AuthorizationType.BEARER.getPrefix() + remoteConnection.getToken()).build();
     }
 
     @Override
     public void fetchData() {
-        if(proxies.getSize() == 0) proxies.addAll(loader.loadData(request, ProxyConfigHolderDto.class));
+        if(proxies.getSize() == 0) proxies.addAll(loader.loadData(request, ProxyConfigHolder.class));
     }
 }

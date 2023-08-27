@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 @Component
-public class RemoteConnectionDto {
+public class RemoteConnection {
     @Value("${publisher.scenario.url}")
     private String scenarioUrl;
     @Value("${publisher.proxy.url}")
@@ -17,10 +17,10 @@ public class RemoteConnectionDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RemoteConnectionDto remoteConnectionDto)) return false;
-        return Objects.equals(scenarioUrl, remoteConnectionDto.scenarioUrl) &&
-                Objects.equals(proxyUrl, remoteConnectionDto.proxyUrl) &&
-                Objects.equals(token, remoteConnectionDto.token);
+        if (!(o instanceof RemoteConnection remoteConnection)) return false;
+        return Objects.equals(scenarioUrl, remoteConnection.scenarioUrl) &&
+                Objects.equals(proxyUrl, remoteConnection.proxyUrl) &&
+                Objects.equals(token, remoteConnection.token);
     }
 
     @Override
@@ -28,11 +28,11 @@ public class RemoteConnectionDto {
         return Objects.hash(scenarioUrl, proxyUrl, token);
     }
 
-    public RemoteConnectionDto() {
+    public RemoteConnection() {
 
     }
 
-    public RemoteConnectionDto(String scenarioUrl, String proxyUrl, String token) {
+    public RemoteConnection(String scenarioUrl, String proxyUrl, String token) {
         this.scenarioUrl = scenarioUrl;
         this.proxyUrl = proxyUrl;
         this.token = token;

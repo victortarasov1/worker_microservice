@@ -5,17 +5,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ProxyCredentialsDTOTest {
+class ProxyCredentialsTest {
 
     private static final String USER = "user";
     private static final String PASSWORD = "password";
-    private ProxyCredentialsDTO mActual;
-    private ProxyCredentialsDTO mExpected;
+    private ProxyCredentials mActual;
+    private ProxyCredentials mExpected;
 
     @BeforeEach
     public void setUp() {
-        mActual = new ProxyCredentialsDTO(USER, PASSWORD);
-        mExpected = new ProxyCredentialsDTO(USER, PASSWORD);
+        mActual = new ProxyCredentials(USER, PASSWORD);
+        mExpected = new ProxyCredentials(USER, PASSWORD);
     }
 
     @Test
@@ -25,7 +25,7 @@ class ProxyCredentialsDTOTest {
 
     @Test
     public void testNotEquality() {
-        ProxyCredentialsDTO expected = new ProxyCredentialsDTO(USER, "");
+        ProxyCredentials expected = new ProxyCredentials(USER, "");
         assertThat(mActual).isNotEqualTo(expected);
     }
 
@@ -43,21 +43,21 @@ class ProxyCredentialsDTOTest {
 
     @Test
     public void testEmptyConstructor() {
-        ProxyCredentialsDTO pg = new ProxyCredentialsDTO();
+        ProxyCredentials pg = new ProxyCredentials();
         assertThat(pg.getUsername()).isNull();
         assertThat(pg.getPassword()).isNull();
     }
 
     @Test
     public void testSetterWithNull() {
-        ProxyCredentialsDTO pg = new ProxyCredentialsDTO(USER, PASSWORD);
+        ProxyCredentials pg = new ProxyCredentials(USER, PASSWORD);
         pg.setPassword(null);
         assertThat(pg.getPassword()).isNull();
     }
 
     @Test
     public void testSetters() {
-        ProxyCredentialsDTO pg = new ProxyCredentialsDTO();
+        ProxyCredentials pg = new ProxyCredentials();
         pg.setUsername(USER);
         pg.setPassword(PASSWORD);
 

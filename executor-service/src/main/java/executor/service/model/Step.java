@@ -2,14 +2,14 @@ package executor.service.model;
 
 import java.util.Objects;
 
-public class StepDto {
+public class Step {
     private String action;
     private String value;
 
-    public StepDto() {
+    public Step() {
     }
 
-    public StepDto(String action, String value) {
+    public Step(String action, String value) {
         this.action = action;
         this.value = value;
     }
@@ -33,12 +33,9 @@ public class StepDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        StepDto stepDto = (StepDto) o;
-
-        if (!Objects.equals(action, stepDto.action)) return false;
-        return Objects.equals(value, stepDto.value);
+        if (!(o instanceof Step step)) return false;
+        return Objects.equals(value, step.value)
+                && Objects.equals(action, step.action);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package executor.service.factory.webdriverinitializer.proxy;
 
-import executor.service.model.ProxyConfigHolderDto;
+import executor.service.model.ProxyConfigHolder;
 import org.openqa.selenium.Proxy;
 
 public interface ProxyProvider {
@@ -11,5 +11,5 @@ public interface ProxyProvider {
      *                          setting up a proxy.
      * @return A Proxy instance configured with the specified proxy settings.
      */
-    Proxy getProxy(ProxyConfigHolderDto proxyConfigHolder);
+    Proxy getProxy(ProxyConfigHolder proxyConfigHolder);
 }

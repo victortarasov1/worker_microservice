@@ -4,17 +4,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class WebDriverConfigDtoTest {
-    private WebDriverConfigDto config;
+public class WebDriverConfigTest {
+    private WebDriverConfig config;
 
     @BeforeEach
     public void setup() {
-        config = new WebDriverConfigDto("chromedriver", "desktop", 30000L, 3000L);
+        config = new WebDriverConfig("chromedriver", "desktop", 30000L, 3000L);
     }
 
     @Test
     public void testEmptyConstructor() {
-        WebDriverConfigDto emptyConfig = new WebDriverConfigDto();
+        WebDriverConfig emptyConfig = new WebDriverConfig();
         Assertions.assertNull(emptyConfig.getWebDriverExecutable());
         Assertions.assertNull(emptyConfig.getUserAgent());
         Assertions.assertNull(emptyConfig.getPageLoadTimeout());
@@ -41,8 +41,8 @@ public class WebDriverConfigDtoTest {
 
     @Test
     public void testEquals() {
-        WebDriverConfigDto sameConfig = new WebDriverConfigDto("chromedriver", "desktop", 30000L, 3000L);
-        WebDriverConfigDto differentConfig = new WebDriverConfigDto("geckodriver", "mobile", 20000L, 2000L);
+        WebDriverConfig sameConfig = new WebDriverConfig("chromedriver", "desktop", 30000L, 3000L);
+        WebDriverConfig differentConfig = new WebDriverConfig("geckodriver", "mobile", 20000L, 2000L);
 
         Assertions.assertEquals(config, sameConfig);
         Assertions.assertEquals(sameConfig, config);
