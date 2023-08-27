@@ -2,6 +2,7 @@ package executor.service.factory.webdriverinitializer;
 
 import executor.service.annotation.Logged;
 import executor.service.factory.webdriverinitializer.setting.BrowserOptions;
+import org.openqa.selenium.remote.service.DriverService;
 import org.springframework.stereotype.Component;
 import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
 import executor.service.factory.webdriverinitializer.setting.UserAgentArgument;
@@ -12,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.io.File;
+
 import java.time.Duration;
 
 @Component
@@ -20,16 +21,18 @@ import java.time.Duration;
 public class ChromeDriverProviderImpl implements WebDriverProvider {
     private final ProxyProvider proxyProvider;
     private final WebDriverConfigDto webDriverConfig;
+    private final DriverService driverService;
 
-    public ChromeDriverProviderImpl(ProxyProvider proxyProvider, WebDriverConfigDto webDriverConfig) {
+    public ChromeDriverProviderImpl(ProxyProvider proxyProvider, WebDriverConfigDto webDriverConfig, DriverService driverService) {
         this.proxyProvider = proxyProvider;
         this.webDriverConfig = webDriverConfig;
+        this.driverService = driverService;
     }
 
     @Override
     public WebDriver create(ProxyConfigHolderDto proxyConfigHolder) {
         ChromeOptions options = createChromeOptions(proxyConfigHolder);
-        return createChromeDriver(options);
+        return new ChromeDriver((ChromeDriverService) driverService, options);
     }
 
     @Override
@@ -37,21 +40,14 @@ public class ChromeDriverProviderImpl implements WebDriverProvider {
         return create(null);
     }
 
-    private WebDriver createChromeDriver(ChromeOptions options) {
-        try (ChromeDriverService service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(webDriverConfig.getWebDriverExecutable()))
-                .build()) {
-            ChromeDriver driver = new ChromeDriver(service, options);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(webDriverConfig.getImplicitlyWait()));
-            driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(webDriverConfig.getPageLoadTimeout()));
-            return driver;
-        }
-    }
+
     private ChromeOptions createChromeOptions(ProxyConfigHolderDto proxyConfigHolder) {
         ChromeOptions options = new ChromeOptions();
         if(proxyConfigHolder != null) options.setProxy(proxyProvider.getProxy(proxyConfigHolder));
         options.addArguments(UserAgentArgument.CHROME.getArgument() + webDriverConfig.getUserAgent());
         options.addArguments(BrowserOptions.DISABLE_SANDBOX.getOption());
+        options.setImplicitWaitTimeout(Duration.ofSeconds(webDriverConfig.getImplicitlyWait()));
+        options.setPageLoadTimeout(Duration.ofMillis(webDriverConfig.getPageLoadTimeout()));
         return options;
     }
 
