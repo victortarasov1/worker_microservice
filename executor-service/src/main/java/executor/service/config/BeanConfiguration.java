@@ -1,20 +1,30 @@
 package executor.service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import executor.service.model.WebDriverConfigDto;
 import executor.service.queue.ThreadSafeQueueHandler;
 import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.queue.proxy.ProxySourceQueueHandlerImpl;
 import executor.service.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.queue.scenario.ScenarioSourceQueueHandlerImpl;
 import okhttp3.OkHttpClient;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.remote.service.DriverService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.File;
+
 
 @Configuration
 public class BeanConfiguration {
+    private final WebDriverConfigDto webDriverConfig;
+
+    public BeanConfiguration(WebDriverConfigDto webDriverConfig) {
+        this.webDriverConfig = webDriverConfig;
+    }
 
     @Bean
     public Logger logger() {
@@ -40,6 +50,13 @@ public class BeanConfiguration {
     @Bean
     public ScenarioSourceQueueHandler scenarioQueueHandler() {
         return new ScenarioSourceQueueHandlerImpl(new ThreadSafeQueueHandler<>());
+    }
+
+    @Bean
+    public DriverService driverService() {
+        return new ChromeDriverService.Builder()
+                .usingDriverExecutable(new File(webDriverConfig.getWebDriverExecutable()))
+                .build();
     }
 
 
