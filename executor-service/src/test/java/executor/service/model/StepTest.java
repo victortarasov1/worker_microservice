@@ -1,50 +1,83 @@
 package executor.service.model;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StepTest {
 
-    private Step step;
+    private static final String TEST_ACTION = "testAction";
+    private static final String TEST_VALUE = "testValue";
 
-    @BeforeEach
-    public void setUp(){
-        step = new Step("Test action", "Test value");
+    @Test
+    public void testDefaultConstructor() {
+        Step step = new Step();
+        assertThat(step.getAction()).isNull();
+        assertThat(step.getValue()).isNull();
     }
 
     @Test
-    public void emptyConstructorTest(){
-        Step actualStep = new Step();
-        Step expectedStep = new Step();
-        Assertions.assertEquals(expectedStep, actualStep);
+    public void testParameterizedConstructor() {
+        Step step = new Step(TEST_ACTION, TEST_VALUE);
+
+        assertThat(step.getAction()).isEqualTo(TEST_ACTION);
+        assertThat(step.getValue()).isEqualTo(TEST_VALUE);
     }
 
     @Test
-    public void settersTest(){
-        step.setAction("Test action 2");
-        step.setValue("Test value 2");
-        Step expectedStep = new Step("Test action 2", "Test value 2");
-        Assertions.assertEquals(step, expectedStep);
+    public void testActionGetterAndSetter() {
+        Step step = new Step();
+        step.setAction(TEST_ACTION);
+        assertThat(step.getAction()).isEqualTo(TEST_ACTION);
     }
 
     @Test
-    public void gettersTest(){
-        Step actualStep = new Step("Test action 2", "Test value 2");
-        step.setValue(actualStep.getValue());
-        step.setAction(actualStep.getAction());
-        Assertions.assertEquals(actualStep, step);
+    public void testValueGetterAndSetter() {
+        Step step = new Step();
+        step.setValue(TEST_VALUE);
+        assertThat(step.getValue()).isEqualTo(TEST_VALUE);
     }
 
     @Test
-    public void equalsTest(){
-        Step step2 = new Step("Test action 2", "Test value 2");
-        boolean result = step.equals(step2);
-        Assertions.assertFalse(result);
-        step.setAction("Test action 2");
-        step.setValue("Test value 2");
-        boolean result2 = step.equals(step2);
-        Assertions.assertTrue(result2);
+    public void testEqualsWithNull() {
+        Step step1 = new Step(TEST_ACTION, TEST_VALUE);
+        assertThat(step1).isNotEqualTo(null);
     }
 
+    @Test
+    public void testEqualsWithDifferentType() {
+        Step step1 = new Step(TEST_ACTION, TEST_VALUE);
+        String differentType = "string";
+        assertThat(step1).isNotEqualTo(differentType);
+    }
+
+    @Test
+    public void testEqualsWithItself() {
+        Step step1 = new Step(TEST_ACTION, TEST_VALUE);
+        assertThat(step1).isEqualTo(step1);
+    }
+
+    @Test
+    public void testEqualsAndHashCodeForEqualSteps() {
+        Step step1 = new Step(TEST_ACTION, TEST_VALUE);
+        Step step2 = new Step(TEST_ACTION, TEST_VALUE);
+        assertThat(step1).isEqualTo(step2);
+        assertThat(step1.hashCode()).isEqualTo(step2.hashCode());
+    }
+
+    @Test
+    public void testEqualsAndHashCodeForDifferentSteps() {
+        Step step1 = new Step(TEST_ACTION, TEST_VALUE);
+        Step step3 = new Step("differentAction", "differentValue");
+        assertThat(step1).isNotEqualTo(step3);
+        assertThat(step1.hashCode()).isNotEqualTo(step3.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        Step step = new Step(TEST_ACTION, TEST_VALUE);
+        String expectedToString = "StepDto{action='" + TEST_ACTION + "', value='" + TEST_VALUE + "'}";
+        assertThat(step.toString()).isEqualTo(expectedToString);
+    }
 }

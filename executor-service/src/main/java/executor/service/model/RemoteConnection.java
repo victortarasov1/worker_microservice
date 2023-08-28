@@ -61,4 +61,13 @@ public class RemoteConnection {
     public void setToken(String token) {
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "RemoteConnection{" +
+                "scenarioUrl='" + scenarioUrl + '\'' +
+                ", proxyUrl='" + proxyUrl + '\'' +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }
