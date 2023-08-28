@@ -1,5 +1,6 @@
 package executor.service.factory.webdriverinitializer;
 
+import executor.service.config.BeanConfiguration;
 import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
 import executor.service.model.ProxyConfigHolder;
 import executor.service.model.WebDriverConfig;
@@ -22,22 +23,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@ContextConfiguration(classes = {WebDriverConfig.class})
+@ContextConfiguration(classes = {WebDriverConfig.class, BeanConfiguration.class})
 class ChromeDriverProviderImplTest {
     private static final String GET_USER_AGENT_SCRIPT = "return navigator.userAgent;";
     private static final String HTTP_PROXY = "https://localhost:8008";
     private WebDriverProvider driverProvider;
     @MockBean
     private ProxyProvider proxyProvider;
+
+    @Autowired
+    DriverService driverService;
     @Autowired
     private WebDriverConfig webDriverConfig;
 
 
     @BeforeEach
     void setup() {
-        DriverService driverService = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(webDriverConfig.getWebDriverExecutable()))
-                .build();
         driverProvider = new ChromeDriverProviderImpl(proxyProvider, webDriverConfig, driverService);
     }
 
