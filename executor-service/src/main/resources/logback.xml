@@ -6,10 +6,12 @@
         </encoder>
     </appender>
     <appender name="db" class="executor.service.appender.LogStorageAppender">
-        <logStorageManager class="executor.service.appender.manager.LogDatabaseManager">
-            <url>jdbc:h2:/tmp/logs</url>
-            <username>root</username>
-            <password>root</password>
+        <logStorageManager class="executor.service.appender.manager.db.LogDatabaseManager">
+            <connectionProvider class="executor.service.appender.manager.db.ConnectionProviderImpl">
+                <url>jdbc:h2:/tmp/logs</url>
+                <username>root</username>
+                <password>root</password>
+            </connectionProvider>
         </logStorageManager>
     </appender>
     <root level="INFO">
