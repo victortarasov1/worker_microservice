@@ -1,83 +1,87 @@
 package executor.service.model;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class ThreadPoolConfigTest {
-    private ThreadPoolConfig underTest;
-    private static final Integer corePoolSizeDefault = 1;
-    private static final Integer corePoolSizeChanged = 2;
-    private static final Long keepAliveTimeDefault = 1000L;
-    private static final Long keepAliveTimeChanged = 2000L;
 
-    @BeforeEach
-    public void setUp() {
-        underTest = new ThreadPoolConfig(corePoolSizeDefault, keepAliveTimeDefault);
+    private static final Integer TEST_CORE_POOL_SIZE = 10;
+    private static final Long TEST_KEEP_ALIVE_TIME = 300L;
+    private static final Integer DIFFERENT_CORE_POOL_SIZE = 5;
+    private static final Long DIFFERENT_KEEP_ALIVE_TIME = 500L;
+
+    @Test
+    public void testDefaultConstructor() {
+        ThreadPoolConfig config = new ThreadPoolConfig();
+        assertThat(config.getCorePoolSize()).isNull();
+        assertThat(config.getKeepAliveTime()).isNull();
     }
 
     @Test
-    public void objectWithEmptyConstructorCreatesCorrect() {
-        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig();
-        Assertions.assertNull(threadPoolConfig.getCorePoolSize());
-        Assertions.assertNull(threadPoolConfig.getKeepAliveTime());
+    public void testParameterizedConstructor() {
+        ThreadPoolConfig config = new ThreadPoolConfig(TEST_CORE_POOL_SIZE, TEST_KEEP_ALIVE_TIME);
+
+        assertThat(config.getCorePoolSize()).isEqualTo(TEST_CORE_POOL_SIZE);
+        assertThat(config.getKeepAliveTime()).isEqualTo(TEST_KEEP_ALIVE_TIME);
     }
 
     @Test
-    public void getterCorePoolSizeWorksCorrect() {
-        Assertions.assertEquals(corePoolSizeDefault, underTest.getCorePoolSize());
+    public void testCorePoolSizeGetterAndSetter() {
+        ThreadPoolConfig config = new ThreadPoolConfig();
+        config.setCorePoolSize(TEST_CORE_POOL_SIZE);
+        assertThat(config.getCorePoolSize()).isEqualTo(TEST_CORE_POOL_SIZE);
     }
 
     @Test
-    public void setterCorePoolSizeWorksCorrect() {
-        underTest.setCorePoolSize(corePoolSizeChanged);
-        Assertions.assertEquals(corePoolSizeChanged, underTest.getCorePoolSize());
+    public void testKeepAliveTimeGetterAndSetter() {
+        ThreadPoolConfig config = new ThreadPoolConfig();
+        config.setKeepAliveTime(TEST_KEEP_ALIVE_TIME);
+        assertThat(config.getKeepAliveTime()).isEqualTo(TEST_KEEP_ALIVE_TIME);
     }
 
     @Test
-    public void getterKeepAliveTimeWorksCorrect() {
-        Assertions.assertEquals(keepAliveTimeDefault, underTest.getKeepAliveTime());
+    public void testEqualsWithNull() {
+        ThreadPoolConfig config1 = new ThreadPoolConfig(TEST_CORE_POOL_SIZE, TEST_KEEP_ALIVE_TIME);
+        assertThat(config1).isNotEqualTo(null);
     }
 
     @Test
-    public void setterKeepAliveTimeWorksCorrect() {
-        underTest.setKeepAliveTime(keepAliveTimeChanged);
-        Assertions.assertEquals(keepAliveTimeChanged, underTest.getKeepAliveTime());
+    public void testEqualsWithDifferentType() {
+        ThreadPoolConfig config1 = new ThreadPoolConfig(TEST_CORE_POOL_SIZE, TEST_KEEP_ALIVE_TIME);
+        String differentType = "string";
+        assertThat(config1).isNotEqualTo(differentType);
     }
 
     @Test
-    public void objectsAreEqual() {
-        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig(corePoolSizeDefault, keepAliveTimeDefault);
-        Assertions.assertEquals(underTest, threadPoolConfig);
+    public void testEqualsWithItself() {
+        ThreadPoolConfig config1 = new ThreadPoolConfig(TEST_CORE_POOL_SIZE, TEST_KEEP_ALIVE_TIME);
+        assertThat(config1).isEqualTo(config1);
     }
 
     @Test
-    public void objectsAreNotEqual() {
-        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig(corePoolSizeDefault, keepAliveTimeChanged);
-        Assertions.assertNotEquals(underTest, threadPoolConfig);
+    public void testEqualsAndHashCodeForEqualConfigs() {
+        ThreadPoolConfig config1 = new ThreadPoolConfig(TEST_CORE_POOL_SIZE, TEST_KEEP_ALIVE_TIME);
+        ThreadPoolConfig config2 = new ThreadPoolConfig(TEST_CORE_POOL_SIZE, TEST_KEEP_ALIVE_TIME);
+
+        assertThat(config1).isEqualTo(config2);
+        assertThat(config1.hashCode()).isEqualTo(config2.hashCode());
     }
 
     @Test
-    public void objectAndNullAreNotEqual() {
-        Assertions.assertNotEquals(underTest, null);
+    public void testEqualsAndHashCodeForDifferentConfigs() {
+        ThreadPoolConfig config1 = new ThreadPoolConfig(TEST_CORE_POOL_SIZE, TEST_KEEP_ALIVE_TIME);
+        ThreadPoolConfig config3 = new ThreadPoolConfig(DIFFERENT_CORE_POOL_SIZE, DIFFERENT_KEEP_ALIVE_TIME);
+
+        assertThat(config1).isNotEqualTo(config3);
+        assertThat(config1.hashCode()).isNotEqualTo(config3.hashCode());
     }
 
     @Test
-    public void hashCodesAreEqual() {
-        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig(corePoolSizeDefault, keepAliveTimeDefault);
-        Assertions.assertEquals(underTest.hashCode(), threadPoolConfig.hashCode());
-    }
+    public void testToString() {
+        ThreadPoolConfig config = new ThreadPoolConfig(TEST_CORE_POOL_SIZE, TEST_KEEP_ALIVE_TIME);
 
-    @Test
-    public void hashCodesAreNotEqual() {
-        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig(corePoolSizeChanged, keepAliveTimeDefault);
-        Assertions.assertNotEquals(underTest.hashCode(), threadPoolConfig.hashCode());
-    }
-
-    @Test
-    public void stringRepresentationsAreEqual() {
-        Assertions.assertEquals(
-            "ThreadPoolConfigDto{corePoolSize='" + corePoolSizeDefault + "', keepAliveTime='" + keepAliveTimeDefault + "'}",
-            underTest.toString());
+        String expectedToString = "ThreadPoolConfigDto{corePoolSize='" + TEST_CORE_POOL_SIZE + "', keepAliveTime='" + TEST_KEEP_ALIVE_TIME + "'}";
+        assertThat(config.toString()).isEqualTo(expectedToString);
     }
 }

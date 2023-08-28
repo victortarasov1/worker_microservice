@@ -1,67 +1,86 @@
 package executor.service.model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProxyCredentialsTest {
+    private static final String TEST_USERNAME = "testUsername";
+    private static final String TEST_PASSWORD = "testPassword";
+    private static final String DIFFERENT_USERNAME = "differentUsername";
+    private static final String DIFFERENT_PASSWORD = "differentPassword";
 
-    private static final String USER = "user";
-    private static final String PASSWORD = "password";
-    private ProxyCredentials mActual;
-    private ProxyCredentials mExpected;
-
-    @BeforeEach
-    public void setUp() {
-        mActual = new ProxyCredentials(USER, PASSWORD);
-        mExpected = new ProxyCredentials(USER, PASSWORD);
+    @Test
+    public void testDefaultConstructor() {
+        ProxyCredentials credentials = new ProxyCredentials();
+        assertThat(credentials.getUsername()).isNull();
+        assertThat(credentials.getPassword()).isNull();
     }
 
     @Test
-    public void testEquality() {
-        assertThat(mActual).isEqualTo(mExpected);
+    public void testParameterizedConstructor() {
+        ProxyCredentials credentials = new ProxyCredentials(TEST_USERNAME, TEST_PASSWORD);
+
+        assertThat(credentials.getUsername()).isEqualTo(TEST_USERNAME);
+        assertThat(credentials.getPassword()).isEqualTo(TEST_PASSWORD);
     }
 
     @Test
-    public void testNotEquality() {
-        ProxyCredentials expected = new ProxyCredentials(USER, "");
-        assertThat(mActual).isNotEqualTo(expected);
+    public void testUsernameGetterAndSetter() {
+        ProxyCredentials credentials = new ProxyCredentials();
+        credentials.setUsername(TEST_USERNAME);
+        assertThat(credentials.getUsername()).isEqualTo(TEST_USERNAME);
     }
 
     @Test
-    public void testConstructorsAndGetters() {
-        assertThat(USER).isEqualTo(mActual.getUsername());
-        assertThat(PASSWORD).isEqualTo(mActual.getPassword());
-
+    public void testPasswordGetterAndSetter() {
+        ProxyCredentials credentials = new ProxyCredentials();
+        credentials.setPassword(TEST_PASSWORD);
+        assertThat(credentials.getPassword()).isEqualTo(TEST_PASSWORD);
     }
 
     @Test
-    public void testEqualsWithSameObject() {
-        assertThat(mActual).isEqualTo(mActual);
+    public void testEqualsWithNull() {
+        ProxyCredentials credentials1 = new ProxyCredentials(TEST_USERNAME, TEST_PASSWORD);
+        assertThat(credentials1).isNotEqualTo(null);
     }
 
     @Test
-    public void testEmptyConstructor() {
-        ProxyCredentials pg = new ProxyCredentials();
-        assertThat(pg.getUsername()).isNull();
-        assertThat(pg.getPassword()).isNull();
+    public void testEqualsWithDifferentType() {
+        ProxyCredentials credentials1 = new ProxyCredentials(TEST_USERNAME, TEST_PASSWORD);
+        String differentType = "string";
+        assertThat(credentials1).isNotEqualTo(differentType);
     }
 
     @Test
-    public void testSetterWithNull() {
-        ProxyCredentials pg = new ProxyCredentials(USER, PASSWORD);
-        pg.setPassword(null);
-        assertThat(pg.getPassword()).isNull();
+    public void testEqualsWithItself() {
+        ProxyCredentials credentials1 = new ProxyCredentials(TEST_USERNAME, TEST_PASSWORD);
+        assertThat(credentials1).isEqualTo(credentials1);
     }
 
     @Test
-    public void testSetters() {
-        ProxyCredentials pg = new ProxyCredentials();
-        pg.setUsername(USER);
-        pg.setPassword(PASSWORD);
+    public void testEqualsAndHashCodeForEqualCredentials() {
+        ProxyCredentials credentials1 = new ProxyCredentials(TEST_USERNAME, TEST_PASSWORD);
+        ProxyCredentials credentials2 = new ProxyCredentials(TEST_USERNAME, TEST_PASSWORD);
 
-        assertThat(USER).isEqualTo(pg.getUsername());
-        assertThat(PASSWORD).isEqualTo(pg.getPassword());
+        assertThat(credentials1).isEqualTo(credentials2);
+        assertThat(credentials1.hashCode()).isEqualTo(credentials2.hashCode());
+    }
+
+    @Test
+    public void testEqualsAndHashCodeForDifferentCredentials() {
+        ProxyCredentials credentials1 = new ProxyCredentials(TEST_USERNAME, TEST_PASSWORD);
+        ProxyCredentials credentials3 = new ProxyCredentials(DIFFERENT_USERNAME, DIFFERENT_PASSWORD);
+
+        assertThat(credentials1).isNotEqualTo(credentials3);
+        assertThat(credentials1.hashCode()).isNotEqualTo(credentials3.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        ProxyCredentials credentials = new ProxyCredentials(TEST_USERNAME, TEST_PASSWORD);
+
+        String expectedToString = "ProxyCredentialsDTO{username='" + TEST_USERNAME + "', password='" + TEST_PASSWORD + "'}";
+        assertThat(credentials.toString()).isEqualTo(expectedToString);
     }
 }
