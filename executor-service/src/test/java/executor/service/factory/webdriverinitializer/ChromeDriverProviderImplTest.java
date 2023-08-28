@@ -9,14 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.io.File;
 import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,7 +63,6 @@ class ChromeDriverProviderImplTest {
         assertThat(driver).isNotNull();
         assertThat(driver).isInstanceOf(ChromeDriver.class);
         ChromeDriver chromeDriver = (ChromeDriver) driver;
-        System.out.println(chromeDriver.getCapabilities());
         Object userAgent = chromeDriver.executeScript(GET_USER_AGENT_SCRIPT);
         assertThat(userAgent).isEqualTo(webDriverConfig.getUserAgent());
         Duration implicitWaitTimeout = chromeDriver.manage().timeouts().getImplicitWaitTimeout();
