@@ -1,16 +1,15 @@
 package executor.service.appender.manager.db;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.classic.spi.LoggingEvent;
 import executor.service.exception.logstorage.DisconnectionFailedException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class LogDatabaseManagerTest {
@@ -18,7 +17,6 @@ class LogDatabaseManagerTest {
     private ConnectionProvider connectionProvider;
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private ILoggingEvent loggingEvent;
     private LogDatabaseManager logDatabaseManager;
 
 
@@ -27,7 +25,6 @@ class LogDatabaseManagerTest {
         connection = mock(Connection.class);
         connectionProvider = mock(ConnectionProvider.class);
         preparedStatement = mock(PreparedStatement.class);
-        loggingEvent = mock(ILoggingEvent.class);
         logDatabaseManager = new LogDatabaseManager();
         logDatabaseManager.setConnectionProvider(connectionProvider);
     }
@@ -55,7 +52,25 @@ class LogDatabaseManagerTest {
     }
 
     @Test
-    public void testSaveLogEvent() {
+    @Disabled
+    public void testSaveLogEvent() throws SQLException {
+        ILoggingEvent event = new LoggingEvent();
+    }
+
+    @Test
+    @Disabled
+    public void testSaveLogEvent_shouldThrowLogEventSaveException() {
+       // assertThatThrownBy(() -> logDatabaseManager.saveLogEvent(loggingEvent)).isInstanceOf(LogEventSaveException.class);
+    }
+
+    @Test
+    @Disabled
+    public void testSaveExceptionStackTrace() {
+    }
+
+    @Test
+    @Disabled
+    public void testSaveExceptionStackTrace_shouldThrowStackTraceSaveException() {
 
     }
 
