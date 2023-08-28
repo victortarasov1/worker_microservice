@@ -4,6 +4,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.classic.spi.StackTraceElementProxy;
 import executor.service.appender.manager.LogStorageManager;
+import executor.service.exception.logstorage.ConnectionFailedException;
 import executor.service.exception.logstorage.DisconnectionFailedException;
 import executor.service.exception.logstorage.LogEventSaveException;
 import executor.service.exception.logstorage.StackTraceSaveException;
@@ -20,7 +21,11 @@ public class LogDatabaseManager implements LogStorageManager {
 
     @Override
     public void connect() {
-        this.connection = connectionProvider.getConnection();
+        try {
+            this.connection = connectionProvider.getConnection();
+        } catch (NullPointerException ex) {
+            throw new ConnectionFailedException(ex);
+        }
     }
 
     public void setConnectionProvider(ConnectionProvider connectionProvider) {
@@ -31,7 +36,7 @@ public class LogDatabaseManager implements LogStorageManager {
     public void disconnect() {
         try {
             connection.close();
-        } catch (SQLException ex) {
+        } catch (SQLException | NullPointerException ex) {
             throw new DisconnectionFailedException(ex);
         }
     }
@@ -58,7 +63,7 @@ public class LogDatabaseManager implements LogStorageManager {
             ResultSet generatedKeys = statement.getGeneratedKeys();
             generatedKeys.next();
             return generatedKeys.getLong(1);
-        } catch (SQLException ex) {
+        } catch (SQLException | NullPointerException ex) {
             throw new LogEventSaveException(ex);
         }
     }
@@ -78,7 +83,7 @@ public class LogDatabaseManager implements LogStorageManager {
                 statement.addBatch();
             }
             statement.executeBatch();
-        } catch (SQLException ex) {
+        } catch (SQLException | NullPointerException ex) {
             throw new StackTraceSaveException(ex);
         }
     }
@@ -86,7 +91,7 @@ public class LogDatabaseManager implements LogStorageManager {
     private List<String> getThrowableProxyTraceLines(IThrowableProxy throwableProxy) {
         List<String> traceLines = new ArrayList<>();
         traceLines.add(throwableProxy.getClassName() + ": " + throwableProxy.getMessage());
-        getFormattedStackTraceElements(throwableProxy);
+        traceLines.addAll(getFormattedStackTraceElements(throwableProxy));
         throwableProxy = throwableProxy.getCause();
         while (throwableProxy != null) {
             traceLines.add("Caused by: " + throwableProxy.getClassName() + ": " + throwableProxy.getMessage());
