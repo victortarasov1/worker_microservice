@@ -27,6 +27,9 @@ jobs:
         run: |
           sudo mv /usr/local/bin/chromedriver /opt/chromedriver
           sudo chmod +x /opt/chromedriver
+      - name: Run Flyway migrations
+        run: |
+          ./flyway/create.sh
       - name: Build and Run Tests
         run: |
           export DISPLAY=:99
@@ -37,3 +40,6 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
           directory: build/test-results/test
+      - name: Stop and remove PostgreSQL Docker container
+        run: |
+          ./flyway/destroy.sh
