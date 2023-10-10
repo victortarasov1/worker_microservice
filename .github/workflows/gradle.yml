@@ -33,7 +33,9 @@ jobs:
           chmod +x flyway/migration/destroy.sh
       - name: Run Flyway migrations
         run: |
-          ./flyway/migration/create.sh
+          cd flyway/migration
+          ./create.sh
+          cd -
       - name: Build and Run Tests
         run: |
           export DISPLAY=:99
@@ -46,4 +48,6 @@ jobs:
           directory: build/test-results/test
       - name: Stop and remove PostgreSQL Docker container
         run: |
-          ./flyway/migration/destroy.sh
+          cd flyway/migration
+          ./destroy.sh
+          cd -
