@@ -11,16 +11,6 @@ java {
     sourceCompatibility = '17'
 }
 
-sourceSets {
-    main {
-        java.srcDirs("executor-service/src/main/java")
-        resources.srcDirs("executor-service/src/main/resources")
-    }
-    test {
-        java.srcDirs("executor-service/src/test/java")
-        resources.srcDirs("executor-service/src/test/resources")
-    }
-}
 repositories {
     mavenCentral()
 }
