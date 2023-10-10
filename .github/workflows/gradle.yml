@@ -29,7 +29,7 @@ jobs:
           sudo chmod +x /opt/chromedriver
       - name: Run Flyway migrations
         run: |
-          ./flyway/create.sh
+          ./flyway/migration/create.sh
       - name: Build and Run Tests
         run: |
           export DISPLAY=:99
@@ -42,4 +42,4 @@ jobs:
           directory: build/test-results/test
       - name: Stop and remove PostgreSQL Docker container
         run: |
-          ./flyway/destroy.sh
+          ./flyway/migration/destroy.sh
