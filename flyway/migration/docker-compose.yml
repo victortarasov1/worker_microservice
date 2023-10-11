@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 services:
   flyway:
     image: flyway/flyway:9.22.1
@@ -8,6 +8,7 @@ services:
       - ${PWD}/flyway.config:/flyway/conf/flyway.config
     depends_on:
       - postgres
+
   postgres:
     image: postgres:15.4
     restart: always
@@ -17,3 +18,10 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=worker-logs
+    networks:
+      - db_network
+
+networks:
+  db_network:
+    external:
+      name: db_network

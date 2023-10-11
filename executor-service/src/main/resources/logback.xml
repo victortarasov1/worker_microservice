@@ -8,7 +8,7 @@
     <appender name="db" class="executor.service.appender.LogStorageAppender">
         <logStorageManager class="executor.service.appender.manager.db.LogDatabaseManager">
             <connectionProvider class="executor.service.appender.manager.db.ConnectionProviderImpl">
-                <url>jdbc:postgresql://localhost:5432/worker-logs</url>
+                <url>jdbc:postgresql://postgres:5432/worker-logs</url>
                 <username>root</username>
                 <password>root</password>
             </connectionProvider>
