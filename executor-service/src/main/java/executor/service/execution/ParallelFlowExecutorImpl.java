@@ -9,6 +9,7 @@ import executor.service.model.ThreadPoolConfig;
 import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.SourceListener;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.WebDriver;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 @Service
+@RequiredArgsConstructor
 public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final ExecutionService executionService;
     private final ThreadPoolConfig threadPoolConfig;
@@ -29,18 +31,6 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final WebDriverProvider driverProvider;
     private final ProxySourceQueueHandler proxies;
     private final ScenarioSourceQueueHandler scenarios;
-
-    public ParallelFlowExecutorImpl(ExecutionService executionService, List<SourceListener> listeners, WebDriverProvider driverProvider,
-                                    ThreadPoolConfig threadPoolConfig, ScenarioExecutor scenarioExecutor,
-                                    ProxySourceQueueHandler proxies, ScenarioSourceQueueHandler scenarios) {
-        this.listeners = listeners;
-        this.threadPoolConfig = threadPoolConfig;
-        this.executionService = executionService;
-        this.scenarioExecutor = scenarioExecutor;
-        this.driverProvider = driverProvider;
-        this.proxies = proxies;
-        this.scenarios = scenarios;
-    }
 
     @Scheduled(fixedRate = 120000)
     @Override

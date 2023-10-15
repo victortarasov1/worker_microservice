@@ -7,6 +7,7 @@ import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.queue.proxy.ProxySourceQueueHandlerImpl;
 import executor.service.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.queue.scenario.ScenarioSourceQueueHandlerImpl;
+import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.service.DriverService;
@@ -19,12 +20,9 @@ import java.io.File;
 
 
 @Configuration
+@RequiredArgsConstructor
 public class BeanConfiguration {
     private final WebDriverConfig webDriverConfig;
-
-    public BeanConfiguration(WebDriverConfig webDriverConfig) {
-        this.webDriverConfig = webDriverConfig;
-    }
 
     @Bean
     public Logger logger() {

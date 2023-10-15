@@ -4,15 +4,12 @@ package executor.service.queue.proxy;
 
 import executor.service.model.ProxyConfigHolder;
 import executor.service.queue.QueueHandler;
+import lombok.RequiredArgsConstructor;
 
 import java.util.*;
-
+@RequiredArgsConstructor
 public class ProxySourceQueueHandlerImpl implements ProxySourceQueueHandler {
     private final QueueHandler<ProxyConfigHolder> handler;
-
-    public ProxySourceQueueHandlerImpl(QueueHandler<ProxyConfigHolder> handler) {
-        this.handler = handler;
-    }
 
     @Override
     public void add(ProxyConfigHolder element) {

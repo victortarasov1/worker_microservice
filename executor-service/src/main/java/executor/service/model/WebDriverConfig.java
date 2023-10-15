@@ -1,11 +1,16 @@
 package executor.service.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Objects;
 
 @Configuration
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class WebDriverConfig {
     @Value("${executorservice.common.webDriverExecutable}")
     private String webDriverExecutable;
@@ -19,71 +24,4 @@ public class WebDriverConfig {
     @Value("${executorservice.common.driverWait}")
     private Long implicitlyWait;
 
-    public WebDriverConfig() {
-    }
-
-    public WebDriverConfig(String webDriverExecutable, String userAgent,
-                           Long pageLoadTimeout, Long implicitlyWait) {
-        this.webDriverExecutable = webDriverExecutable;
-        this.userAgent = userAgent;
-        this.pageLoadTimeout = pageLoadTimeout;
-        this.implicitlyWait = implicitlyWait;
-    }
-
-    public String getWebDriverExecutable() {
-        return webDriverExecutable;
-    }
-
-    public void setWebDriverExecutable(String webDriverExecutable) {
-        this.webDriverExecutable = webDriverExecutable;
-    }
-
-    public String getUserAgent() {
-        return userAgent;
-    }
-
-    public void setUserAgent(String userAgent) {
-        this.userAgent = userAgent;
-    }
-
-    public Long getPageLoadTimeout() {
-        return pageLoadTimeout;
-    }
-
-    public void setPageLoadTimeout(Long pageLoadTimeout) {
-        this.pageLoadTimeout = pageLoadTimeout;
-    }
-
-    public Long getImplicitlyWait() {
-        return implicitlyWait;
-    }
-
-    public void setImplicitlyWait(Long implicitlyWait) {
-        this.implicitlyWait = implicitlyWait;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof WebDriverConfig webDriverConfig)) return false;
-        return webDriverExecutable.equals(webDriverConfig.webDriverExecutable)
-                && userAgent.equals(webDriverConfig.userAgent)
-                && pageLoadTimeout.equals(webDriverConfig.pageLoadTimeout)
-                && implicitlyWait.equals(webDriverConfig.implicitlyWait);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(webDriverExecutable, userAgent, pageLoadTimeout, implicitlyWait);
-    }
-
-    @Override
-    public String toString() {
-        return "WebDriverConfigDto{" +
-                "webDriverExecutable='" + webDriverExecutable + '\'' +
-                ", userAgent='" + userAgent + '\'' +
-                ", pageLoadTimeout=" + pageLoadTimeout +
-                ", implicitlyWait=" + implicitlyWait +
-                '}';
-    }
 }
