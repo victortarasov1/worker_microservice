@@ -32,6 +32,3 @@ WORKDIR /app
 COPY . .
 
 RUN gradle build --no-daemon --exclude-task test
-#CMD ["java", "-jar", "build/libs/executor-service-0.0.1-SNAPSHOT.jar"]
-
-CMD /usr/local/bin/shell.sh
