@@ -46,6 +46,8 @@ public class ChromeDriverProviderImpl implements WebDriverProvider {
         if(proxyConfigHolder != null) options.setProxy(proxyProvider.getProxy(proxyConfigHolder));
         options.addArguments(UserAgentArgument.CHROME.getArgument() + webDriverConfig.getUserAgent());
         options.addArguments(BrowserOptions.DISABLE_SANDBOX.getOption());
+        options.addArguments(BrowserOptions.DISABLE_DEV_SHM_USAGE.getOption());
+        options.addArguments(BrowserOptions.HEADLESS.getOption());
         options.setImplicitWaitTimeout(Duration.ofSeconds(webDriverConfig.getImplicitlyWait()));
         options.setPageLoadTimeout(Duration.ofMillis(webDriverConfig.getPageLoadTimeout()));
         return options;

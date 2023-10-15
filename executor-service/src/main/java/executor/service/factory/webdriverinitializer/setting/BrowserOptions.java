@@ -1,7 +1,9 @@
 package executor.service.factory.webdriverinitializer.setting;
 
 public enum BrowserOptions {
-    DISABLE_SANDBOX("--no-sandbox");
+    DISABLE_SANDBOX("--no-sandbox"),
+    HEADLESS("--headless"),
+    DISABLE_DEV_SHM_USAGE("--disable-dev-shm-usage");
 
     private final String option;
 
