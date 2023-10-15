@@ -8,6 +8,8 @@ services:
       - ${PWD}/flyway.config:/flyway/conf/flyway.config
     depends_on:
       - postgres
+    networks:
+      - db_network
 
   postgres:
     image: postgres:15.4
