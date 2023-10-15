@@ -34,6 +34,7 @@ jobs:
       - name: Run Flyway migrations
         run: |
           cd flyway/migration
+          docker network create db_network
           ./create.sh
           cd -
       - name: Build and Run Tests
