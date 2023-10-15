@@ -32,3 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 Footer
+
+# Gradle
+.gradle/
+gradle-wrapper.jar
+gradle-wrapper.properties
