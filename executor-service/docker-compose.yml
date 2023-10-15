@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     networks:
       - db_network
+    ports:
+      - "9515:9515"
     command: java -jar build/libs/app-0.0.1-SNAPSHOT.jar
 networks:
   db_network:
