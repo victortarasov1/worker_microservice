@@ -31,4 +31,4 @@ WORKDIR /app
 
 COPY . .
 
-RUN gradle build --exclude-task test
+RUN gradle build
