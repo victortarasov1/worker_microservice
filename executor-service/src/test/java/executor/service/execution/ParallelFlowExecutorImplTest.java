@@ -49,8 +49,8 @@ class ParallelFlowExecutorImplTest {
         proxies = Mockito.mock(ProxySourceQueueHandler.class);
         scenarios = Mockito.mock(ScenarioSourceQueueHandler.class);
         scenarioExecutor = Mockito.mock(ScenarioExecutor.class);
-        parallelFlowExecutor = new ParallelFlowExecutorImpl(executionService, listeners, driverProvider, threadPoolConfig,
-                 scenarioExecutor, proxies, scenarios);
+        parallelFlowExecutor = new ParallelFlowExecutorImpl(executionService, threadPoolConfig, listeners,
+                 scenarioExecutor,  driverProvider, proxies, scenarios);
     }
 
     @Test
