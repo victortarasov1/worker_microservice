@@ -2,6 +2,7 @@ package executor.service.factory.webdriverinitializer;
 
 import executor.service.annotation.Logged;
 import executor.service.factory.webdriverinitializer.setting.BrowserOptions;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.remote.service.DriverService;
 import org.springframework.stereotype.Component;
 import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
@@ -18,16 +19,11 @@ import java.time.Duration;
 
 @Component
 @Logged
+@RequiredArgsConstructor
 public class ChromeDriverProviderImpl implements WebDriverProvider {
     private final ProxyProvider proxyProvider;
     private final WebDriverConfig webDriverConfig;
     private final DriverService driverService;
-
-    public ChromeDriverProviderImpl(ProxyProvider proxyProvider, WebDriverConfig webDriverConfig, DriverService driverService) {
-        this.proxyProvider = proxyProvider;
-        this.webDriverConfig = webDriverConfig;
-        this.driverService = driverService;
-    }
 
     @Override
     public WebDriver create(ProxyConfigHolder proxyConfigHolder) {

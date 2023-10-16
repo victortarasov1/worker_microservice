@@ -1,6 +1,7 @@
 package executor.service.logger;
 
 import executor.service.exception.scenario.ScenarioExecutionException;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,12 +10,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
+@RequiredArgsConstructor
 public class ScenarioExceptionHandlingAspect {
     private final Logger logger;
-
-    public ScenarioExceptionHandlingAspect(Logger logger) {
-        this.logger = logger;
-    }
 
     @Around("execution(* executor.service.execution.scenario.ScenarioExecutor+.*(..))")
     public void handle(ProceedingJoinPoint joinPoint) throws Throwable {

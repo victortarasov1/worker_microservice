@@ -3,9 +3,11 @@ package executor.service.appender;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
 import executor.service.appender.manager.LogStorageManager;
+import lombok.Setter;
 
 public class LogStorageAppender extends AppenderBase<ILoggingEvent> {
 
+    @Setter
     private LogStorageManager logStorageManager;
 
     @Override
@@ -25,10 +27,5 @@ public class LogStorageAppender extends AppenderBase<ILoggingEvent> {
         logStorageManager.disconnect();
         super.stop();
     }
-
-    public void setLogStorageManager(LogStorageManager logStorageManager) {
-        this.logStorageManager = logStorageManager;
-    }
-
 
 }

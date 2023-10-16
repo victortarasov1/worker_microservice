@@ -1,11 +1,12 @@
 package executor.service.appender.manager.db;
 
 import executor.service.exception.logstorage.ConnectionFailedException;
+import lombok.Setter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+@Setter
 public class ConnectionProviderImpl implements ConnectionProvider {
 
     private String url;
@@ -19,17 +20,5 @@ public class ConnectionProviderImpl implements ConnectionProvider {
         } catch (SQLException ex) {
             throw new ConnectionFailedException(ex);
         }
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }
