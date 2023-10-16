@@ -4,6 +4,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
     id("io.freefair.lombok") version "8.4"
 }
+
 allprojects {
     group = "executor.service"
     version = "0.0.1-SNAPSHOT"
@@ -11,6 +12,7 @@ allprojects {
         mavenCentral()
     }
 }
+
 subprojects {
     apply(plugin = "java")
     apply(plugin = "org.springframework.boot")
@@ -20,10 +22,6 @@ subprojects {
     tasks.withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
-    }
-
-    repositories {
-        mavenCentral()
     }
 
     dependencies {
