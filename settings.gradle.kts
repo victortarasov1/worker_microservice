@@ -1,5 +1,5 @@
 rootProject.name = "worker_microservice"
-include("executor-service")
+include("execution")
 include("logback")
 include("logger")
 include("model")
