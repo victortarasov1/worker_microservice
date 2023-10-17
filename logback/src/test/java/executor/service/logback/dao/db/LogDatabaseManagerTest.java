@@ -1,11 +1,13 @@
-package executor.service.appender.manager.db;
+package executor.service.logback.dao.db;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.*;
-import executor.service.exception.logstorage.ConnectionFailedException;
-import executor.service.exception.logstorage.DisconnectionFailedException;
-import executor.service.exception.logstorage.LogEventSaveException;
-import executor.service.exception.logstorage.StackTraceSaveException;
+import executor.service.logback.exception.logstorage.ConnectionFailedException;
+import executor.service.logback.exception.logstorage.DisconnectionFailedException;
+import executor.service.logback.exception.logstorage.LogEventSaveException;
+import executor.service.logback.exception.logstorage.StackTraceSaveException;
+import executor.service.logback.dao.manager.db.ConnectionProvider;
+import executor.service.logback.dao.manager.db.LogDatabaseManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

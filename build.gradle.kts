@@ -13,6 +13,11 @@ allprojects {
     }
 }
 
+
+tasks.bootJar {
+    enabled = false
+}
+
 subprojects {
     apply(plugin = "java")
     apply(plugin = "org.springframework.boot")
@@ -28,12 +33,8 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
-}
 
-tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
-    enabled = false
-}
-
-tasks.named<Jar>("jar") {
-    enabled = true
+    tasks.named<Test>("test") {
+        useJUnitPlatform()
+    }
 }

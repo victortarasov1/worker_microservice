@@ -1,4 +1,4 @@
-package executor.service.exception.logstorage;
+package executor.service.logback.exception.logstorage;
 
 public class LogEventSaveException extends RuntimeException {
     public LogEventSaveException(Throwable cause) {

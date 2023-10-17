@@ -1,11 +1,11 @@
-package executor.service.appender.manager;
+package executor.service.logback.dao.manager;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
-import executor.service.exception.logstorage.ConnectionFailedException;
-import executor.service.exception.logstorage.DisconnectionFailedException;
-import executor.service.exception.logstorage.LogEventSaveException;
-import executor.service.exception.logstorage.StackTraceSaveException;
+import executor.service.logback.exception.logstorage.ConnectionFailedException;
+import executor.service.logback.exception.logstorage.DisconnectionFailedException;
+import executor.service.logback.exception.logstorage.LogEventSaveException;
+import executor.service.logback.exception.logstorage.StackTraceSaveException;
 
 public interface LogStorageManager {
 

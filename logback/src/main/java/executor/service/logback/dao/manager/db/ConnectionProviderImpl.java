@@ -1,6 +1,6 @@
-package executor.service.appender.manager.db;
+package executor.service.logback.dao.manager.db;
 
-import executor.service.exception.logstorage.ConnectionFailedException;
+import executor.service.logback.exception.logstorage.ConnectionFailedException;
 import lombok.Setter;
 
 import java.sql.Connection;

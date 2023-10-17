@@ -1,8 +1,8 @@
-package executor.service.appender;
+package executor.service.logback.appender;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
-import executor.service.appender.manager.LogStorageManager;
+import executor.service.logback.dao.manager.LogStorageManager;
 import lombok.Setter;
 
 public class LogStorageAppender extends AppenderBase<ILoggingEvent> {

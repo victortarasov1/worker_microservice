@@ -1,10 +1,11 @@
-package executor.service.appender;
+package executor.service.logback.appender;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.classic.spi.StackTraceElementProxy;
-import executor.service.appender.manager.LogStorageManager;
+import executor.service.logback.appender.LogStorageAppender;
+import executor.service.logback.dao.manager.LogStorageManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

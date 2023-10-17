@@ -1,4 +1,4 @@
-package executor.service.appender.manager.db;
+package executor.service.logback.dao.manager.db;
 
 import java.sql.Connection;
 

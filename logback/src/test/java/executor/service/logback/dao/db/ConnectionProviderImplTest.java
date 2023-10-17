@@ -1,6 +1,7 @@
-package executor.service.appender.manager.db;
+package executor.service.logback.dao.db;
 
-import executor.service.exception.logstorage.ConnectionFailedException;
+import executor.service.logback.exception.logstorage.ConnectionFailedException;
+import executor.service.logback.dao.manager.db.ConnectionProviderImpl;
 import org.h2.tools.Server;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
