@@ -1,11 +1,11 @@
-package executor.service.execution;
+package executor.service.execution.facade;
 
 import executor.service.webdriver.factory.WebDriverProvider;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 
 import executor.service.model.ProxyConfigHolder;
-import executor.service.model.ThreadPoolConfig;
+import executor.service.execution.model.ThreadPoolConfig;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.SourceListener;

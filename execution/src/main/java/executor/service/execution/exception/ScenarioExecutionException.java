@@ -1,4 +1,4 @@
-package executor.service.exception;
+package executor.service.execution.exception;
 
 public class ScenarioExecutionException extends RuntimeException {
     public ScenarioExecutionException(String message, Throwable cause) {

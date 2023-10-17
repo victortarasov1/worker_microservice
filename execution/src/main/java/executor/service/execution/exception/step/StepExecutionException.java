@@ -1,6 +1,6 @@
-package executor.service.exception.step;
+package executor.service.execution.exception.step;
 
-import executor.service.exception.ScenarioExecutionException;
+import executor.service.execution.exception.ScenarioExecutionException;
 
 public class StepExecutionException extends ScenarioExecutionException {
     public StepExecutionException(String message, Throwable cause) {

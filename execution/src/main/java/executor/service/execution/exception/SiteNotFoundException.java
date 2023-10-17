@@ -1,4 +1,4 @@
-package executor.service.exception;
+package executor.service.execution.exception;
 
 public class SiteNotFoundException extends ScenarioExecutionException {
     public SiteNotFoundException(String url, Throwable cause) {

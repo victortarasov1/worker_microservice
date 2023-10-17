@@ -1,6 +1,6 @@
 package executor.service.execution.scenario.step;
 
-import executor.service.exception.step.ClickCssException;
+import executor.service.execution.exception.step.ClickCssException;
 import executor.service.model.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

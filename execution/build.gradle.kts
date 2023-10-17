@@ -7,4 +7,7 @@ dependencies {
     implementation(project(":source"))
 }
 
+tasks.bootJar {
+    enabled = false
+}
 

@@ -1,9 +1,11 @@
 package executor.service.execution;
 
+import executor.service.execution.facade.ExecutionService;
+import executor.service.execution.facade.ParallelFlowExecutorImpl;
 import executor.service.webdriver.factory.WebDriverProvider;
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.model.ProxyConfigHolder;
-import executor.service.model.ThreadPoolConfig;
+import executor.service.execution.model.ThreadPoolConfig;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.LazyProxySourceListener;
