@@ -3,4 +3,5 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.13.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     implementation(project(":logger"))
+    implementation(project(":model"))
 }
