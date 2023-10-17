@@ -1,6 +1,7 @@
 package executor.service.execution.scenario;
 
 
+import executor.service.annotation.HandleException;
 import executor.service.annotation.Logged;
 import executor.service.exception.scenario.SiteNotFoundException;
 import executor.service.exception.scenario.step.UnknownStepException;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Logged
+@HandleException
 public class ScenarioExecutorImpl implements ScenarioExecutor {
     private final Map<String, StepExecution> stepExecutionMap;
 
