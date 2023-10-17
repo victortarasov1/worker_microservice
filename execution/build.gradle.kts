@@ -5,6 +5,7 @@ dependencies {
     implementation(project(":webdriver"))
     implementation(project(":collection"))
     implementation(project(":source"))
+    implementation(project(":logback"))
 }
 
 tasks.bootJar {
