@@ -25,11 +25,6 @@ public class BeanConfiguration {
     private final WebDriverConfig webDriverConfig;
 
     @Bean
-    public Logger logger() {
-        return LoggerFactory.getLogger("PROJECT_LOGGER");
-    }
-
-    @Bean
     public OkHttpClient getOkHttpClient() {
         return new OkHttpClient();
     }
