@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="db" class="executor.service.logback.appender.LogStorageAppender">
+        <logStorageManager class="executor.service.logback.dao.manager.db.LogDatabaseManager">
+            <connectionProvider class="executor.service.logback.dao.manager.db.ConnectionProviderImpl">
+                <url>jdbc:postgresql://postgres:5432/worker-logs</url>
+                <username>root</username>
+                <password>root</password>
+            </connectionProvider>
+        </logStorageManager>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="db"/>
+    </root>
+    <logger name="Debug" level="INFO" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
+</configuration>
