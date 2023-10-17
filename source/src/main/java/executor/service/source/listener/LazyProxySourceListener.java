@@ -1,15 +1,13 @@
 package executor.service.source.listener;
 
+import executor.service.source.model.RemoteConnection;
 import executor.service.source.okhttp.AuthorizationType;
 import executor.service.model.ProxyConfigHolder;
-import executor.service.model.RemoteConnection;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.source.okhttp.OkhttpLoader;
 import okhttp3.Request;
 import org.springframework.stereotype.Component;
 
-
-import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 @Component
 public class LazyProxySourceListener implements SourceListener {
     private final OkhttpLoader loader;
@@ -20,7 +18,7 @@ public class LazyProxySourceListener implements SourceListener {
         this.loader = loader;
         this.proxies = proxies;
         request = new Request.Builder().url(remoteConnection.getProxyUrl())
-                .delete().header(AUTHORIZATION, AuthorizationType.BEARER.getPrefix() + remoteConnection.getToken()).build();
+                .delete().header(Header.AUTHORIZATION.getValue(), AuthorizationType.BEARER.getPrefix() + remoteConnection.getToken()).build();
     }
 
     @Override

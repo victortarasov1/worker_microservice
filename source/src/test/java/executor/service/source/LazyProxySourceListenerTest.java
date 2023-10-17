@@ -1,13 +1,14 @@
 package executor.service.source;
 
 import executor.service.model.ProxyConfigHolder;
-import executor.service.model.RemoteConnection;
+import executor.service.source.model.RemoteConnection;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.source.listener.SourceListener;
 import executor.service.source.listener.LazyProxySourceListener;
 import executor.service.source.okhttp.OkhttpLoader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ class LazyProxySourceListenerTest {
 
     @BeforeEach
     void setUp() {
-        loader = mock(OkhttpLoader.class);
+        loader = Mockito.mock(OkhttpLoader.class);
         proxies = mock(ProxySourceQueueHandler.class);
         RemoteConnection dto = new RemoteConnection("http://some/scenario/url", "http://some/proxy/url", "token");
         sourceListener = new LazyProxySourceListener(loader, dto, proxies);

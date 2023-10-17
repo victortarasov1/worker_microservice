@@ -1,6 +1,6 @@
 package executor.service.source;
 
-import executor.service.model.RemoteConnection;
+import executor.service.source.model.RemoteConnection;
 import executor.service.model.Scenario;
 import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.SourceListener;
@@ -8,6 +8,7 @@ import executor.service.source.listener.ScenarioSourceListener;
 import executor.service.source.okhttp.OkhttpLoader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ class ScenarioSourceListenerTest {
 
     @BeforeEach
     void setUp() {
-        loader = mock(OkhttpLoader.class);
+        loader = Mockito.mock(OkhttpLoader.class);
         scenarios = mock(ScenarioSourceQueueHandler.class);
         RemoteConnection dto = new RemoteConnection("http://some/scenario/url", "http://some/proxy/url", "token");
         sourceListener = new ScenarioSourceListener(loader, dto, scenarios);
