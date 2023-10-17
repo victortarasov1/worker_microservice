@@ -1,6 +1,6 @@
 package executor.service.factory.webdriverinitializer;
 
-import executor.service.annotation.Logged;
+import executor.service.logger.annotation.Logged;
 import executor.service.factory.webdriverinitializer.setting.BrowserOptions;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.remote.service.DriverService;

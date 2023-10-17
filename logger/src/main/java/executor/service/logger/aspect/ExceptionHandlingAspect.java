@@ -1,4 +1,4 @@
-package executor.service.logger;
+package executor.service.logger.aspect;
 
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class ExceptionHandlingAspect {
     private final Logger logger;
 
-    @Around("@within(executor.service.annotation.HandleException)")
+    @Around("@within(executor.service.logger.annotation.HandleException)")
     public void handle(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             joinPoint.proceed();

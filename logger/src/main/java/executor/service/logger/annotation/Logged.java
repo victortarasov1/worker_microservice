@@ -1,4 +1,4 @@
-package executor.service.annotation;
+package executor.service.logger.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

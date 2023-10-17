@@ -1,6 +1,6 @@
 package executor.service.execution.scenario.step;
 
-import executor.service.annotation.Logged;
+import executor.service.logger.annotation.Logged;
 import executor.service.exception.scenario.step.ClickXPathException;
 import executor.service.model.Step;
 import org.openqa.selenium.*;
