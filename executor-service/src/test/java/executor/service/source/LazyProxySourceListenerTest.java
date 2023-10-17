@@ -2,7 +2,7 @@ package executor.service.source;
 
 import executor.service.model.ProxyConfigHolder;
 import executor.service.model.RemoteConnection;
-import executor.service.queue.proxy.ProxySourceQueueHandler;
+import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.source.listener.SourceListener;
 import executor.service.source.listener.LazyProxySourceListener;
 import executor.service.source.okhttp.OkhttpLoader;

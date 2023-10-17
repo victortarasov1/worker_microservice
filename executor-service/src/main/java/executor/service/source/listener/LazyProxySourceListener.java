@@ -3,7 +3,7 @@ package executor.service.source.listener;
 import executor.service.source.okhttp.AuthorizationType;
 import executor.service.model.ProxyConfigHolder;
 import executor.service.model.RemoteConnection;
-import executor.service.queue.proxy.ProxySourceQueueHandler;
+import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.source.okhttp.OkhttpLoader;
 import okhttp3.Request;
 import org.springframework.stereotype.Component;

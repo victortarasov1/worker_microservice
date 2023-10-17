@@ -1,4 +1,4 @@
-package executor.service.queue;
+package executor.service.collection.queue;
 
 
 import java.util.ArrayList;

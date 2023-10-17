@@ -1,9 +1,9 @@
-package executor.service.queue.proxy;
+package executor.service.collection.queue.proxy;
 
 
 
+import executor.service.collection.queue.QueueHandler;
 import executor.service.model.ProxyConfigHolder;
-import executor.service.queue.QueueHandler;
 import lombok.RequiredArgsConstructor;
 
 import java.util.*;

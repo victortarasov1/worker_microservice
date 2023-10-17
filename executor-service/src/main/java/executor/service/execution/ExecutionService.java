@@ -1,7 +1,7 @@
 package executor.service.execution;
 
 import executor.service.execution.scenario.ScenarioExecutor;
-import executor.service.queue.scenario.ScenarioSourceQueueHandler;
+import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import org.openqa.selenium.WebDriver;
 
 /**

@@ -3,7 +3,7 @@ package executor.service.source.listener;
 import executor.service.source.okhttp.AuthorizationType;
 import executor.service.model.RemoteConnection;
 import executor.service.model.Scenario;
-import executor.service.queue.scenario.ScenarioSourceQueueHandler;
+import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.okhttp.OkhttpLoader;
 import okhttp3.Request;
 import org.springframework.stereotype.Component;

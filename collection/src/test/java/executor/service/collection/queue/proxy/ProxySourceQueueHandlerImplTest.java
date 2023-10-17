@@ -1,10 +1,13 @@
-package executor.service.queue.proxy;
+package executor.service.collection.queue.proxy;
 
 
+import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
+import executor.service.collection.queue.proxy.ProxySourceQueueHandlerImpl;
 import executor.service.model.ProxyConfigHolder;
-import executor.service.queue.QueueHandler;
+import executor.service.collection.queue.QueueHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -16,7 +19,7 @@ class ProxySourceQueueHandlerImplTest {
 
     @BeforeEach
     public void setUp() {
-        basicHandler = mock(QueueHandler.class);
+        basicHandler = Mockito.mock(QueueHandler.class);
         queueHandler = new ProxySourceQueueHandlerImpl(basicHandler);
     }
 

@@ -2,7 +2,7 @@ package executor.service.source;
 
 import executor.service.model.RemoteConnection;
 import executor.service.model.Scenario;
-import executor.service.queue.scenario.ScenarioSourceQueueHandler;
+import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.SourceListener;
 import executor.service.source.listener.ScenarioSourceListener;
 import executor.service.source.okhttp.OkhttpLoader;

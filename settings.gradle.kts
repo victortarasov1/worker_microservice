@@ -4,3 +4,5 @@ include("logback")
 include("logger")
 include("model")
 include("webdriver")
+include("collection")
+

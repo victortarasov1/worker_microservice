@@ -6,8 +6,8 @@ import executor.service.execution.scenario.ScenarioExecutor;
 
 import executor.service.model.ProxyConfigHolder;
 import executor.service.model.ThreadPoolConfig;
-import executor.service.queue.proxy.ProxySourceQueueHandler;
-import executor.service.queue.scenario.ScenarioSourceQueueHandler;
+import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
+import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.SourceListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;

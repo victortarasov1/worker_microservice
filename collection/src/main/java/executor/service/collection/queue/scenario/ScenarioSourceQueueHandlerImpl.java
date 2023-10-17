@@ -1,8 +1,8 @@
-package executor.service.queue.scenario;
+package executor.service.collection.queue.scenario;
 
 
+import executor.service.collection.queue.QueueHandler;
 import executor.service.model.Scenario;
-import executor.service.queue.QueueHandler;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

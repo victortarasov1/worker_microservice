@@ -1,9 +1,12 @@
-package executor.service.queue.scenario;
+package executor.service.collection.queue.scenario;
 
+import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
+import executor.service.collection.queue.scenario.ScenarioSourceQueueHandlerImpl;
 import executor.service.model.Scenario;
-import executor.service.queue.QueueHandler;
+import executor.service.collection.queue.QueueHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -16,7 +19,7 @@ class ScenarioSourceQueueHandlerImplTest {
 
     @BeforeEach
     public void setUp() {
-        basicHandler = mock(QueueHandler.class);
+        basicHandler = Mockito.mock(QueueHandler.class);
         queueHandler = new ScenarioSourceQueueHandlerImpl(basicHandler);
     }
 

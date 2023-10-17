@@ -1,5 +1,6 @@
-package executor.service.queue;
+package executor.service.collection.queue;
 
+import executor.service.collection.queue.ThreadSafeQueueHandler;
 import executor.service.model.Scenario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
