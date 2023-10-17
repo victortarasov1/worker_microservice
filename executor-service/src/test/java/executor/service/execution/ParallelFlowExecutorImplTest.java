@@ -1,6 +1,6 @@
 package executor.service.execution;
 
-import executor.service.factory.webdriverinitializer.WebDriverProvider;
+import executor.service.webdriver.factory.WebDriverProvider;
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.model.ProxyConfigHolder;
 import executor.service.model.ThreadPoolConfig;

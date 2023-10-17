@@ -4,4 +4,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     implementation(project(":logger"))
     implementation(project(":model"))
+    implementation(project(":webdriver"))
 }
+
+

@@ -1,4 +1,4 @@
-package executor.service.factory.webdriverinitializer.proxy;
+package executor.service.webdriver.factory.proxy;
 
 import org.springframework.stereotype.Component;
 import executor.service.model.ProxyConfigHolder;

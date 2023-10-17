@@ -1,6 +1,6 @@
 package executor.service.execution;
 
-import executor.service.factory.webdriverinitializer.WebDriverProvider;
+import executor.service.webdriver.factory.WebDriverProvider;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 
@@ -10,7 +10,6 @@ import executor.service.queue.proxy.ProxySourceQueueHandler;
 import executor.service.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.SourceListener;
 import lombok.RequiredArgsConstructor;
-import org.openqa.selenium.WebDriver;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +18,7 @@ import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
 import java.util.function.Supplier;
 
 @Service

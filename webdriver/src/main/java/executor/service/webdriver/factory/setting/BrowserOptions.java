@@ -1,4 +1,4 @@
-package executor.service.factory.webdriverinitializer.setting;
+package executor.service.webdriver.factory.setting;
 
 public enum BrowserOptions {
     DISABLE_SANDBOX("--no-sandbox"),

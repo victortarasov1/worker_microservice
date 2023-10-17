@@ -1,16 +1,18 @@
-package executor.service.model;
+package executor.service.webdriver.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 
-@Configuration
+@Component
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@PropertySource("classpath:webdriver.properties")
 public class WebDriverConfig {
     @Value("${executorservice.common.webDriverExecutable}")
     private String webDriverExecutable;

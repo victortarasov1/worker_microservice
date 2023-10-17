@@ -1,14 +1,14 @@
-package executor.service.factory.webdriverinitializer;
+package executor.service.webdriver.factory;
 
 import executor.service.logger.annotation.Logged;
-import executor.service.factory.webdriverinitializer.setting.BrowserOptions;
+import executor.service.webdriver.factory.setting.UserAgentArgument;
+import executor.service.webdriver.factory.setting.BrowserOptions;
+import executor.service.webdriver.model.WebDriverConfig;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.remote.service.DriverService;
 import org.springframework.stereotype.Component;
-import executor.service.factory.webdriverinitializer.proxy.ProxyProvider;
-import executor.service.factory.webdriverinitializer.setting.UserAgentArgument;
+import executor.service.webdriver.factory.proxy.ProxyProvider;
 import executor.service.model.ProxyConfigHolder;
-import executor.service.model.WebDriverConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;

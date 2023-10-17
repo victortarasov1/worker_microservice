@@ -1,8 +1,10 @@
-package executor.service.factory.webdriverinitializer.proxy;
+package executor.service.webdriver.proxy;
 
 import executor.service.model.ProxyConfigHolder;
 import executor.service.model.ProxyCredentials;
 import executor.service.model.ProxyNetworkConfig;
+import executor.service.webdriver.factory.proxy.ProxyProvider;
+import executor.service.webdriver.factory.proxy.ProxyProviderImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Proxy;
