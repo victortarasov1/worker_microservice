@@ -4,6 +4,3 @@ dependencies {
     implementation(project(":collection"))
     implementation(project(":model"))
 }
-tasks.bootJar {
-    enabled = false
-}

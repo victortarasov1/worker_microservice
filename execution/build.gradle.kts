@@ -7,8 +7,3 @@ dependencies {
     implementation(project(":source"))
     implementation(project(":logback"))
 }
-
-tasks.bootJar {
-    enabled = false
-}
-

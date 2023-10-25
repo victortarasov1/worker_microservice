@@ -5,36 +5,35 @@ plugins {
     id("io.freefair.lombok") version "8.4"
 }
 
+
 allprojects {
     group = "executor.service"
     version = "0.0.1-SNAPSHOT"
     repositories {
         mavenCentral()
     }
-}
 
-
-tasks.bootJar {
-    enabled = false
-}
-
-subprojects {
-    apply(plugin = "java")
-    apply(plugin = "org.springframework.boot")
-    apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "io.freefair.lombok")
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 
     tasks.withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
     }
 
+    apply(plugin = "java")
+    apply(plugin = "org.springframework.boot")
+    apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "io.freefair.lombok")
+
     dependencies {
-        implementation("org.springframework.boot:spring-boot-starter")
+        implementation("org.springframework.boot:spring-boot-starter-web")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
-
-    tasks.named<Test>("test") {
-        useJUnitPlatform()
+    tasks.bootJar {
+        enabled = false
     }
+
 }
+
