@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -14,4 +15,7 @@ public class StepReport {
     private LocalTime startTime;
     private LocalTime endTime;
     private String errorMessage;
+    public UUID getScenarioUUID() {
+        return step.getServiceUUID();
+    }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +17,7 @@ public class ScenarioReport {
     private Set<StepReport> stepReports;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
+    public UUID getUUID() {
+        return scenario.getUuid();
+    }
 }
