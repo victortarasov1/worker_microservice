@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 @Component
 @Logged
-@StepReport
 public class Sleep implements StepExecution {
     @Override
     public String getStepAction() {
@@ -18,6 +17,7 @@ public class Sleep implements StepExecution {
     }
 
     @Override
+    @StepReport
     public void step(WebDriver webDriver, Step step) {
         try {
             Thread.sleep(getDuration(step));

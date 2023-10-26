@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @Service
 @Logged
 @HandleException
-@ScenarioReport
 public class ScenarioExecutorImpl implements ScenarioExecutor {
     private final Map<String, StepExecution> stepExecutionMap;
 
@@ -34,6 +33,7 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
     }
 
     @Override
+    @ScenarioReport
     public void execute(Scenario scenario, WebDriver webDriver) {
         goToSite(scenario.getSite(), webDriver);
         scenario.getSteps().forEach(v -> executeStep(v, webDriver));
