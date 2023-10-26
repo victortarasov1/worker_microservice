@@ -3,12 +3,14 @@ package executor.service.execution.scenario.step;
 import executor.service.logger.annotation.Logged;
 import executor.service.execution.exception.step.SleepException;
 import executor.service.model.Step;
+import executor.service.report.annotation.StepReport;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
 @Component
 @Logged
+@StepReport
 public class Sleep implements StepExecution {
     @Override
     public String getStepAction() {

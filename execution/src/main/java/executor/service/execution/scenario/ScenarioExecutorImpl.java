@@ -8,6 +8,7 @@ import executor.service.execution.exception.step.UnknownStepException;
 import executor.service.model.Scenario;
 import executor.service.model.Step;
 import executor.service.execution.scenario.step.StepExecution;
+import executor.service.report.annotation.ScenarioReport;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @Service
 @Logged
 @HandleException
+@ScenarioReport
 public class ScenarioExecutorImpl implements ScenarioExecutor {
     private final Map<String, StepExecution> stepExecutionMap;
 
