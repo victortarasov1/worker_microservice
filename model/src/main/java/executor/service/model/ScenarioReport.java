@@ -17,6 +17,8 @@ public class ScenarioReport {
     private Set<StepReport> stepReports;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private String errorMessage;
+    private String webDriverInfo;
     public UUID getUUID() {
         return scenario.getUuid();
     }
