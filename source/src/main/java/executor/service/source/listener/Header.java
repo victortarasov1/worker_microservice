@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @RequiredArgsConstructor
-enum Header {
+public enum Header {
     AUTHORIZATION("Authorization");
     private final String value;
 }
