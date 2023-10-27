@@ -10,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Step {
-    private UUID serviceUUID;
+    private UUID scenarioUUID;
     private String action;
     private String value;
 
