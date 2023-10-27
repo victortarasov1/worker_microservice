@@ -1,6 +1,6 @@
 package executor.service.execution.facade;
 
-import executor.service.source.parser.ReportParser;
+import executor.service.source.parser.SourceParser;
 import executor.service.webdriver.factory.WebDriverProvider;
 
 import executor.service.execution.scenario.ScenarioExecutor;
@@ -33,7 +33,7 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final WebDriverProvider driverProvider;
     private final ProxySourceQueueHandler proxies;
     private final ScenarioSourceQueueHandler scenarios;
-    private final ReportParser parser;
+    private final SourceParser parser;
 
     @Scheduled(fixedRate = 120000)
     @Override

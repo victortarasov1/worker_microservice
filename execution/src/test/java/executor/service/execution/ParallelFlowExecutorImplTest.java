@@ -1,8 +1,8 @@
 package executor.service.execution;
 
-import executor.service.collection.queue.scenario.ScenarioReportQueueHandler;
 import executor.service.execution.facade.ExecutionService;
 import executor.service.execution.facade.ParallelFlowExecutorImpl;
+import executor.service.source.parser.SourceParser;
 import executor.service.webdriver.factory.WebDriverProvider;
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.model.ProxyConfigHolder;
@@ -34,7 +34,7 @@ class ParallelFlowExecutorImplTest {
     private ParallelFlowExecutorImpl parallelFlowExecutor;
     private ProxySourceQueueHandler proxies;
     private ScenarioSourceQueueHandler scenarios;
-    private ScenarioReportQueueHandler reports;
+    private SourceParser parser;
     private static final int NUMBER_OF_GET_PROXY_CALL = 1;
     private static final int NUMBER_OF_GET_EXECUTOR_SERVICE_CALL = 1;
     private static final int NUMBER_OF_GET_SCENARIO_SOURCE_LISTENER_CALL = 1;
@@ -53,9 +53,9 @@ class ParallelFlowExecutorImplTest {
         proxies = Mockito.mock(ProxySourceQueueHandler.class);
         scenarios = Mockito.mock(ScenarioSourceQueueHandler.class);
         scenarioExecutor = Mockito.mock(ScenarioExecutor.class);
-        reports = Mockito.mock(ScenarioReportQueueHandler.class);
+        parser = Mockito.mock(SourceParser.class);
         parallelFlowExecutor = new ParallelFlowExecutorImpl(executionService, threadPoolConfig, listeners,
-                 scenarioExecutor,  driverProvider, proxies, scenarios, reports);
+                 scenarioExecutor,  driverProvider, proxies, scenarios, parser);
     }
 
     @Test
