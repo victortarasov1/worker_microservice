@@ -18,6 +18,9 @@ public class RemoteConnection {
     private String scenarioUrl;
     @Value("${publisher.proxy.url}")
     private String proxyUrl;
+    @Value("${publisher.report.url}")
+    private String reportUrl;
     @Value("${publisher.jwt.token}")
     private String token;
+
 }
