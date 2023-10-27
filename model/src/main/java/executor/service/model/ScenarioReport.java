@@ -13,7 +13,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ScenarioReport {
     private Scenario scenario;
-    private ProxyConfigHolder proxy;
     private Set<StepReport> stepReports;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

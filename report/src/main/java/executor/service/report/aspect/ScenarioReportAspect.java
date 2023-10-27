@@ -22,7 +22,7 @@ public class ScenarioReportAspect {
     private final ScenarioReportQueueHandler scenarios;
     private final StepReportMapHandler steps;
 
-    @Around("@within(executor.service.report.annotation.ScenarioReport)")
+    @Around("@annotation(executor.service.report.annotation.ScenarioReport)")
     public void makeReport(ProceedingJoinPoint joinPoint) throws Throwable {
         var report = new ScenarioReport();
         var scenario = (Scenario) joinPoint.getArgs()[0];
@@ -30,6 +30,10 @@ public class ScenarioReportAspect {
         report.setScenario(scenario);
         report.setWebDriverInfo(webDriverInfo);
         report.setStartTime(LocalDateTime.now());
+        proceed(joinPoint, report);
+    }
+
+    private void proceed(ProceedingJoinPoint joinPoint, ScenarioReport report) throws Throwable {
         try {
             joinPoint.proceed();
         } catch (Exception ex) {

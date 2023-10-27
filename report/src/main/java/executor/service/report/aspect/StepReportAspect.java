@@ -18,12 +18,17 @@ public class StepReportAspect {
 
     private final StepReportMapHandler handler;
 
-    @Around("@within(executor.service.report.annotation.StepReport)")
+    @Around("@annotation(executor.service.report.annotation.StepReport)")
     public void makeReport(ProceedingJoinPoint joinPoint) throws Throwable {
         var step = (Step) joinPoint.getArgs()[1];
         var report = new StepReport();
         report.setStep(step);
         report.setStartTime(LocalTime.now());
+        proceed(joinPoint, report);
+
+    }
+
+    private void proceed(ProceedingJoinPoint joinPoint, StepReport report) throws Throwable {
         try {
             joinPoint.proceed();
         } catch (Exception ex) {
@@ -33,6 +38,5 @@ public class StepReportAspect {
             report.setEndTime(LocalTime.now());
             handler.put(report.getScenarioUUID(), report);
         }
-
     }
 }
