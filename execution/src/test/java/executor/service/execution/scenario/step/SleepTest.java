@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -28,27 +29,27 @@ public class SleepTest {
 
     @Test
     public void step_ShouldSleepForRandomDuration() {
-        Step step = new Step("sleep", "100:200");
+        Step step = new Step(UUID.randomUUID(), "sleep", "100:200");
         assertTimeoutPreemptively(Duration.ofMillis(300), () -> sleep.step(mockWebDriver, step));
     }
 
     @Test
     public void step_WhenInvalidFormat_ShouldThrowSleepException() {
-        Step step = new Step("sleep", "abc:def");
+        Step step = new Step(UUID.randomUUID(), "sleep", "abc:def");
         assertThatThrownBy(() -> sleep.step(mockWebDriver, step))
                 .isInstanceOf(SleepException.class);
     }
 
     @Test
     public void step_WhenMissingColon_ShouldThrowSleepException() {
-        Step step = new Step("sleep", "100200");
+        Step step = new Step(UUID.randomUUID(), "sleep", "100200");
         assertThatThrownBy(() -> sleep.step(mockWebDriver, step))
                 .isInstanceOf(SleepException.class);
     }
 
     @Test
     public void step_WhenNegativeDuration_ShouldThrowSleepException() {
-        Step step = new Step("sleep", "200:100");
+        Step step = new Step(UUID.randomUUID(), "sleep", "200:100");
         assertThatThrownBy(() -> sleep.step(mockWebDriver, step))
                 .isInstanceOf(SleepException.class);
     }
@@ -61,7 +62,7 @@ public class SleepTest {
 
     @Test
     public void step_WhenInterruptedException_ShouldThrowSleepException() {
-        Step step = new Step("sleep", "100:200");
+        Step step = new Step(UUID.randomUUID(), "sleep", "100:200");
         Thread.currentThread().interrupt();
         Assertions.assertThrows(SleepException.class, () -> sleep.step(mockWebDriver, step));
     }
