@@ -1,4 +1,4 @@
-package executor.service.source.okhttp;
+package executor.service.source.okhttp.loader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;

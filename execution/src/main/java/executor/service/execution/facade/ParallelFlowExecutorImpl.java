@@ -1,6 +1,6 @@
 package executor.service.execution.facade;
 
-import executor.service.collection.queue.scenario.ScenarioReportQueueHandler;
+import executor.service.source.parser.SourceParser;
 import executor.service.webdriver.factory.WebDriverProvider;
 
 import executor.service.execution.scenario.ScenarioExecutor;
@@ -33,7 +33,7 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final WebDriverProvider driverProvider;
     private final ProxySourceQueueHandler proxies;
     private final ScenarioSourceQueueHandler scenarios;
-    private final ScenarioReportQueueHandler reports;
+    private final SourceParser parser;
 
     @Scheduled(fixedRate = 120000)
     @Override
@@ -46,6 +46,7 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
         Optional<ProxyConfigHolder> proxy = proxies.poll();
         Supplier<WebDriver> createWebDriver = () -> proxy.map(driverProvider::create).orElseGet(driverProvider::create);
         execute(createWebDriver);
+        parser.parseData();
     }
 
 

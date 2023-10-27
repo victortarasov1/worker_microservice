@@ -7,6 +7,8 @@ import executor.service.source.exception.DataParsingException;
 import executor.service.source.exception.okhttp.CallException;
 import executor.service.source.exception.okhttp.EmptyResponseBodyException;
 import executor.service.source.exception.okhttp.UnsuccessfulResponseException;
+import executor.service.source.okhttp.loader.OkhttpLoader;
+import executor.service.source.okhttp.loader.OkhttpLoaderImpl;
 import okhttp3.*;
 
 import org.junit.jupiter.api.BeforeEach;
