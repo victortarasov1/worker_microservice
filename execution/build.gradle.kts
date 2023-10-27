@@ -6,4 +6,5 @@ dependencies {
     implementation(project(":collection"))
     implementation(project(":source"))
     implementation(project(":logback"))
+    implementation(project(":report"))
 }

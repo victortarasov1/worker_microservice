@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.openqa.selenium.*;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
@@ -23,7 +25,7 @@ public class ClickCssTest {
     public void setup() {
         mockWebDriver = Mockito.mock(WebDriver.class);
         clickCss = new ClickCss();
-        step = new Step("clickCss", "cssSelector");
+        step = new Step(UUID.randomUUID(), "clickCss", "cssSelector");
     }
 
     @Test

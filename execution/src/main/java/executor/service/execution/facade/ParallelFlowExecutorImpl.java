@@ -1,5 +1,6 @@
 package executor.service.execution.facade;
 
+import executor.service.collection.queue.scenario.ScenarioReportQueueHandler;
 import executor.service.webdriver.factory.WebDriverProvider;
 
 import executor.service.execution.scenario.ScenarioExecutor;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -31,22 +33,32 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final WebDriverProvider driverProvider;
     private final ProxySourceQueueHandler proxies;
     private final ScenarioSourceQueueHandler scenarios;
+    private final ScenarioReportQueueHandler reports;
 
     @Scheduled(fixedRate = 120000)
     @Override
-    public void runInParallelFlow() {
+    public void runInParallelFlow() throws InterruptedException {
         listeners.forEach(SourceListener::fetchData);
-        if(scenarios.getSize() != 0) executeScenarios();
+        if(scenarios.getSize() != 0) processParallelExecution();
     }
 
-    private void executeScenarios() {
+    private void processParallelExecution() throws InterruptedException {
         Optional<ProxyConfigHolder> proxy = proxies.poll();
         Supplier<WebDriver> createWebDriver = () -> proxy.map(driverProvider::create).orElseGet(driverProvider::create);
+        execute(createWebDriver);
+    }
+
+
+    private void execute(Supplier<WebDriver> createWebDriver) throws InterruptedException {
         ThreadPoolExecutor fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadPoolConfig.getCorePoolSize());
         fixedThreadPool.setKeepAliveTime(threadPoolConfig.getKeepAliveTime(), TimeUnit.MILLISECONDS);
-        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++) {
-            fixedThreadPool.execute(() -> executionService.execute(createWebDriver.get(), scenarios, scenarioExecutor));
-        }
+        CountDownLatch latch = new CountDownLatch(threadPoolConfig.getCorePoolSize());
+        Runnable execute = () -> {
+            executionService.execute(createWebDriver.get(), scenarios, scenarioExecutor);
+            latch.countDown();
+        };
+        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++) fixedThreadPool.execute(execute);
+        latch.await();
         fixedThreadPool.shutdown();
     }
 

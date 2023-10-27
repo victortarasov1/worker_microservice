@@ -5,10 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Scenario {
+    private UUID uuid;
     private String name;
     private String site;
     private List<Step> steps;
