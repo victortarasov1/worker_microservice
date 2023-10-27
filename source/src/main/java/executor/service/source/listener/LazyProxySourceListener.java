@@ -4,7 +4,7 @@ import executor.service.source.model.RemoteConnection;
 import executor.service.source.okhttp.AuthorizationType;
 import executor.service.model.ProxyConfigHolder;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
-import executor.service.source.okhttp.OkhttpLoader;
+import executor.service.source.okhttp.loader.OkhttpLoader;
 import okhttp3.Request;
 import org.springframework.stereotype.Component;
 
