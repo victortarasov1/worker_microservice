@@ -11,5 +11,5 @@ public interface ParallelFlowExecutor {
     /**
      * Initiates the parallel execution of scenarios.
      */
-    void runInParallelFlow();
+    void runInParallelFlow() throws InterruptedException;
 }
