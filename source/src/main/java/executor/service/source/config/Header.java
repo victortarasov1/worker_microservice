@@ -1,4 +1,4 @@
-package executor.service.source.listener;
+package executor.service.source.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Getter;

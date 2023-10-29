@@ -1,12 +1,10 @@
-package executor.service.execution;
+package executor.service.facade;
 
-import executor.service.execution.facade.ExecutionService;
-import executor.service.execution.facade.ParallelFlowExecutorImpl;
+import executor.service.facade.model.ThreadPoolConfig;
 import executor.service.source.parser.SourceParser;
 import executor.service.webdriver.factory.WebDriverProvider;
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.model.ProxyConfigHolder;
-import executor.service.execution.model.ThreadPoolConfig;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.LazyProxySourceListener;
@@ -45,8 +43,8 @@ class ParallelFlowExecutorImplTest {
     @BeforeEach
     void setUp() {
         executionService = Mockito.mock(ExecutionService.class);
-        ScenarioSourceListener scenarioSourceListener = mock(ScenarioSourceListener.class);
-        LazyProxySourceListener proxySourceListener = mock(LazyProxySourceListener.class);
+        ScenarioSourceListener scenarioSourceListener = Mockito.mock(ScenarioSourceListener.class);
+        LazyProxySourceListener proxySourceListener = Mockito.mock(LazyProxySourceListener.class);
         List<SourceListener> listeners = List.of(scenarioSourceListener, proxySourceListener);
         driverProvider = Mockito.mock(WebDriverProvider.class);
         threadPoolConfig = Mockito.mock(ThreadPoolConfig.class);

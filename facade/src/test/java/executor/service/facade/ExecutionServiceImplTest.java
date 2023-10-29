@@ -1,7 +1,5 @@
-package executor.service.execution;
+package executor.service.facade;
 
-import executor.service.execution.facade.ExecutionService;
-import executor.service.execution.facade.ExecutionServiceImpl;
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.execution.scenario.ScenarioExecutorImpl;
 import executor.service.model.Scenario;

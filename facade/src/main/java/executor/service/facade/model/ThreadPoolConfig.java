@@ -1,4 +1,4 @@
-package executor.service.execution.model;
+package executor.service.facade.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

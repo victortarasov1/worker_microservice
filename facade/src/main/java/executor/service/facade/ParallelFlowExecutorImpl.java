@@ -1,4 +1,4 @@
-package executor.service.execution.facade;
+package executor.service.facade;
 
 import executor.service.source.parser.SourceParser;
 import executor.service.webdriver.factory.WebDriverProvider;
@@ -6,7 +6,7 @@ import executor.service.webdriver.factory.WebDriverProvider;
 import executor.service.execution.scenario.ScenarioExecutor;
 
 import executor.service.model.ProxyConfigHolder;
-import executor.service.execution.model.ThreadPoolConfig;
+import executor.service.facade.model.ThreadPoolConfig;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import executor.service.source.listener.SourceListener;

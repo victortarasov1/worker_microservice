@@ -1,5 +1,6 @@
 package executor.service.source.listener;
 
+import executor.service.source.config.Header;
 import executor.service.source.okhttp.AuthorizationType;
 import executor.service.source.model.RemoteConnection;
 import executor.service.model.Scenario;

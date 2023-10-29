@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import executor.service.collection.queue.scenario.ScenarioReportQueueHandler;
 import executor.service.model.ScenarioReport;
 import executor.service.source.exception.DataParsingException;
-import executor.service.source.listener.Header;
+import executor.service.source.config.Header;
 import executor.service.source.model.RemoteConnection;
 import executor.service.source.okhttp.AuthorizationType;
 import executor.service.source.okhttp.sender.OkhttpSender;

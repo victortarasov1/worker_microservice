@@ -1,4 +1,4 @@
-package executor.service.execution.facade;
+package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 
