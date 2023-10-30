@@ -19,7 +19,7 @@ public class ClickCss implements StepExecution {
     @StepReport
     public void step(WebDriver webDriver, Step step) {
         try {
-            webDriver.findElement(By.cssSelector(step.getValue())).click();
+            webDriver.findElement(By.cssSelector(step.value())).click();
         } catch (NoSuchElementException | ElementNotInteractableException
                  | StaleElementReferenceException | TimeoutException | InvalidSelectorException ex) {
             throw new ClickCssException(ex);

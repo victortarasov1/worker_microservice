@@ -5,6 +5,8 @@ import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandlerImpl;
 import executor.service.model.ProxyConfigHolder;
 import executor.service.collection.queue.QueueHandler;
+import executor.service.model.ProxyCredentials;
+import executor.service.model.ProxyNetworkConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -25,14 +27,19 @@ class ProxySourceQueueHandlerImplTest {
 
     @Test
     void testAdd() {
-        ProxyConfigHolder proxy = new ProxyConfigHolder();
+        ProxyConfigHolder proxy = new ProxyConfigHolder(new ProxyNetworkConfig("host", 8080),
+                new ProxyCredentials("user", "pass"));
         queueHandler.add(proxy);
         verify(basicHandler, times(1)).add(eq(proxy));
     }
 
     @Test
     void testAddAll() {
-        List<ProxyConfigHolder> proxies = List.of(new ProxyConfigHolder(), new ProxyConfigHolder());
+        List<ProxyConfigHolder> proxies = List.of(
+                new ProxyConfigHolder(new ProxyNetworkConfig("host", 8080),
+                        new ProxyCredentials("user", "pass")),
+                new ProxyConfigHolder(new ProxyNetworkConfig("host", 8080),
+                        new ProxyCredentials("user", "pass")));
         queueHandler.addAll(proxies);
         verify(basicHandler, times(1)).addAll(eq(proxies));
     }

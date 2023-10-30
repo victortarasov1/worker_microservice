@@ -1,6 +1,8 @@
 package executor.service.facade;
 
 import executor.service.facade.model.ThreadPoolConfig;
+import executor.service.model.ProxyCredentials;
+import executor.service.model.ProxyNetworkConfig;
 import executor.service.source.parser.SourceParser;
 import executor.service.webdriver.factory.WebDriverProvider;
 import executor.service.execution.scenario.ScenarioExecutor;
@@ -60,7 +62,8 @@ class ParallelFlowExecutorImplTest {
     public void runInParallelFlowTest() throws InterruptedException {
 
         when(scenarios.getSize()).thenReturn(1);
-        ProxyConfigHolder proxyConfig = new ProxyConfigHolder();
+        ProxyConfigHolder proxyConfig =  new ProxyConfigHolder(new ProxyNetworkConfig("host", 8080),
+                new ProxyCredentials("user", "pass"));
         when(proxies.poll()).thenReturn(Optional.of(proxyConfig));
 
         when(threadPoolConfig.getCorePoolSize()).thenReturn(CORE_POOL_SIZE);

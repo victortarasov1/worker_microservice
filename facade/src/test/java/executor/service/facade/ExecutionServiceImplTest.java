@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -36,7 +38,7 @@ class ExecutionServiceImplTest {
 
     @Test
     void testExecute() {
-        Scenario scenario = new Scenario();
+        Scenario scenario = new Scenario(UUID.randomUUID(), "name", "sice", List.of());
         when(scenarios.poll()).thenReturn(Optional.of(scenario)).thenReturn(Optional.of(scenario)).thenReturn(Optional.empty());
         executionService.execute(webDriver, scenarios, scenarioExecutor);
         verify(scenarioExecutor, times(2)).execute(any(Scenario.class), any(WebDriver.class));

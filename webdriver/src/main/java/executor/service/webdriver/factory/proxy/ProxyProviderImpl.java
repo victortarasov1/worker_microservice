@@ -11,12 +11,12 @@ public class ProxyProviderImpl implements ProxyProvider {
     @Override
     public Proxy getProxy(ProxyConfigHolder proxyConfigHolder) {
         Proxy proxy = new Proxy();
-        proxy.setHttpProxy(proxyConfigHolder.getProxyNetworkConfig().getHostname()
+        proxy.setHttpProxy(proxyConfigHolder.proxyNetworkConfig().hostname()
                 + HTTP_PROXY_DELIMITER
-                + proxyConfigHolder.getProxyNetworkConfig().getPort());
-        if (proxyConfigHolder.getProxyCredentials() != null) {
-            String username = proxyConfigHolder.getProxyCredentials().getUsername();
-            String password = proxyConfigHolder.getProxyCredentials().getPassword();
+                + proxyConfigHolder.proxyNetworkConfig().port());
+        if (proxyConfigHolder.proxyCredentials() != null) {
+            String username = proxyConfigHolder.proxyCredentials().username();
+            String password = proxyConfigHolder.proxyCredentials().password();
             proxy.setHttpProxy(username + HTTP_PROXY_DELIMITER + password + AT_SIGN + proxy.getHttpProxy());
         }
         return proxy;

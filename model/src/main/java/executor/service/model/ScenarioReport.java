@@ -19,6 +19,6 @@ public class ScenarioReport {
     private String errorMessage;
     private String webDriverInfo;
     public UUID getUUID() {
-        return scenario.getUuid();
+        return scenario.uuid();
     }
 }

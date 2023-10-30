@@ -31,37 +31,37 @@ public class ClickXpathTest {
     @Test
     public void step_WhenElementExists_ShouldClickElement() {
         WebElement mockElement = Mockito.mock(WebElement.class);
-        when(mockWebDriver.findElement(By.xpath(step.getValue())))
+        when(mockWebDriver.findElement(By.xpath(step.value())))
                 .thenReturn(mockElement);
         clickXpath.step(mockWebDriver, step);
-        verify(mockWebDriver).findElement(By.xpath(step.getValue()));
+        verify(mockWebDriver).findElement(By.xpath(step.value()));
         verify(mockElement).click();
     }
 
     @Test
     public void step_WhenNoSuchElement_ShouldThrowClickXPathException() {
-        when(mockWebDriver.findElement(By.xpath(step.getValue()))).thenThrow(NoSuchElementException.class);
+        when(mockWebDriver.findElement(By.xpath(step.value()))).thenThrow(NoSuchElementException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, step))
                 .isInstanceOf(ClickXPathException.class);
     }
 
     @Test
     public void step_WhenElementNotInteractable_ShouldThrowClickXPathException() {
-        when(mockWebDriver.findElement(By.xpath(step.getValue()))).thenThrow(ElementNotInteractableException.class);
+        when(mockWebDriver.findElement(By.xpath(step.value()))).thenThrow(ElementNotInteractableException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, step))
                 .isInstanceOf(ClickXPathException.class);
     }
 
     @Test
     public void step_WhenStaleElementReference_ShouldThrowClickXPathException()  {
-        when(mockWebDriver.findElement(By.xpath(step.getValue()))).thenThrow(StaleElementReferenceException.class);
+        when(mockWebDriver.findElement(By.xpath(step.value()))).thenThrow(StaleElementReferenceException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, step))
                 .isInstanceOf(ClickXPathException.class);
     }
 
     @Test
     public void step_WhenTimeoutException_ShouldThrowClickXPathException()  {
-        when(mockWebDriver.findElement(By.xpath(step.getValue())))
+        when(mockWebDriver.findElement(By.xpath(step.value())))
                 .thenThrow(TimeoutException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, step))
                 .isInstanceOf(ClickXPathException.class);
@@ -69,7 +69,7 @@ public class ClickXpathTest {
 
     @Test
     public void step_WhenInvalidSelector_ShouldThrowClickXPathException() {
-        when(mockWebDriver.findElement(By.xpath(step.getValue())))
+        when(mockWebDriver.findElement(By.xpath(step.value())))
                 .thenThrow(InvalidSelectorException.class);
         assertThatThrownBy(() -> clickXpath.step(mockWebDriver, step))
                 .isInstanceOf(ClickXPathException.class);

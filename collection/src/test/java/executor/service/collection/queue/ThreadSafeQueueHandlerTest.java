@@ -1,11 +1,11 @@
 package executor.service.collection.queue;
 
-import executor.service.collection.queue.ThreadSafeQueueHandler;
 import executor.service.model.Scenario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,7 +32,7 @@ class ThreadSafeQueueHandlerTest {
     @Test
     public void testAdd() throws InterruptedException {
         Runnable addRunnableTask = () -> {
-            handler.add(new Scenario());
+            handler.add(new Scenario(UUID.randomUUID(), "name", "sice", List.of()));
             countDownLatch.countDown();
         };
         for (int i = 0; i < THREAD_COUNT; i++) executorService.submit(addRunnableTask);
@@ -42,7 +42,9 @@ class ThreadSafeQueueHandlerTest {
 
     @Test
     public void testAddAll() throws InterruptedException {
-        List<Scenario> elements = IntStream.range(0, ELEMENT_COUNT).boxed().map(v -> new Scenario()).toList();
+        List<Scenario> elements = IntStream.range(0, ELEMENT_COUNT).boxed().map(v ->
+                new Scenario(UUID.randomUUID(), "name", "sice", List.of()))
+                .toList();
         Runnable addAllRunnableTask = () -> {
             handler.addAll(elements);
             countDownLatch.countDown();
@@ -54,7 +56,7 @@ class ThreadSafeQueueHandlerTest {
 
     @Test
     public void testPoll() throws InterruptedException {
-        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new Scenario());
+        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new Scenario(UUID.randomUUID(), "name", "sice", List.of()));
         Runnable pollRunnableTask = () -> {
             handler.poll();
             countDownLatch.countDown();
@@ -66,7 +68,7 @@ class ThreadSafeQueueHandlerTest {
 
     @Test
     public void testRemoveAll() throws InterruptedException {
-        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new Scenario());
+        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new Scenario(UUID.randomUUID(), "name", "sice", List.of()));
         AtomicInteger resultSize = new AtomicInteger(0);
         Runnable removeAllRunnableTask = () -> {
             resultSize.addAndGet(handler.removeAll().size());
@@ -80,7 +82,7 @@ class ThreadSafeQueueHandlerTest {
 
     @Test
     public void testGetSize() {
-        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new Scenario());
+        for(int i = 0; i < ELEMENT_COUNT; i++) handler.add(new Scenario(UUID.randomUUID(), "name", "sice", List.of()));
         assertThat(handler.getSize()).isEqualTo(ELEMENT_COUNT);
     }
 }

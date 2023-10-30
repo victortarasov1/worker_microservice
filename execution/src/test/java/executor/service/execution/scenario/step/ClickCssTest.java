@@ -31,37 +31,37 @@ public class ClickCssTest {
     @Test
     public void step_WhenElementExists_ShouldClickElement() {
         WebElement mockElement = Mockito.mock(WebElement.class);
-        when(mockWebDriver.findElement(By.cssSelector(step.getValue())))
+        when(mockWebDriver.findElement(By.cssSelector(step.value())))
                 .thenReturn(mockElement);
         clickCss.step(mockWebDriver, step);
-        verify(mockWebDriver).findElement(By.cssSelector(step.getValue()));
+        verify(mockWebDriver).findElement(By.cssSelector(step.value()));
         verify(mockElement).click();
     }
 
     @Test
     public void step_WhenNoSuchElement_ShouldThrowClickCssException() {
-        when(mockWebDriver.findElement(By.cssSelector(step.getValue()))).thenThrow(NoSuchElementException.class);
+        when(mockWebDriver.findElement(By.cssSelector(step.value()))).thenThrow(NoSuchElementException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, step))
                 .isInstanceOf(ClickCssException.class);
     }
 
     @Test
     public void step_WhenElementNotInteractable_ShouldThrowClickCssException() {
-        when(mockWebDriver.findElement(By.cssSelector(step.getValue()))).thenThrow(ElementNotInteractableException.class);
+        when(mockWebDriver.findElement(By.cssSelector(step.value()))).thenThrow(ElementNotInteractableException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, step))
                 .isInstanceOf(ClickCssException.class);
     }
 
     @Test
     public void step_WhenStaleElementReference_ShouldThrowClickCssException() {
-        when(mockWebDriver.findElement(By.cssSelector(step.getValue()))).thenThrow(StaleElementReferenceException.class);
+        when(mockWebDriver.findElement(By.cssSelector(step.value()))).thenThrow(StaleElementReferenceException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, step))
                 .isInstanceOf(ClickCssException.class);
     }
 
     @Test
     public void step_WhenTimeoutException_ShouldThrowClickCssException() {
-        when(mockWebDriver.findElement(By.cssSelector(step.getValue())))
+        when(mockWebDriver.findElement(By.cssSelector(step.value())))
                 .thenThrow(TimeoutException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, step))
                 .isInstanceOf(ClickCssException.class);
@@ -75,7 +75,7 @@ public class ClickCssTest {
 
     @Test
     public void step_WhenInvalidSelector_ShouldThrowClickCssException() {
-        when(mockWebDriver.findElement(By.cssSelector(step.getValue())))
+        when(mockWebDriver.findElement(By.cssSelector(step.value())))
                 .thenThrow(InvalidSelectorException.class);
         assertThatThrownBy(() -> clickCss.step(mockWebDriver, step))
                 .isInstanceOf(ClickCssException.class);

@@ -25,9 +25,8 @@ class ProxyProviderImplTest {
     }
     @Test
     public void testGetProxyWithoutCredentials() {
-        ProxyConfigHolder proxyConfigHolder = new ProxyConfigHolder();
-        proxyConfigHolder.setProxyNetworkConfig(proxyNetworkConfig);
-        String expected = proxyNetworkConfig.getHostname() + HTTP_PROXY_DELIMITER + proxyNetworkConfig.getPort();
+        ProxyConfigHolder proxyConfigHolder = new ProxyConfigHolder(proxyNetworkConfig, null);
+        String expected = proxyNetworkConfig.hostname() + HTTP_PROXY_DELIMITER + proxyNetworkConfig.port();
         Proxy result = proxyProvider.getProxy(proxyConfigHolder);
         assertThat(result.getHttpProxy()).isEqualTo(expected);
     }
@@ -35,8 +34,8 @@ class ProxyProviderImplTest {
     @Test
     public void testGetProxyWithCredentials() {
         ProxyConfigHolder proxyConfigHolder = new ProxyConfigHolder(proxyNetworkConfig, proxyCredentials);
-        String expected = proxyCredentials.getUsername() + HTTP_PROXY_DELIMITER + proxyCredentials.getPassword() + AT_SIGN +
-                proxyNetworkConfig.getHostname() + HTTP_PROXY_DELIMITER + proxyNetworkConfig.getPort();
+        String expected = proxyCredentials.username() + HTTP_PROXY_DELIMITER + proxyCredentials.password() + AT_SIGN +
+                proxyNetworkConfig.hostname() + HTTP_PROXY_DELIMITER + proxyNetworkConfig.port();
         Proxy result = proxyProvider.getProxy(proxyConfigHolder);
         assertThat(result.getHttpProxy()).isEqualTo(expected);
     }

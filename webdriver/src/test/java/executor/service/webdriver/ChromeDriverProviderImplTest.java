@@ -1,5 +1,7 @@
 package executor.service.webdriver;
 
+import executor.service.model.ProxyCredentials;
+import executor.service.model.ProxyNetworkConfig;
 import executor.service.webdriver.config.DriverServiceConfiguration;
 import executor.service.webdriver.factory.ChromeDriverProviderImpl;
 import executor.service.webdriver.factory.WebDriverProvider;
@@ -53,7 +55,8 @@ class ChromeDriverProviderImplTest {
     void testCreateWithProxies() {
         Proxy proxy = new Proxy();
         proxy.setHttpProxy(HTTP_PROXY);
-        ProxyConfigHolder proxyConfigHolder = new ProxyConfigHolder();
+        ProxyConfigHolder proxyConfigHolder = new ProxyConfigHolder(new ProxyNetworkConfig("host", 8080),
+                new ProxyCredentials("user", "pass"));
         when(proxyProvider.getProxy(eq(proxyConfigHolder))).thenReturn(proxy);
         WebDriver driver = driverProvider.create(proxyConfigHolder);
         verifyDriverConfiguration(driver);

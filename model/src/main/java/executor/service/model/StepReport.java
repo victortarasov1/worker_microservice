@@ -16,6 +16,6 @@ public class StepReport {
     private LocalTime endTime;
     private String errorMessage;
     public UUID getScenarioUUID() {
-        return step.getScenarioUUID();
+        return step.scenarioUUID();
     }
 }

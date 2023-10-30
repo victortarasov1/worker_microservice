@@ -28,7 +28,7 @@ public class Sleep implements StepExecution {
 
     private int getDuration(Step step) {
         try {
-            String[] values = step.getValue().split(":");
+            String[] values = step.value().split(":");
             int first = Integer.parseInt(values[0]);
             int second = Integer.parseInt(values[1]);
             return new Random().nextInt(second - first + 1) + first;

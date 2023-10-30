@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -40,7 +41,7 @@ class ScenarioSourceListenerTest {
 
     @Test
     void testGetOne_shouldSaveScenarios() {
-        Scenario expected = new Scenario();
+        Scenario expected = new Scenario(UUID.randomUUID(), "name", "sice", List.of());
         when(loader.loadData(any(), eq(Scenario.class))).thenReturn(List.of(expected));
         sourceListener.fetchData();
         verify(scenarios, times(1)).addAll(eq(List.of(expected)));

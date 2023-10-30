@@ -1,6 +1,8 @@
 package executor.service.source;
 
 import executor.service.model.ProxyConfigHolder;
+import executor.service.model.ProxyCredentials;
+import executor.service.model.ProxyNetworkConfig;
 import executor.service.source.model.RemoteConnection;
 import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
 import executor.service.source.listener.SourceListener;
@@ -40,7 +42,8 @@ class LazyProxySourceListenerTest {
 
     @Test
     void testGetOne_shouldSaveProxies() {
-        ProxyConfigHolder expected = new ProxyConfigHolder();
+        ProxyConfigHolder expected = new ProxyConfigHolder(new ProxyNetworkConfig("host", 8080),
+                new ProxyCredentials("user", "pass"));
         when(proxies.getSize()).thenReturn(0);
         when(loader.loadData(any(), eq(ProxyConfigHolder.class))).thenReturn(List.of(expected));
         sourceListener.fetchData();
