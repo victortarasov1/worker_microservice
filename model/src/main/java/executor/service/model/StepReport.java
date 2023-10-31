@@ -1,9 +1,20 @@
 package executor.service.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalTime;
 import java.util.UUID;
 
-public record StepReport(Step step, LocalTime startTime, LocalTime endTime, String errorMessage) {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class StepReport {
+    private Step step;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String errorMessage;
     public UUID getScenarioUUID() {
         return step.scenarioUUID();
     }
