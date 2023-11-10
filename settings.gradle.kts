@@ -9,3 +9,6 @@ include("source")
 include("main")
 include("report")
 include("facade")
+include("redis")
+include("redis:configuration")
+findProject(":redis:configuration")?.name = "configuration"
