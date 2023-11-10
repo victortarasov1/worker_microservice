@@ -5,7 +5,6 @@ import executor.service.collection.queue.scenario.ScenarioReportQueueHandler;
 import executor.service.model.Scenario;
 import executor.service.model.ScenarioReport;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,7 +21,8 @@ public class ScenarioReportAspect {
     private final ScenarioReportQueueHandler scenarios;
     private final StepReportMapHandler steps;
 
-    @Around("@annotation(executor.service.report.annotation.ScenarioReport)")
+
+    @Around("execution(* executor.service.execution.scenario.ScenarioExecutor.execute(..))")
     public void makeReport(ProceedingJoinPoint joinPoint) throws Throwable {
         var report = new ScenarioReport();
         var scenario = (Scenario) joinPoint.getArgs()[0];

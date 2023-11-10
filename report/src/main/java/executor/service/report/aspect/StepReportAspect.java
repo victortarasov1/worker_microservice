@@ -18,7 +18,7 @@ public class StepReportAspect {
 
     private final StepReportMapHandler handler;
 
-    @Around("@annotation(executor.service.report.annotation.StepReport)")
+    @Around("execution(* executor.service.execution.scenario.step.StepExecution.step(..))")
     public void makeReport(ProceedingJoinPoint joinPoint) throws Throwable {
         var step = (Step) joinPoint.getArgs()[1];
         var report = new StepReport();

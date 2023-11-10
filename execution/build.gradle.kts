@@ -3,7 +3,6 @@ dependencies {
     implementation(project(":logger"))
     implementation(project(":model"))
     implementation(project(":webdriver"))
-    implementation(project(":report"))
     implementation(project(":logback"))
 
 }
