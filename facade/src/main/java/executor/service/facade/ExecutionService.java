@@ -1,8 +1,10 @@
 package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
-import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
+import executor.service.model.Scenario;
 import org.openqa.selenium.WebDriver;
+
+import java.util.Queue;
 
 /**
  * The ExecutionService interface defines a facade for managing the execution of scenarios
@@ -16,9 +18,9 @@ public interface ExecutionService {
      * and scenario executor.
      *
      * @param webDriver           The WebDriver instance used for browser automation during scenario execution.
-     * @param scenarios           The scenario source queue handler responsible for managing the queue of scenarios.
+     * @param scenarios           The queue of scenarios.
      * @param scenarioExecutor    The scenario executor responsible for executing individual scenarios.
      */
-    void execute(WebDriver webDriver, ScenarioSourceQueueHandler scenarios,
+    void execute(WebDriver webDriver, Queue<Scenario> scenarios,
                  ScenarioExecutor scenarioExecutor);
 }

@@ -17,7 +17,7 @@ public class ClickXpath implements StepExecution {
     @Override
     public void step(WebDriver webDriver, Step step) {
         try {
-            webDriver.findElement(By.xpath(step.value())).click();
+            webDriver.findElement(By.xpath(step.getValue())).click();
         } catch (NoSuchElementException | ElementNotInteractableException
                  | StaleElementReferenceException | TimeoutException | InvalidSelectorException ex) {
             throw new ClickXPathException(ex);

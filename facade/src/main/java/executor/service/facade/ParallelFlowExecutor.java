@@ -1,5 +1,9 @@
 package executor.service.facade;
 
+import executor.service.model.Scenario;
+
+import java.util.Queue;
+
 /**
  * The ParallelFlowExecutor interface serves as a facade for orchestrating the parallel execution
  * of scenarios or tasks.
@@ -11,5 +15,5 @@ public interface ParallelFlowExecutor {
     /**
      * Initiates the parallel execution of scenarios.
      */
-    void runInParallelFlow() throws InterruptedException;
+    void runInParallelFlow(Queue<Scenario> scenarios);
 }

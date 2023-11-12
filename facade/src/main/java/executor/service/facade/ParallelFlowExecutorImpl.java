@@ -1,26 +1,20 @@
 package executor.service.facade;
 
-import executor.service.source.parser.SourceParser;
-import executor.service.webdriver.factory.WebDriverProvider;
-
 import executor.service.execution.scenario.ScenarioExecutor;
-
-import executor.service.model.ProxyConfigHolder;
 import executor.service.facade.model.ThreadPoolConfig;
-import executor.service.collection.queue.proxy.ProxySourceQueueHandler;
-import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
-import executor.service.source.listener.SourceListener;
+import executor.service.model.Scenario;
+import executor.service.redis.queue.listener.proxy.ProxyQueueListener;
+import executor.service.webdriver.factory.WebDriverProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
+import lombok.SneakyThrows;
+import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Queue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.WebDriver;
 import java.util.function.Supplier;
 
 @Service
@@ -28,39 +22,46 @@ import java.util.function.Supplier;
 public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final ExecutionService executionService;
     private final ThreadPoolConfig threadPoolConfig;
-    private final List<SourceListener> listeners;
     private final ScenarioExecutor scenarioExecutor;
     private final WebDriverProvider driverProvider;
-    private final ProxySourceQueueHandler proxies;
-    private final ScenarioSourceQueueHandler scenarios;
-    private final SourceParser parser;
 
-    @Scheduled(fixedRate = 120000)
+    private final ProxyQueueListener listener;
+
+
     @Override
-    public void runInParallelFlow() throws InterruptedException {
-        listeners.forEach(SourceListener::fetchData);
-        if(scenarios.getSize() != 0) processParallelExecution();
+    @SneakyThrows
+    public void runInParallelFlow(Queue<Scenario> scenarios) {
+        var fixedThreadPool = createThreadPoolExecutor(scenarios);
+        var latch = new CountDownLatch(threadPoolConfig.getCorePoolSize());
+        var task = createTask(latch, this::createWebDriver, scenarios);
+        execute(fixedThreadPool, latch, task);
     }
 
-    private void processParallelExecution() throws InterruptedException {
-        Optional<ProxyConfigHolder> proxy = proxies.poll();
-        Supplier<WebDriver> createWebDriver = () -> proxy.map(driverProvider::create).orElseGet(driverProvider::create);
-        execute(createWebDriver);
-        parser.parseData();
-    }
-
-
-    private void execute(Supplier<WebDriver> createWebDriver) throws InterruptedException {
-        ThreadPoolExecutor fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadPoolConfig.getCorePoolSize());
-        fixedThreadPool.setKeepAliveTime(threadPoolConfig.getKeepAliveTime(), TimeUnit.MILLISECONDS);
-        CountDownLatch latch = new CountDownLatch(threadPoolConfig.getCorePoolSize());
-        Runnable execute = () -> {
-            executionService.execute(createWebDriver.get(), scenarios, scenarioExecutor);
-            latch.countDown();
-        };
-        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++) fixedThreadPool.execute(execute);
+    private void execute(ThreadPoolExecutor fixedThreadPool, CountDownLatch latch, Runnable task) throws InterruptedException {
+        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++) fixedThreadPool.execute(task);
         latch.await();
         fixedThreadPool.shutdown();
     }
 
+    private Runnable createTask(CountDownLatch latch, Supplier<WebDriver> createWebDriver, Queue<Scenario> scenarios) {
+        return () -> {
+            executionService.execute(createWebDriver.get(), scenarios, scenarioExecutor);
+            latch.countDown();
+        };
+    }
+
+    private ThreadPoolExecutor createThreadPoolExecutor(Queue<Scenario> scenarios) {
+        var nThreads = scenarios.size() > threadPoolConfig.getCorePoolSize()
+                ? threadPoolConfig.getCorePoolSize()
+                : scenarios.size();
+        var fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(nThreads);
+        fixedThreadPool.setKeepAliveTime(threadPoolConfig.getKeepAliveTime(), TimeUnit.MILLISECONDS);
+        return fixedThreadPool;
+    }
+
+    private WebDriver createWebDriver() {
+        var proxy = listener.poll();
+        if (proxy != null) return driverProvider.create(proxy);
+        return driverProvider.create();
+    }
 }
