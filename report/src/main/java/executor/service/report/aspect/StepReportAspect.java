@@ -1,8 +1,8 @@
 package executor.service.report.aspect;
 
-import executor.service.collection.map.step.StepReportMapHandler;
 import executor.service.model.Step;
 import executor.service.model.StepReport;
+import executor.service.redis.repository.StepRepository;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,17 +16,14 @@ import java.time.LocalTime;
 @RequiredArgsConstructor
 public class StepReportAspect {
 
-    private final StepReportMapHandler handler;
+    private final StepRepository repository;
 
     @Around("execution(* executor.service.execution.scenario.step.StepExecution.step(..))")
     public void makeReport(ProceedingJoinPoint joinPoint) throws Throwable {
-        var step = (Step) joinPoint.getArgs()[1];
-        var report = new StepReport();
-        report.setStep(step);
-        report.setStartTime(LocalTime.now());
+        StepReport report = createReport();
         proceed(joinPoint, report);
-
     }
+
 
     private void proceed(ProceedingJoinPoint joinPoint, StepReport report) throws Throwable {
         try {
@@ -36,7 +33,19 @@ public class StepReportAspect {
             throw ex;
         } finally {
             report.setEndTime(LocalTime.now());
-            handler.put(report.getScenarioUUID(), report);
+            saveReport(joinPoint, report);
         }
+    }
+
+    private void saveReport(ProceedingJoinPoint joinPoint, StepReport report) {
+        var step = (Step) joinPoint.getArgs()[1];
+        step.setReport(report);
+        repository.save(step);
+    }
+
+    private StepReport createReport() {
+        var report = new StepReport();
+        report.setStartTime(LocalTime.now());
+        return report;
     }
 }
