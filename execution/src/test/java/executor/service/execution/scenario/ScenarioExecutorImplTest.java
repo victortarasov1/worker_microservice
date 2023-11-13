@@ -10,9 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
-
 import java.util.List;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
@@ -34,16 +32,16 @@ class ScenarioExecutorImplTest {
 
     @Test
     public void testExecute() {
-        Scenario scenario = new Scenario(UUID.randomUUID(), "valid scenario", "https://some/url",
-                List.of(new Step(UUID.randomUUID(), "clickCss", "do>something")));
+        var scenario = new Scenario("valid scenario", "https://some/url",
+                List.of(new Step("clickCss", "do>something")));
         scenarioExecutor.execute(scenario, webDriver);
         verify(stepExecution, times(1)).step(any(WebDriver.class), any(Step.class));
     }
 
     @Test
     public void testExecute_shouldThrowSiteNotFoundException() {
-        Scenario scenario = new Scenario(UUID.randomUUID(), "scenario with bad url", "https://some/bad/url",
-                List.of(new Step(UUID.randomUUID(), "clickCss", "do>something")));
+        var scenario = new Scenario("scenario with bad url", "https://some/bad/url",
+                List.of(new Step("clickCss", "do>something")));
         doThrow(WebDriverException.class).when(webDriver).get(anyString());
         assertThatThrownBy(() -> scenarioExecutor.execute(scenario, webDriver))
                 .isInstanceOf(SiteNotFoundException.class);
@@ -51,8 +49,8 @@ class ScenarioExecutorImplTest {
 
     @Test
     public void testExecute_shouldThrowUnknownStepException() {
-        Scenario scenario = new Scenario(UUID.randomUUID(),"scenario with bad steps", "https://some/bad/url",
-                List.of(new Step(UUID.randomUUID(), "bad action", "do>something")));
+        var scenario = new Scenario("scenario with bad steps", "https://some/bad/url",
+                List.of(new Step("bad action", "do>something")));
         assertThatThrownBy(() -> scenarioExecutor.execute(scenario, webDriver))
                 .isInstanceOf(UnknownStepException.class);
     }

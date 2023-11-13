@@ -1,8 +1,8 @@
 package executor.service.execution.scenario;
 
 
-import executor.service.logger.annotation.HandleException;
-import executor.service.logger.annotation.Logged;
+import executor.service.aop.logger.annotation.HandleException;
+import executor.service.aop.logger.annotation.Logged;
 import executor.service.execution.exception.SiteNotFoundException;
 import executor.service.execution.exception.step.UnknownStepException;
 import executor.service.model.Scenario;
@@ -33,8 +33,8 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
 
     @Override
     public void execute(Scenario scenario, WebDriver webDriver) {
-        goToSite(scenario.site(), webDriver);
-        scenario.steps().forEach(v -> executeStep(v, webDriver));
+        goToSite(scenario.getSite(), webDriver);
+        scenario.getSteps().forEach(v -> executeStep(v, webDriver));
     }
 
     private void goToSite(String url, WebDriver webDriver) {
@@ -46,8 +46,8 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
     }
 
     private void executeStep(Step step, WebDriver driver) {
-        Optional.ofNullable(stepExecutionMap.get(step.action()))
-                .orElseThrow(() -> new UnknownStepException(step.action()))
+        Optional.ofNullable(stepExecutionMap.get(step.getAction()))
+                .orElseThrow(() -> new UnknownStepException(step.getAction()))
                 .step(driver, step);
     }
 }

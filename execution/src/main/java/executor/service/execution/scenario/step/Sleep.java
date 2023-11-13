@@ -1,6 +1,6 @@
 package executor.service.execution.scenario.step;
 
-import executor.service.logger.annotation.Logged;
+import executor.service.aop.logger.annotation.Logged;
 import executor.service.execution.exception.step.SleepException;
 import executor.service.model.Step;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +26,7 @@ public class Sleep implements StepExecution {
 
     private int getDuration(Step step) {
         try {
-            String[] values = step.value().split(":");
+            String[] values = step.getValue().split(":");
             int first = Integer.parseInt(values[0]);
             int second = Integer.parseInt(values[1]);
             return new Random().nextInt(second - first + 1) + first;

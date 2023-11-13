@@ -1,6 +1,6 @@
 package executor.service.webdriver.factory;
 
-import executor.service.logger.annotation.Logged;
+import executor.service.aop.logger.annotation.Logged;
 import executor.service.webdriver.factory.setting.UserAgentArgument;
 import executor.service.webdriver.factory.setting.BrowserOptions;
 import executor.service.webdriver.model.WebDriverConfig;
