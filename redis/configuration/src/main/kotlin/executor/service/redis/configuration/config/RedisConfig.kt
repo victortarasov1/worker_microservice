@@ -13,8 +13,7 @@ class RedisConfig(private val holder: RedisConfigHolder) {
     fun jedisConnectionFactory(): JedisConnectionFactory {
         val config = RedisStandaloneConfiguration(holder.redisHost, holder.redisPort)
         val jedisClientConfiguration = JedisClientConfiguration.builder().usePooling().build()
-        val factory = JedisConnectionFactory(config, jedisClientConfiguration)
-        factory.afterPropertiesSet()
-        return factory
+        return JedisConnectionFactory(config, jedisClientConfiguration)
+            .apply { afterPropertiesSet() }
     }
 }
