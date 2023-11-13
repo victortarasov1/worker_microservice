@@ -1,7 +1,9 @@
 package executor.service.report.aspect;
 
+import executor.service.execution.exception.step.StepExecutionException;
 import executor.service.model.Step;
 import executor.service.model.StepReport;
+import executor.service.redis.repository.StepReportRepository;
 import executor.service.redis.repository.StepRepository;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -16,7 +18,8 @@ import java.time.LocalTime;
 @RequiredArgsConstructor
 public class StepReportAspect {
 
-    private final StepRepository repository;
+    private final StepRepository stepRepository;
+    private final StepReportRepository stepReportRepository;
 
     @Around("execution(* executor.service.execution.scenario.step.StepExecution.step(..))")
     public void makeReport(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -28,7 +31,7 @@ public class StepReportAspect {
     private void proceed(ProceedingJoinPoint joinPoint, StepReport report) throws Throwable {
         try {
             joinPoint.proceed();
-        } catch (Exception ex) {
+        } catch (StepExecutionException ex) {
             report.setErrorMessage(ex.getMessage());
             throw ex;
         } finally {
@@ -40,7 +43,8 @@ public class StepReportAspect {
     private void saveReport(ProceedingJoinPoint joinPoint, StepReport report) {
         var step = (Step) joinPoint.getArgs()[1];
         step.setReport(report);
-        repository.save(step);
+        stepReportRepository.save(report);
+        stepRepository.save(step);
     }
 
     private StepReport createReport() {

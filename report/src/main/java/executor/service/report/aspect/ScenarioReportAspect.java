@@ -1,8 +1,11 @@
 package executor.service.report.aspect;
 
+import executor.service.execution.exception.ScenarioExecutionException;
 import executor.service.model.Scenario;
 import executor.service.model.ScenarioReport;
+import executor.service.redis.repository.ScenarioReportRepository;
 import executor.service.redis.repository.ScenarioRepository;
+import executor.service.redis.repository.StepRepository;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,22 +18,24 @@ import java.time.LocalDateTime;
 @Component
 @Aspect
 @RequiredArgsConstructor
-@Order(1)
+@Order(2)
 public class ScenarioReportAspect {
-    private final ScenarioRepository repository;
+    private final ScenarioRepository scenarioRepository;
+    private final StepRepository stepRepository;
+    private final ScenarioReportRepository scenarioReportRepository;
 
     @Around("execution(* executor.service.execution.scenario.ScenarioExecutor.execute(..))")
     public void makeReport(ProceedingJoinPoint joinPoint) throws Throwable {
         ScenarioReport report = createReport(joinPoint);
         Scenario scenario = (Scenario) joinPoint.getArgs()[0];
-        repository.save(scenario);
+        saveScenario(scenario);
         proceed(joinPoint, scenario, report);
     }
 
     private void proceed(ProceedingJoinPoint joinPoint, Scenario scenario, ScenarioReport report) throws Throwable {
         try {
             joinPoint.proceed();
-        } catch (Exception ex) {
+        } catch (ScenarioExecutionException ex) {
             report.setErrorMessage(ex.getMessage());
             throw ex;
         } finally {
@@ -49,6 +54,12 @@ public class ScenarioReportAspect {
 
     private void saveReport(Scenario scenario, ScenarioReport report) {
         scenario.setReport(report);
-        repository.save(scenario);
+        scenarioReportRepository.save(report);
+        scenarioRepository.save(scenario);
+    }
+
+    private void saveScenario(Scenario scenario) {
+        stepRepository.saveAll(scenario.getSteps());
+        scenarioRepository.save(scenario);
     }
 }
