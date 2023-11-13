@@ -4,5 +4,4 @@ dependencies {
     implementation(project(":execution"))
     implementation(project(":redis:repository"))
     implementation(project(":redis:queue"))
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
 }

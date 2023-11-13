@@ -5,7 +5,7 @@ dependencies {
     implementation(project(":report"))
     implementation(project(":redis:queue"))
     implementation("org.seleniumhq.selenium:selenium-java:4.13.0")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
 
 }
 
