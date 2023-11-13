@@ -1,6 +1,6 @@
 package executor.service.execution.scenario.step;
 
-import executor.service.logger.annotation.Logged;
+import executor.service.aop.logger.annotation.Logged;
 import executor.service.execution.exception.step.ClickCssException;
 import executor.service.model.Step;
 import org.openqa.selenium.*;

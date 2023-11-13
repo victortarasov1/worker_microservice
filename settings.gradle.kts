@@ -1,10 +1,8 @@
 rootProject.name = "worker_microservice"
 include("execution")
 include("logback")
-include("logger")
 include("model")
 include("webdriver")
-include("report")
 include("facade")
 include("redis")
 include("redis:configuration")
@@ -13,3 +11,8 @@ include("redis:queue")
 findProject(":redis:queue")?.name = "queue"
 include("redis:repository")
 findProject(":redis:repository")?.name = "repository"
+include("aop")
+findProject(":aop:logger")?.name = "logger"
+include("aop:logger")
+findProject(":aop:report")?.name = "report"
+include("aop:report")

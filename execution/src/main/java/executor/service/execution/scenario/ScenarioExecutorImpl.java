@@ -1,8 +1,8 @@
 package executor.service.execution.scenario;
 
 
-import executor.service.logger.annotation.HandleException;
-import executor.service.logger.annotation.Logged;
+import executor.service.aop.logger.annotation.HandleException;
+import executor.service.aop.logger.annotation.Logged;
 import executor.service.execution.exception.SiteNotFoundException;
 import executor.service.execution.exception.step.UnknownStepException;
 import executor.service.model.Scenario;
