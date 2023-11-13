@@ -1,17 +1,14 @@
 package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
-import executor.service.execution.scenario.ScenarioExecutorImpl;
 import executor.service.model.Scenario;
-import executor.service.collection.queue.scenario.ScenarioSourceQueueHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -22,8 +19,6 @@ class ExecutionServiceImplTest {
 
     private WebDriver webDriver;
 
-    private ScenarioSourceQueueHandler scenarios;
-
     private ScenarioExecutor scenarioExecutor;
 
 
@@ -31,19 +26,17 @@ class ExecutionServiceImplTest {
     void setUp() {
         executionService = new ExecutionServiceImpl();
         webDriver = mock(ChromeDriver.class);
-        scenarios = mock(ScenarioSourceQueueHandler.class);
-        scenarioExecutor = mock(ScenarioExecutorImpl.class);
+        scenarioExecutor = mock(ScenarioExecutor.class);
+
     }
 
 
     @Test
     void testExecute() {
-        Scenario scenario = new Scenario(UUID.randomUUID(), "name", "sice", List.of());
-        when(scenarios.poll()).thenReturn(Optional.of(scenario)).thenReturn(Optional.of(scenario)).thenReturn(Optional.empty());
+        var scenarios = new ConcurrentLinkedQueue<>(List.of(new Scenario("name", "site", List.of())));
         executionService.execute(webDriver, scenarios, scenarioExecutor);
-        verify(scenarioExecutor, times(2)).execute(any(Scenario.class), any(WebDriver.class));
+        verify(scenarioExecutor, times(1)).execute(any(Scenario.class), any(WebDriver.class));
         verify(webDriver, times(1)).close();
-        verify(scenarios, times(3)).poll();
     }
 
 }

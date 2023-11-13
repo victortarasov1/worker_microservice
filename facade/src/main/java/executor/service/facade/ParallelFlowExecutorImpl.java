@@ -43,7 +43,8 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     }
 
     private void execute(ThreadPoolExecutor fixedThreadPool, CountDownLatch latch, Runnable task) throws InterruptedException {
-        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++) fixedThreadPool.execute(task);
+        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++)
+            fixedThreadPool.execute(task);
         latch.await();
         fixedThreadPool.shutdown();
     }
