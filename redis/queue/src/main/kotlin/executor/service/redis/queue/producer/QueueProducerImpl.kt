@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component
 @Component
 class QueueProducerImpl(private val template: RedisTemplate<String, Any>) : QueueProducer {
     private val key = "report.queue.key"
-    override fun add(scenarios: List<Scenario>) { template.opsForList().leftPush(key, scenarios) }
+    override fun add(scenario: Scenario) { template.opsForList().leftPush(key, scenario) }
 }
