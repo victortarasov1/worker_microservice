@@ -1,13 +1,21 @@
 package executor.service;
 
+import executor.service.facade.ExecutionProcessor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling
-public class App {
+@RequiredArgsConstructor
+public class App implements CommandLineRunner {
+    private final ExecutionProcessor processor;
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
+    }
+
+    @Override
+    public void run(String... args) {
+        while (true) processor.execute();
     }
 }
