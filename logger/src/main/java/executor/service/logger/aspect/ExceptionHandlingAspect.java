@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 @RequiredArgsConstructor
-@Order(2)
+@Order(1)
 public class ExceptionHandlingAspect {
     private final Logger logger;
 
