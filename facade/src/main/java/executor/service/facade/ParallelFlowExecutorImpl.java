@@ -14,7 +14,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -34,20 +33,15 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     public void runInParallelFlow() throws InterruptedException {
         var fixedThreadPool = createThreadPoolExecutor();
         var latch = new CountDownLatch(threadPoolConfig.getCorePoolSize());
-        var task = createTask(latch, this::createWebDriver);
-        execute(fixedThreadPool, latch, task);
-    }
-
-    private void execute(ThreadPoolExecutor fixedThreadPool, CountDownLatch latch, Runnable task) throws InterruptedException {
-        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++)
-            fixedThreadPool.execute(task);
+        var task = createTask(latch);
+        for (int i = 0; i < threadPoolConfig.getCorePoolSize(); i++) fixedThreadPool.execute(task);
         latch.await();
         fixedThreadPool.shutdown();
     }
 
-    private Runnable createTask(CountDownLatch latch, Supplier<WebDriver> createWebDriver) {
+    private Runnable createTask(CountDownLatch latch) {
         return () -> {
-            executionService.execute(createWebDriver.get(), scenarioQueueListener, scenarioExecutor);
+            executionService.execute(createWebDriver(), scenarioQueueListener, scenarioExecutor);
             latch.countDown();
         };
     }
