@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Component
 @Aspect
 @RequiredArgsConstructor
-@Order(2)
+@Order(3)
 public class ScenarioReportAspect {
     private final ScenarioRepository scenarioRepository;
     private final StepRepository stepRepository;
