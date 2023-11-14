@@ -2,17 +2,18 @@ package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.facade.model.ThreadPoolConfig;
-import executor.service.model.Scenario;
 import executor.service.redis.queue.listener.proxy.ProxyQueueListener;
 import executor.service.redis.queue.listener.scenario.ScenarioQueueListener;
 import executor.service.webdriver.factory.WebDriverProvider;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.Queue;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 @Service
@@ -29,16 +30,11 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
 
 
     @Override
-    @SneakyThrows
-    public void runInParallelFlow() {
-        var scenarios = new ConcurrentLinkedQueue<Scenario>(scenarioQueueListener.poll());
-        if (scenarios.size() > 0) process(scenarios);
-    }
-
-    private void process(Queue<Scenario> scenarios) throws InterruptedException {
-        var fixedThreadPool = createThreadPoolExecutor(scenarios);
+    @Scheduled(fixedDelay = 120000)
+    public void runInParallelFlow() throws InterruptedException {
+        var fixedThreadPool = createThreadPoolExecutor();
         var latch = new CountDownLatch(threadPoolConfig.getCorePoolSize());
-        var task = createTask(latch, this::createWebDriver, scenarios);
+        var task = createTask(latch, this::createWebDriver);
         execute(fixedThreadPool, latch, task);
     }
 
@@ -49,18 +45,15 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
         fixedThreadPool.shutdown();
     }
 
-    private Runnable createTask(CountDownLatch latch, Supplier<WebDriver> createWebDriver, Queue<Scenario> scenarios) {
+    private Runnable createTask(CountDownLatch latch, Supplier<WebDriver> createWebDriver) {
         return () -> {
-            executionService.execute(createWebDriver.get(), scenarios, scenarioExecutor);
+            executionService.execute(createWebDriver.get(), scenarioQueueListener, scenarioExecutor);
             latch.countDown();
         };
     }
 
-    private ThreadPoolExecutor createThreadPoolExecutor(Queue<Scenario> scenarios) {
-        var nThreads = scenarios.size() > threadPoolConfig.getCorePoolSize()
-                ? threadPoolConfig.getCorePoolSize()
-                : scenarios.size();
-        var fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(nThreads);
+    private ThreadPoolExecutor createThreadPoolExecutor() {
+        var fixedThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadPoolConfig.getCorePoolSize());
         fixedThreadPool.setKeepAliveTime(threadPoolConfig.getKeepAliveTime(), TimeUnit.MILLISECONDS);
         return fixedThreadPool;
     }

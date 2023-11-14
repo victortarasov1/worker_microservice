@@ -2,6 +2,7 @@ package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.model.Scenario;
+import executor.service.redis.queue.listener.scenario.ScenarioQueueListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +21,7 @@ class ExecutionServiceImplTest {
     private WebDriver webDriver;
 
     private ScenarioExecutor scenarioExecutor;
+    private ScenarioQueueListener listener;
 
 
     @BeforeEach
@@ -27,14 +29,15 @@ class ExecutionServiceImplTest {
         executionService = new ExecutionServiceImpl();
         webDriver = mock(ChromeDriver.class);
         scenarioExecutor = mock(ScenarioExecutor.class);
-
+        listener = mock(ScenarioQueueListener.class);
     }
 
 
     @Test
     void testExecute() {
-        var scenarios = new ConcurrentLinkedQueue<>(List.of(new Scenario("name", "site", List.of())));
-        executionService.execute(webDriver, scenarios, scenarioExecutor);
+        var scenario = new Scenario("name", "site", List.of());
+        when(listener.poll()).thenReturn(scenario, null);
+        executionService.execute(webDriver, listener, scenarioExecutor);
         verify(scenarioExecutor, times(1)).execute(any(Scenario.class), any(WebDriver.class));
         verify(webDriver, times(1)).close();
     }
