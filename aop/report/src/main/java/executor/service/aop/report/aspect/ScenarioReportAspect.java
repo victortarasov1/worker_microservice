@@ -3,9 +3,6 @@ package executor.service.aop.report.aspect;
 import executor.service.execution.exception.ScenarioExecutionException;
 import executor.service.model.Scenario;
 import executor.service.model.ScenarioReport;
-import executor.service.redis.repository.ScenarioReportRepository;
-import executor.service.redis.repository.ScenarioRepository;
-import executor.service.redis.repository.StepRepository;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -20,15 +17,11 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Order(3)
 public class ScenarioReportAspect {
-    private final ScenarioRepository scenarioRepository;
-    private final StepRepository stepRepository;
-    private final ScenarioReportRepository scenarioReportRepository;
 
     @Around("execution(* executor.service.execution.scenario.ScenarioExecutor.execute(..))")
     public void makeReport(ProceedingJoinPoint joinPoint) throws Throwable {
         ScenarioReport report = createReport(joinPoint);
         Scenario scenario = (Scenario) joinPoint.getArgs()[0];
-        saveScenario(scenario);
         proceed(joinPoint, scenario, report);
     }
 
@@ -40,7 +33,7 @@ public class ScenarioReportAspect {
             throw ex;
         } finally {
             report.setEndTime(LocalDateTime.now());
-            saveReport(scenario, report);
+            scenario.setReport(report);
         }
     }
 
@@ -50,16 +43,5 @@ public class ScenarioReportAspect {
         report.setWebDriverInfo(webDriverInfo);
         report.setStartTime(LocalDateTime.now());
         return report;
-    }
-
-    private void saveReport(Scenario scenario, ScenarioReport report) {
-        scenario.setReport(report);
-        scenarioReportRepository.save(report);
-        scenarioRepository.save(scenario);
-    }
-
-    private void saveScenario(Scenario scenario) {
-        stepRepository.saveAll(scenario.getSteps());
-        scenarioRepository.save(scenario);
     }
 }
