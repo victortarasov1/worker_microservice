@@ -77,6 +77,6 @@ class ParallelFlowExecutorImplTest {
         verify(threadPoolConfig, atLeastOnce()).getCorePoolSize();
         verify(threadPoolConfig, atLeastOnce()).getKeepAliveTime();
         verify(driverProvider, times(CORE_POOL_SIZE)).create(proxyConfig);
-        verify(executionService, times(CORE_POOL_SIZE)).execute(eq(driver), any(ConcurrentLinkedQueue.class), eq(scenarioExecutor));
+        verify(executionService, times(CORE_POOL_SIZE)).execute(eq(driver), eq(scenarioQueueListener), eq(scenarioExecutor));
     }
 }
