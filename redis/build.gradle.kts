@@ -10,6 +10,7 @@ allprojects {
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("redis.clients:jedis:4.4.6")
+        implementation("org.springframework.boot:spring-boot-starter-data-redis")
     }
 
 }
