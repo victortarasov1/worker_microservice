@@ -15,9 +15,7 @@ class QueueProducerImpl(
 ) : QueueProducer {
     private val key = "report.queue.key"
     override fun add(scenario: Scenario) {
-        ScenarioReportDto(scenario)
-            .also { println(it) }
-            .let { mapper.writeValueAsString(it) }
+        ScenarioReportDto(scenario).let { mapper.writeValueAsString(it) }
             .run { template.opsForList().leftPush(key, this) }
     }
 }
