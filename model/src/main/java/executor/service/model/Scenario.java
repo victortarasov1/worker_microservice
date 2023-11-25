@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Scenario {
+    private String id;
     private String name;
     private String site;
     private List<Step> steps;

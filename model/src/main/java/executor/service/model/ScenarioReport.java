@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScenarioReport {
+    private String scenarioId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String errorMessage;
