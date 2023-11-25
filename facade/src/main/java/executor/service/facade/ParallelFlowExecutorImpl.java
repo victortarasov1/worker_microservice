@@ -2,8 +2,8 @@ package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.facade.model.ThreadPoolConfig;
-import executor.service.redis.queue.listener.proxy.ProxyQueueListener;
-import executor.service.redis.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.listener.proxy.ProxyQueueListener;
+import executor.service.queue.listener.scenario.ScenarioQueueListener;
 import executor.service.webdriver.factory.WebDriverProvider;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.WebDriver;

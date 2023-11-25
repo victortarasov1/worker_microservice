@@ -2,14 +2,13 @@ package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.model.Scenario;
-import executor.service.redis.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.listener.scenario.ScenarioQueueListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

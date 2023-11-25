@@ -3,10 +3,8 @@ dependencies {
     implementation(project(":model"))
     implementation(project(":webdriver"))
     implementation(project(":aop:report"))
-    implementation(project(":redis:queue"))
+    implementation(project(":queue"))
     implementation("org.seleniumhq.selenium:selenium-java:4.13.0")
-
-
 }
 
 tasks.bootJar {
