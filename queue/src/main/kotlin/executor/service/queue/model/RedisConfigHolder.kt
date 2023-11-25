@@ -1,11 +1,11 @@
-package executor.service.redis.configuration.model
+package executor.service.queue.model
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource
 import org.springframework.stereotype.Component
 
 @Component
-@PropertySource("redis.properties")
+@PropertySource("classpath:redis.properties")
 data class RedisConfigHolder(
     @Value("\${spring.data.redis.host}")
     var redisHost: String,
