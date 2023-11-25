@@ -1,7 +1,7 @@
 package executor.service.aop.report.aspect;
 
 import executor.service.model.Scenario;
-import executor.service.redis.queue.producer.QueueProducer;
+import executor.service.queue.producer.QueueProducer;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

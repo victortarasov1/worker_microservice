@@ -6,8 +6,8 @@ import executor.service.model.ProxyConfigHolder;
 import executor.service.model.ProxyCredentials;
 import executor.service.model.ProxyNetworkConfig;
 import executor.service.model.Scenario;
-import executor.service.redis.queue.listener.proxy.ProxyQueueListener;
-import executor.service.redis.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.listener.proxy.ProxyQueueListener;
+import executor.service.queue.listener.scenario.ScenarioQueueListener;
 import executor.service.webdriver.factory.WebDriverProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 

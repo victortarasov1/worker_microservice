@@ -1,7 +1,7 @@
 package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
-import executor.service.redis.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.listener.scenario.ScenarioQueueListener;
 import org.openqa.selenium.WebDriver;
 
 /**
