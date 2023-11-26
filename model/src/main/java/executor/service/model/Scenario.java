@@ -1,6 +1,7 @@
 package executor.service.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ public class Scenario {
     private String id;
     private String name;
     private String site;
-    private List<Step> steps;
+    private List<Step> steps = new ArrayList<>();
 
     private ScenarioReport report;
 

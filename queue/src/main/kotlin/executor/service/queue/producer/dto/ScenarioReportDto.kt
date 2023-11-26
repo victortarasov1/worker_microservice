@@ -21,6 +21,6 @@ data class ScenarioReportDto(
         webDriverInfo = scenario.report.webDriverInfo,
         endTime = scenario.report.endTime,
         errorMessage = scenario.report.errorMessage,
-        stepReports = scenario.steps.map { StepReportDto(it) }.toList()
+        stepReports = scenario.steps.filter { it.report != null }.map { StepReportDto(it) }.toList()
     )
 }
