@@ -4,6 +4,7 @@ import executor.service.model.Scenario
 import java.time.LocalDateTime
 
 data class ScenarioReportDto(
+    val scenarioId: String,
     val name: String,
     val site: String,
     val startTime: LocalDateTime,
@@ -13,6 +14,7 @@ data class ScenarioReportDto(
     val stepReports: List<StepReportDto>
 ) {
     constructor(scenario: Scenario) : this(
+        scenarioId = scenario.id,
         name = scenario.name,
         site = scenario.site,
         startTime = scenario.report.startTime,
