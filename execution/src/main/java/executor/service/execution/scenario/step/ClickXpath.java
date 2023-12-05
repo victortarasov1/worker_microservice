@@ -7,7 +7,6 @@ import org.openqa.selenium.*;
 import org.springframework.stereotype.Component;
 
 @Component
-@Logged
 public class ClickXpath implements StepExecution {
     @Override
     public String getStepAction() {
@@ -15,6 +14,7 @@ public class ClickXpath implements StepExecution {
     }
 
     @Override
+    @Logged
     public void step(WebDriver webDriver, Step step) {
         try {
             webDriver.findElement(By.xpath(step.getValue())).click();
