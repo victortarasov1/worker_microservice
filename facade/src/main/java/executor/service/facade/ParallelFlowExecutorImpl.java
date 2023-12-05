@@ -1,5 +1,6 @@
 package executor.service.facade;
 
+import executor.service.aop.logger.annotation.HandleException;
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.facade.model.ThreadPoolConfig;
 import executor.service.queue.listener.proxy.ProxyQueueListener;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
+@HandleException
 public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final ExecutionService executionService;
     private final ThreadPoolConfig threadPoolConfig;
