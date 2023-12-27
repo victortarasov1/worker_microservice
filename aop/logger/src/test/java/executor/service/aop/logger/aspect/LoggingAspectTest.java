@@ -46,7 +46,7 @@ class LoggingAspectTest {
     void testLogAfter_shouldLogMethodExecutionCompleted() {
         when(joinPoint.getTarget()).thenReturn(new TestClass());
         when(signature.getName()).thenReturn(METHOD_NAME);
-        loggingAspect.logAfter(joinPoint);
+        loggingAspect.logAfterReturning(joinPoint, null);
 
         verify(logger).info(eq(LogMessage.METHOD_EXECUTION_COMPLETED.getMessage()), eq(METHOD_NAME), eq(CLASS_NAME));
     }

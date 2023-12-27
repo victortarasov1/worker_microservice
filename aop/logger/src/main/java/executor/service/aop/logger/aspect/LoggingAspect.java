@@ -2,7 +2,7 @@ package executor.service.aop.logger.aspect;
 
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -14,8 +14,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LoggingAspect {
     private final Logger logger;
+    private static final String POINT = """
+                @within(executor.service.aop.logger.annotation.Logged)||
+                @annotation(executor.service.aop.logger.annotation.Logged)
+            """;
 
-    @Before("@within(executor.service.aop.logger.annotation.Logged)")
+    @Before(POINT)
     public void logBefore(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getTarget().getClass().getSimpleName();
@@ -23,10 +27,11 @@ public class LoggingAspect {
         logger.info(LogMessage.EXECUTING_METHOD.getMessage(), methodName, className, args);
     }
 
-    @After("@within(executor.service.aop.logger.annotation.Logged)")
-    public void logAfter(JoinPoint joinPoint) {
+    @AfterReturning(pointcut = POINT, returning = "result")
+    public void logAfterReturning(JoinPoint joinPoint, Object result) {
         String className = joinPoint.getTarget().getClass().getSimpleName();
         String methodName = joinPoint.getSignature().getName();
-        logger.info(LogMessage.METHOD_EXECUTION_COMPLETED.getMessage(), methodName, className);
+        if (result != null) logger.info(LogMessage.METHOD_RETURN_VALUE.getMessage(), methodName, className, result);
+        else logger.info(LogMessage.METHOD_EXECUTION_COMPLETED.getMessage(), methodName, className);
     }
 }
