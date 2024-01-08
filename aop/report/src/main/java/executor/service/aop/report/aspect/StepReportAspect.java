@@ -28,7 +28,7 @@ public class StepReportAspect {
         try {
             joinPoint.proceed();
         } catch (StepExecutionException ex) {
-            report.setErrorMessage(ex.getMessage());
+            report.setErrorMessage(ex.getMessage() + "\n Caused By " + ex.getCause().getMessage());
             throw ex;
         } finally {
             report.setEndTime(LocalTime.now());

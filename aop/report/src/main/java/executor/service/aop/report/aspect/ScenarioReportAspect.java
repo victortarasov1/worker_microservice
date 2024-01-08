@@ -26,7 +26,7 @@ public class ScenarioReportAspect {
         try {
             joinPoint.proceed();
         } catch (ScenarioExecutionException ex) {
-            report.setErrorMessage(ex.getMessage());
+            report.setErrorMessage(ex.getMessage() + "\n Caused By " + ex.getCause().getMessage());
             throw ex;
         } finally {
             report.setEndTime(LocalDateTime.now());
