@@ -2,7 +2,7 @@ package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.model.Scenario;
-import executor.service.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.consumer.scenario.ScenarioConsumer;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class ExecutionServiceImpl implements ExecutionService {
 
     @Override
-    public void execute(WebDriver webDriver, ScenarioQueueListener listener, ScenarioExecutor scenarioExecutor) {
+    public void execute(WebDriver webDriver, ScenarioConsumer listener, ScenarioExecutor scenarioExecutor) {
         Scenario scenario = listener.poll();
         while (scenario != null) {
             scenarioExecutor.execute(scenario, webDriver);

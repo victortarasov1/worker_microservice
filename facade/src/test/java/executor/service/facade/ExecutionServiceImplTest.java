@@ -2,7 +2,7 @@ package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.model.Scenario;
-import executor.service.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.consumer.scenario.ScenarioConsumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +20,7 @@ class ExecutionServiceImplTest {
     private WebDriver webDriver;
 
     private ScenarioExecutor scenarioExecutor;
-    private ScenarioQueueListener listener;
+    private ScenarioConsumer listener;
 
 
     @BeforeEach
@@ -28,7 +28,7 @@ class ExecutionServiceImplTest {
         executionService = new ExecutionServiceImpl();
         webDriver = mock(ChromeDriver.class);
         scenarioExecutor = mock(ScenarioExecutor.class);
-        listener = mock(ScenarioQueueListener.class);
+        listener = mock(ScenarioConsumer.class);
     }
 
 

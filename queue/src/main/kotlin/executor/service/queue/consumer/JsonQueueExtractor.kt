@@ -1,4 +1,4 @@
-package executor.service.queue.listener
+package executor.service.queue.consumer
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.data.redis.core.StringRedisTemplate

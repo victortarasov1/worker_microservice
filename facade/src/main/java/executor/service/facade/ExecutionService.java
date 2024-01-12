@@ -1,7 +1,7 @@
 package executor.service.facade;
 
 import executor.service.execution.scenario.ScenarioExecutor;
-import executor.service.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.consumer.scenario.ScenarioConsumer;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -19,6 +19,6 @@ public interface ExecutionService {
      * @param listener            The listener for  queue of scenarios.
      * @param scenarioExecutor    The scenario executor responsible for executing individual scenarios.
      */
-    void execute(WebDriver webDriver, ScenarioQueueListener listener,
+    void execute(WebDriver webDriver, ScenarioConsumer listener,
                  ScenarioExecutor scenarioExecutor);
 }
