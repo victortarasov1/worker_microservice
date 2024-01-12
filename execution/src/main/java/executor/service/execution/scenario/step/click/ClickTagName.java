@@ -1,26 +1,27 @@
-package executor.service.execution.scenario.step;
+package executor.service.execution.scenario.step.click;
 
 import executor.service.aop.logger.annotation.Logged;
-import executor.service.execution.exception.step.ClickNameException;
+import executor.service.execution.exception.step.click.ClickTagNameException;
+import executor.service.execution.scenario.step.StepExecution;
 import executor.service.model.Step;
 import org.openqa.selenium.*;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClickName implements StepExecution{
+public class ClickTagName implements StepExecution {
     @Override
     public String getStepAction() {
-        return "clickName";
+        return "clickTagName";
     }
 
     @Override
     @Logged
     public void step(WebDriver webDriver, Step step) {
         try {
-            webDriver.findElement(By.name(step.getValue())).click();
+            webDriver.findElement(By.tagName(step.getValue())).click();
         } catch (NoSuchElementException | ElementNotInteractableException
                  | StaleElementReferenceException | TimeoutException | InvalidSelectorException ex) {
-            throw new ClickNameException(ex);
+            throw new ClickTagNameException(ex);
         }
     }
 }

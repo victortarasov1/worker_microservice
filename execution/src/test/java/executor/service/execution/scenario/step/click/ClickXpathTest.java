@@ -1,6 +1,7 @@
-package executor.service.execution.scenario.step;
+package executor.service.execution.scenario.step.click;
 
-import executor.service.execution.exception.step.ClickXPathException;
+import executor.service.execution.exception.step.click.ClickXPathException;
+import executor.service.execution.scenario.step.click.ClickXpath;
 import executor.service.model.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

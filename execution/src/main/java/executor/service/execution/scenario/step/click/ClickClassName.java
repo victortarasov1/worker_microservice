@@ -1,7 +1,8 @@
-package executor.service.execution.scenario.step;
+package executor.service.execution.scenario.step.click;
 
 import executor.service.aop.logger.annotation.Logged;
-import executor.service.execution.exception.step.ClickClassNameException;
+import executor.service.execution.exception.step.click.ClickClassNameException;
+import executor.service.execution.scenario.step.StepExecution;
 import executor.service.model.Step;
 import org.openqa.selenium.*;
 import org.springframework.stereotype.Component;
