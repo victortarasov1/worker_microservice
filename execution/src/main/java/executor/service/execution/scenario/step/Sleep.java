@@ -1,8 +1,7 @@
-package executor.service.execution.scenario.step.click;
+package executor.service.execution.scenario.step;
 
 import executor.service.aop.logger.annotation.Logged;
-import executor.service.execution.exception.step.click.SleepException;
-import executor.service.execution.scenario.step.StepExecution;
+import executor.service.execution.exception.step.SleepException;
 import executor.service.model.Step;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Component;

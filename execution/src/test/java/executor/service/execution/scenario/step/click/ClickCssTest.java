@@ -1,7 +1,6 @@
 package executor.service.execution.scenario.step.click;
 
 import executor.service.execution.exception.step.click.ClickCssException;
-import executor.service.execution.scenario.step.click.ClickCss;
 import executor.service.model.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,9 +66,9 @@ public class ClickCssTest {
     }
 
     @Test
-    public void getStepAction_ShouldThrowClickCssException() {
+    public void getStepAction_ShouldReturnClickCss() {
         var stepAction = clickCss.getStepAction();
-        assertThat(stepAction).isEqualTo("clickCss");
+        assertThat(stepAction).isEqualTo(step.getAction());
     }
 
     @Test

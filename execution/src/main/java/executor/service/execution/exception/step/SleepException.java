@@ -1,4 +1,4 @@
-package executor.service.execution.exception.step.click;
+package executor.service.execution.exception.step;
 
 
 import executor.service.execution.exception.step.StepExecutionException;

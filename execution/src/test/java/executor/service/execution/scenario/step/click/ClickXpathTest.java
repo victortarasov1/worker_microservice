@@ -1,7 +1,6 @@
 package executor.service.execution.scenario.step.click;
 
 import executor.service.execution.exception.step.click.ClickXPathException;
-import executor.service.execution.scenario.step.click.ClickXpath;
 import executor.service.model.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,7 +75,7 @@ public class ClickXpathTest {
     @Test
     public void getStepAction_ShouldReturnClickXpath() {
         var stepAction = clickXpath.getStepAction();
-        assertThat(stepAction).isEqualTo("clickXpath");
+        assertThat(stepAction).isEqualTo(step.getAction());
     }
 
 }

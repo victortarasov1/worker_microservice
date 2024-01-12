@@ -1,7 +1,6 @@
-package executor.service.execution.scenario.step.click;
+package executor.service.execution.scenario.step;
 
-import executor.service.execution.exception.step.click.SleepException;
-import executor.service.execution.scenario.step.click.Sleep;
+import executor.service.execution.exception.step.SleepException;
 import executor.service.model.Step;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
