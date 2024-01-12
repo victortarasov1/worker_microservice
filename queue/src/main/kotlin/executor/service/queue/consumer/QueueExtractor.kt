@@ -1,5 +1,5 @@
 package executor.service.queue.consumer
 
-interface QueueExtractor {
+internal interface QueueExtractor {
      fun <T> poll(key: String, clazz: Class<T>) : T?
 }

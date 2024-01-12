@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @Logged
-class ScenarioConsumerImpl(
+internal class ScenarioConsumerImpl(
     private val extractor: QueueExtractor
 ) : ScenarioConsumer {
     private val key = "scenario.queue.key"

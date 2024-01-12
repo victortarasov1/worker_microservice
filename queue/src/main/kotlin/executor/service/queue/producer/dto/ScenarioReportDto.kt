@@ -3,7 +3,7 @@ package executor.service.queue.producer.dto
 import executor.service.model.Scenario
 import java.time.LocalDateTime
 
-data class ScenarioReportDto(
+internal data class ScenarioReportDto(
     val scenarioId: String,
     val name: String,
     val site: String,

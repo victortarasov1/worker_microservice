@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @Logged
-class ProxyConsumerImpl(
+internal class ProxyConsumerImpl(
     private val extractor: QueueExtractor
 ) : ProxyConsumer {
     private val key = "proxy.queue.key"

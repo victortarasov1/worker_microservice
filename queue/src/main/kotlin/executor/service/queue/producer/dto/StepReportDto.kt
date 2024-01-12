@@ -3,7 +3,7 @@ package executor.service.queue.producer.dto
 import executor.service.model.Step
 import java.time.LocalTime
 
-data class StepReportDto(
+internal data class StepReportDto(
     val action: String,
     val value: String,
     val startTime: LocalTime,

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @Logged
-class QueueProducerImpl(
+internal class QueueProducerImpl(
     private val template: StringRedisTemplate,
     private val mapper: ObjectMapper
 ) : QueueProducer {
