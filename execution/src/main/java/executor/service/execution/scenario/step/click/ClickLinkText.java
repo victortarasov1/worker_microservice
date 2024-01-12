@@ -1,26 +1,27 @@
-package executor.service.execution.scenario.step;
+package executor.service.execution.scenario.step.click;
 
 import executor.service.aop.logger.annotation.Logged;
-import executor.service.execution.exception.step.ClickXPathException;
+import executor.service.execution.exception.step.click.ClickLinkTextException;
+import executor.service.execution.scenario.step.StepExecution;
 import executor.service.model.Step;
 import org.openqa.selenium.*;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClickXpath implements StepExecution {
+public class ClickLinkText implements StepExecution {
     @Override
     public String getStepAction() {
-        return "clickXpath";
+        return "clickLinkText";
     }
 
     @Override
     @Logged
     public void step(WebDriver webDriver, Step step) {
         try {
-            webDriver.findElement(By.xpath(step.getValue())).click();
+            webDriver.findElement(By.linkText(step.getValue())).click();
         } catch (NoSuchElementException | ElementNotInteractableException
                  | StaleElementReferenceException | TimeoutException | InvalidSelectorException ex) {
-            throw new ClickXPathException(ex);
+            throw new ClickLinkTextException(ex);
         }
     }
 }
