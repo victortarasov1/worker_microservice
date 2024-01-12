@@ -6,8 +6,8 @@ import executor.service.model.ProxyConfigHolder;
 import executor.service.model.ProxyCredentials;
 import executor.service.model.ProxyNetworkConfig;
 import executor.service.model.Scenario;
-import executor.service.queue.listener.proxy.ProxyQueueListener;
-import executor.service.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.consumer.proxy.ProxyConsumer;
+import executor.service.queue.consumer.scenario.ScenarioConsumer;
 import executor.service.webdriver.factory.WebDriverProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,8 +28,8 @@ class ParallelFlowExecutorImplTest {
     private ScenarioExecutor scenarioExecutor;
     private ParallelFlowExecutorImpl parallelFlowExecutor;
 
-    private ProxyQueueListener proxyQueueListener;
-    private ScenarioQueueListener scenarioQueueListener;
+    private ProxyConsumer proxyQueueListener;
+    private ScenarioConsumer scenarioQueueListener;
 
 
     private static final int NUMBER_OF_GET_PROXY_CALL = 10;
@@ -44,8 +44,8 @@ class ParallelFlowExecutorImplTest {
         driverProvider = Mockito.mock(WebDriverProvider.class);
         threadPoolConfig = Mockito.mock(ThreadPoolConfig.class);
         scenarioExecutor = Mockito.mock(ScenarioExecutor.class);
-        proxyQueueListener = Mockito.mock(ProxyQueueListener.class);
-        scenarioQueueListener = Mockito.mock(ScenarioQueueListener.class);
+        proxyQueueListener = Mockito.mock(ProxyConsumer.class);
+        scenarioQueueListener = Mockito.mock(ScenarioConsumer.class);
         parallelFlowExecutor = new ParallelFlowExecutorImpl(executionService, threadPoolConfig,
                  scenarioExecutor,  driverProvider, proxyQueueListener, scenarioQueueListener);
     }

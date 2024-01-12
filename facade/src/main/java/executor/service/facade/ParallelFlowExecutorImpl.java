@@ -3,8 +3,8 @@ package executor.service.facade;
 import executor.service.aop.logger.annotation.HandleException;
 import executor.service.execution.scenario.ScenarioExecutor;
 import executor.service.facade.model.ThreadPoolConfig;
-import executor.service.queue.listener.proxy.ProxyQueueListener;
-import executor.service.queue.listener.scenario.ScenarioQueueListener;
+import executor.service.queue.consumer.proxy.ProxyConsumer;
+import executor.service.queue.consumer.scenario.ScenarioConsumer;
 import executor.service.webdriver.factory.WebDriverProvider;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.WebDriver;
@@ -25,9 +25,9 @@ public class ParallelFlowExecutorImpl implements ParallelFlowExecutor {
     private final ScenarioExecutor scenarioExecutor;
     private final WebDriverProvider driverProvider;
 
-    private final ProxyQueueListener proxyQueueListener;
+    private final ProxyConsumer proxyQueueListener;
 
-    private final ScenarioQueueListener scenarioQueueListener;
+    private final ScenarioConsumer scenarioQueueListener;
 
 
     @Override
