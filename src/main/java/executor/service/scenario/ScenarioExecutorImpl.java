@@ -1,13 +1,14 @@
-package executor.service.execution.scenario;
+package executor.service.scenario;
 
 
-import executor.service.aop.logger.annotation.HandleException;
-import executor.service.aop.logger.annotation.Logged;
-import executor.service.execution.exception.SiteNotFoundException;
-import executor.service.execution.exception.step.UnknownStepException;
+
+import executor.service.exception.SiteNotFoundException;
+import executor.service.exception.step.UnknownStepException;
+import executor.service.logging.annotation.HandleException;
+import executor.service.logging.annotation.Logged;
 import executor.service.model.Scenario;
 import executor.service.model.Step;
-import executor.service.execution.scenario.step.StepExecution;
+import executor.service.scenario.step.StepExecution;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @HandleException
-public class ScenarioExecutorImpl implements ScenarioExecutor {
+public class ScenarioExecutorImpl implements executor.service.execution.scenario.ScenarioExecutor {
     private final Map<String, StepExecution> stepExecutionMap;
 
     public ScenarioExecutorImpl(List<StepExecution> steps) {

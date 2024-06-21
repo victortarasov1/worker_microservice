@@ -1,4 +1,4 @@
-package executor.service.webdriver.factory;
+package executor.service.factory;
 
 import executor.service.model.ProxyConfigHolder;
 import org.openqa.selenium.WebDriver;

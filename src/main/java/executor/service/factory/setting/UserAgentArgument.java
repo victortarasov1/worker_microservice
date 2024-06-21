@@ -1,4 +1,4 @@
-package executor.service.webdriver.factory.setting;
+package executor.service.factory.setting;
 
 public enum UserAgentArgument {
     CHROME("--user-agent=");

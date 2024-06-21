@@ -1,4 +1,4 @@
-package executor.service.dto;
+package executor.service.config.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@PropertySource("classpath:webdriver.properties")
 public class WebDriverConfig {
     @Value("${executorservice.common.webDriverExecutable}")
     private String webDriverExecutable;

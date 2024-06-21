@@ -1,20 +1,19 @@
-package executor.service.webdriver.factory;
+package executor.service.factory;
 
-import executor.service.aop.logger.annotation.Logged;
-import executor.service.webdriver.factory.setting.UserAgentArgument;
-import executor.service.webdriver.factory.setting.BrowserOptions;
-import executor.service.webdriver.model.WebDriverConfig;
-import lombok.RequiredArgsConstructor;
-import org.openqa.selenium.remote.service.DriverService;
-import org.springframework.stereotype.Component;
-import executor.service.webdriver.factory.proxy.ProxyProvider;
+import executor.service.config.dto.WebDriverConfig;
+import executor.service.factory.proxy.ProxyProvider;
+import executor.service.factory.setting.BrowserOptions;
+import executor.service.factory.setting.UserAgentArgument;
+import executor.service.logging.annotation.Logged;
 import executor.service.model.ProxyConfigHolder;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.springframework.stereotype.Component;
 
-
+import java.net.URL;
 import java.time.Duration;
 
 @Component
@@ -23,12 +22,13 @@ import java.time.Duration;
 public class ChromeDriverProviderImpl implements WebDriverProvider {
     private final ProxyProvider proxyProvider;
     private final WebDriverConfig webDriverConfig;
-    private final DriverService driverService;
 
     @Override
+    @SneakyThrows
     public WebDriver create(ProxyConfigHolder proxyConfigHolder) {
         ChromeOptions options = createChromeOptions(proxyConfigHolder);
-        return new ChromeDriver((ChromeDriverService) driverService, options);
+        var remoteUrl = new URL(webDriverConfig.getWebDriverExecutable());
+        return new RemoteWebDriver(remoteUrl, options);
     }
 
     @Override

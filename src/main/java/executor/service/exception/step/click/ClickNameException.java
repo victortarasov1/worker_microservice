@@ -1,6 +1,6 @@
-package executor.service.execution.exception.step.click;
+package executor.service.exception.step.click;
 
-import executor.service.execution.exception.step.StepExecutionException;
+import executor.service.exception.step.StepExecutionException;
 
 public class ClickNameException extends StepExecutionException {
     public ClickNameException(Throwable ex) {

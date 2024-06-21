@@ -1,4 +1,4 @@
-package executor.service.aop.logger.config;
+package executor.service.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

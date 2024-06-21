@@ -1,4 +1,4 @@
-package executor.service.aop.logger.aspect;
+package executor.service.logging.aspect;
 
 enum LogMessage {
     EXECUTING_METHOD("Executing method {} in class {} with arguments {}"),

@@ -1,6 +1,6 @@
-package executor.service.execution.exception.step.click;
+package executor.service.exception.step.click;
 
-import executor.service.execution.exception.step.StepExecutionException;
+import executor.service.exception.step.StepExecutionException;
 
 public class ClickPartialLinkTextException extends StepExecutionException {
     public ClickPartialLinkTextException(Throwable ex) {

@@ -1,4 +1,4 @@
-package executor.service.aop.logger.aspect;
+package executor.service.logging.aspect;
 
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 public class LoggingAspect {
     private final Logger logger;
     private static final String POINT = """
-                @within(executor.service.aop.logger.annotation.Logged)||
-                @annotation(executor.service.aop.logger.annotation.Logged)
+                @within(executor.service.logging.annotation.Logged)||
+                @annotation(executor.service.logging.annotation.Logged)
             """;
 
     @Before(POINT)
@@ -24,14 +24,14 @@ public class LoggingAspect {
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getTarget().getClass().getSimpleName();
         Object[] args = joinPoint.getArgs();
-        logger.info(LogMessage.EXECUTING_METHOD.getMessage(), methodName, className, args);
+        logger.info(executor.service.logging.aspect.LogMessage.EXECUTING_METHOD.getMessage(), methodName, className, args);
     }
 
     @AfterReturning(pointcut = POINT, returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
         String className = joinPoint.getTarget().getClass().getSimpleName();
         String methodName = joinPoint.getSignature().getName();
-        if (result != null) logger.info(LogMessage.METHOD_RETURN_VALUE.getMessage(), methodName, className, result);
-        else logger.info(LogMessage.METHOD_EXECUTION_COMPLETED.getMessage(), methodName, className);
+        if (result != null) logger.info(executor.service.logging.aspect.LogMessage.METHOD_RETURN_VALUE.getMessage(), methodName, className, result);
+        else logger.info(executor.service.logging.aspect.LogMessage.METHOD_EXECUTION_COMPLETED.getMessage(), methodName, className);
     }
 }

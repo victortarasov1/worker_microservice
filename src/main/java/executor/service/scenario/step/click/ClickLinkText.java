@@ -1,11 +1,13 @@
-package executor.service.execution.scenario.step.click;
+package executor.service.scenario.step.click;
 
-import executor.service.aop.logger.annotation.Logged;
-import executor.service.execution.exception.step.click.ClickLinkTextException;
-import executor.service.execution.scenario.step.StepExecution;
+
+import executor.service.exception.step.click.ClickLinkTextException;
+import executor.service.logging.annotation.Logged;
 import executor.service.model.Step;
+import executor.service.scenario.step.StepExecution;
 import org.openqa.selenium.*;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class ClickLinkText implements StepExecution {

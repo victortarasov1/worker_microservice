@@ -1,7 +1,7 @@
-package executor.service.execution.exception.step;
+package executor.service.exception.step;
 
 
-import executor.service.execution.exception.step.StepExecutionException;
+import executor.service.exception.step.StepExecutionException;
 
 public class SleepException extends StepExecutionException {
     public SleepException(Throwable cause) {
