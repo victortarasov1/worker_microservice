@@ -1,26 +1,19 @@
 spring:
   application:
     name: worker_microservice
-  profiles:
-    active: prod
   config:
     import: optional:configserver:http://localhost:8084/
-  cloud:
-    function:
-      definition: execute
-    stream:
-      bindings:
-        execute-in-0:
-          destination: send-scenario
-          group: ${spring.application.name}
-        execute-out-0:
-          destination: report-sent
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-    connection-timeout: 10s
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8085/eureka/
+
+
 management:
   endpoints:
     web:
@@ -37,14 +30,8 @@ management:
     tags:
       application: ${spring.application.name}
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://localhost:8085/eureka/
 
 server:
   port: 8081
+
+
