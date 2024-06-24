@@ -1,4 +1,4 @@
-package executor.service.aop.logger.aspect;
+package executor.service.logging.aspect;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.junit.jupiter.api.BeforeEach;

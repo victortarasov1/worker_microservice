@@ -1,4 +1,4 @@
-package executor.service.aop.logger.aspect;
+package executor.service.logging.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;

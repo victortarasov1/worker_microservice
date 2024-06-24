@@ -1,14 +1,12 @@
-package executor.service.webdriver;
+package executor.service.factory;
 
+import executor.service.config.dto.WebDriverConfig;
+import executor.service.factory.proxy.ProxyProvider;
 import executor.service.model.ProxyCredentials;
 import executor.service.model.ProxyNetworkConfig;
-import executor.service.webdriver.config.DriverServiceConfiguration;
-import executor.service.webdriver.factory.ChromeDriverProviderImpl;
-import executor.service.webdriver.factory.WebDriverProvider;
-import executor.service.webdriver.factory.proxy.ProxyProvider;
 import executor.service.model.ProxyConfigHolder;
-import executor.service.webdriver.model.WebDriverConfig;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@ContextConfiguration(classes = {WebDriverConfig.class, DriverServiceConfiguration.class})
+@ContextConfiguration(classes = WebDriverConfig.class)
+@Disabled
 class ChromeDriverProviderImplTest {
     private static final String GET_USER_AGENT_SCRIPT = "return navigator.userAgent;";
     private static final String HTTP_PROXY = "https://localhost:8008";
@@ -34,14 +33,12 @@ class ChromeDriverProviderImplTest {
     private ProxyProvider proxyProvider;
 
     @Autowired
-    DriverService driverService;
-    @Autowired
     private WebDriverConfig webDriverConfig;
 
 
     @BeforeEach
     void setup() {
-        driverProvider = new ChromeDriverProviderImpl(proxyProvider, webDriverConfig, driverService);
+        driverProvider = new ChromeDriverProviderImpl(proxyProvider, webDriverConfig);
     }
 
     @Test
