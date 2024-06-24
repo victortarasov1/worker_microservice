@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @HandleException
-public class ScenarioExecutorImpl implements executor.service.execution.scenario.ScenarioExecutor {
+public class ScenarioExecutorImpl implements ScenarioExecutor {
     private final Map<String, StepExecution> stepExecutionMap;
 
     public ScenarioExecutorImpl(List<StepExecution> steps) {

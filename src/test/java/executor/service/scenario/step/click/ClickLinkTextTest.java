@@ -1,6 +1,6 @@
-package executor.service.execution.scenario.step.click;
+package executor.service.scenario.step.click;
 
-import executor.service.execution.exception.step.click.ClickLinkTextException;
+import executor.service.exception.step.click.ClickLinkTextException;
 import executor.service.model.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

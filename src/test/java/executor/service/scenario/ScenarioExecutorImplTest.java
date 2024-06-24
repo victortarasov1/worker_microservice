@@ -1,10 +1,12 @@
-package executor.service.execution.scenario;
+package executor.service.scenario;
 
-import executor.service.execution.exception.SiteNotFoundException;
-import executor.service.execution.exception.step.UnknownStepException;
-import executor.service.execution.scenario.step.StepExecution;
+
+
+import executor.service.exception.SiteNotFoundException;
+import executor.service.exception.step.UnknownStepException;
 import executor.service.model.Scenario;
 import executor.service.model.Step;
+import executor.service.scenario.step.StepExecution;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;

@@ -1,4 +1,4 @@
-package executor.service.execution.scenario;
+package executor.service.scenario;
 
 import executor.service.model.Scenario;
 import org.openqa.selenium.WebDriver;
