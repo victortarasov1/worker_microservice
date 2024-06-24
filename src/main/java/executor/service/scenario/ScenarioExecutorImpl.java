@@ -37,10 +37,12 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
         var startTime = LocalDateTime.now();
         var navigationErrorMessage = navigateToSite(scenario.getSite(), webDriver);
         if(navigationErrorMessage != null || scenario.getSteps().isEmpty())
-            return new ScenarioReport(scenario.getId(), startTime, LocalDateTime.now(), navigationErrorMessage, webDriver.toString(), List.of());
+            return new ScenarioReport(scenario.getId(), startTime, LocalDateTime.now(), navigationErrorMessage,
+                    webDriver.toString(), List.of(), scenario.getName(), scenario.getSite());
         var reports = executeScenarioSteps(scenario.getSteps(), webDriver);
         var errorMessage = reports.get(reports.size() - 1).errorMessage();
-        return new ScenarioReport(scenario.getId(), startTime, LocalDateTime.now(), errorMessage, webDriver.toString(), reports);
+        return new ScenarioReport(scenario.getId(), startTime, LocalDateTime.now(), errorMessage,
+                webDriver.toString(), reports, scenario.getName(), scenario.getSite());
     }
 
     private List<StepReport> executeScenarioSteps(List<Step> steps, WebDriver webDriver) {
@@ -67,9 +69,9 @@ public class ScenarioExecutorImpl implements ScenarioExecutor {
         try {
             executeStep(step, driver);
         } catch (StepExecutionException ex) {
-            return new StepReport(startTime, LocalTime.now(), ex.getMessage());
+            return new StepReport(startTime, LocalTime.now(), ex.getMessage(), step.getAction(), step.getValue());
         }
-        return new StepReport(startTime, LocalTime.now(), null);
+        return new StepReport(startTime, LocalTime.now(), null, step.getAction(), step.getValue());
 
     }
 

@@ -10,6 +10,8 @@ public record ScenarioReport (
         LocalDateTime endTime,
         String errorMessage,
         String webDriverInfo,
-        List<StepReport> stepReports
+        List<StepReport> stepReports,
+        String name,
+        String site
 ) {
 }
