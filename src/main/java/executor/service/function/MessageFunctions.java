@@ -16,7 +16,7 @@ public class MessageFunctions {
     private static final Logger logger = LoggerFactory.getLogger(MessageFunctions.class);
 
     @Bean
-    public Function<Scenario, ScenarioReport> execute( ScenarioExecutor executor, WebDriverProvider provider) {
+    public Function<Scenario, ScenarioReport> execute(ScenarioExecutor executor, WebDriverProvider provider) {
         return scenario -> {
             logger.info("Received scenario with ID: {}", scenario.getId());
             var webDriver = provider.create();
