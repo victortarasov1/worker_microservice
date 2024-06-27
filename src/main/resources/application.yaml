@@ -1,9 +1,12 @@
 spring:
   application:
-    name: worker_microservice
+    name: worker
   config:
     import: optional:configserver:http://localhost:8084/
-
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 eureka:
   instance:
     prefer-ip-address: true

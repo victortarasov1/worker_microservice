@@ -35,6 +35,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit")
     implementation("org.aspectj:aspectjweaver:1.9.20.1")
     implementation("org.seleniumhq.selenium:selenium-java:4.13.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 }
 
 tasks.withType<Test> {
@@ -46,6 +48,6 @@ dependencyManagement {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
     }
 }
-jib.to.image = "victortarasov/executor-worker-service:v4"
+jib.to.image = "victortarasov/executor-worker-service:v5"
 
 
