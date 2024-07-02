@@ -37,6 +37,7 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.13.0")
     implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 }
 
 tasks.withType<Test> {
@@ -48,6 +49,6 @@ dependencyManagement {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
     }
 }
-jib.to.image = "victortarasov/executor-worker-service:v6"
+jib.to.image = "victortarasov/executor-worker-service:v7"
 
 
