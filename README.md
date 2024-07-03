@@ -115,7 +115,7 @@ you can run microservices using docker compose and see additional documentation 
 - Spring Cloud Stream 
 - prometheus
 - Selenium
-- Logback
+- Lombok
 - Spring Boot
 - AspectJ
 - Mockito
