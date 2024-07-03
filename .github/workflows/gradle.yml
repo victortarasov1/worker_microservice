@@ -21,22 +21,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
-      - name: Set up ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-      - name: Move ChromeDriver to /opt
-        run: |
-          sudo mv /usr/local/bin/chromedriver /opt/chromedriver
-          sudo chmod +x /opt/chromedriver
-      - name: Set execute permissions for scripts
-        run: |
-          chmod +x flyway/migration/create.sh
-          chmod +x flyway/migration/destroy.sh
-      - name: Run Flyway migrations
-        run: |
-          cd flyway/migration
-          docker network create db_network
-          ./create.sh
-          cd -
       - name: Install Gradle
         run: |
           wget https://services.gradle.org/distributions/gradle-7.3-bin.zip
