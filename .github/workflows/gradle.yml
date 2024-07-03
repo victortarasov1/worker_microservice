@@ -32,13 +32,3 @@ jobs:
           export DISPLAY=:99
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
           gradle test  # Use 'gradle' directly without './gradlew'
-      - name: Publish Test Report
-        if: ${{ always() }} # publish report even if the tests are failing
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          directory: build/test-results/test
-      - name: Stop and remove PostgreSQL Docker container
-        run: |
-          cd flyway/migration
-          ./destroy.sh
-          cd -
