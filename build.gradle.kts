@@ -31,7 +31,6 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-    implementation("org.springframework.cloud:spring-cloud-stream")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit")
     implementation("org.aspectj:aspectjweaver:1.9.20.1")
     implementation("org.seleniumhq.selenium:selenium-java:4.13.0")
