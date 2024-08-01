@@ -29,9 +29,10 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
+    implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-    implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit")
+    implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka")
     implementation("org.aspectj:aspectjweaver:1.9.20.1")
     implementation("org.seleniumhq.selenium:selenium-java:4.13.0")
     implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
@@ -48,6 +49,6 @@ dependencyManagement {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
     }
 }
-jib.to.image = "victortarasov/executor-worker-service:v9"
+jib.to.image = "victortarasov/executor-worker-service:v10"
 
 
